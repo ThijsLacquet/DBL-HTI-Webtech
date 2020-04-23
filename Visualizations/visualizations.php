@@ -3,10 +3,25 @@
 	Author: Thijs Lacquet
 */
 
-require '../sql.php';
-
+/*
+*	Opens the image on the given path and returns it
+*/
 function openimage($path) {
-	$img = imagecreatefromjpeg($path);
+	//TODO support more image types
+	switch (exif_imagetype ($path)) {
+		case IMAGETYPE_JPEG :
+			$img = imagecreatefromjpeg($path);
+			break;
+		case IMAGETYPE_PNG :
+			$img = imagecreatefrompng($path);
+			break;
+		case IMAGETYPE_GIF :
+			$img = imagecreatefromgif($path);
+			break;
+		default :
+			echo "error";
+			die("Image must be a jpg, png or gif");
+	}
 
 	if (! $img) {
 		die("Image could not be opened");
@@ -17,6 +32,5 @@ function openimage($path) {
 
 //header("Content-type: image/jpg");
 //imagejpeg(openimage("../Provided_data/stimuli/01_Antwerpen_S1.jpg"));
-
 
 ?>
