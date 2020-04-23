@@ -8,7 +8,6 @@ if(strtolower(pathinfo($file, PATHINFO_EXTENSION)) != "csv"){
 	die("Je kan alleen CSV-files uploaden");
 }
 
-
 if(file_exists($file)){
 	die("File bestaat al");
 }
