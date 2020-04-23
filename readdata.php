@@ -3,15 +3,13 @@
 	Author: Thijs Lacquet
 */
 
+require 'sql.php';
+
 set_time_limit(600); //Allows this script to run for a maximum of 5 minutes
 
 //TODO optimize database memory usage
 //Create database and tables if they do not exist yet
-$maxlength_stimuliname = 50;
-$maxlength_user = 50;
-$maxlength_description = 50;
-
-$mysql_connection = new mysqli('localhost:3306', 'root', '');
+$mysql_connection = connectsql();
 
 if (! $mysql_connection->query("CREATE DATABASE IF NOT EXISTS fixationdata")) {
 	die('Could not create mysql database fixationdata: ' . $mysql_connection->error);
@@ -21,13 +19,13 @@ if (! $mysql_connection->query("
 	CREATE TABLE IF NOT EXISTS fixationdata.fixationdata(
 	entry_id INT(32) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	timestamp INT(32) NOT NULL,
-	stimuliname VARCHAR($maxlength_stimuliname) NOT NULL,
+	stimuliname VARCHAR(50) NOT NULL,
 	fixationindex INT(32) NOT NULL,
 	fixationduration INT(32) NOT NULL,
 	mappedfixationpointx INT(32) NOT NULL,
 	mappedfixationpointy INT(32) NOT NULL,
-	user VARCHAR($maxlength_user) NOT NULL,
-	description VARCHAR($maxlength_description) NOT NULL
+	user VARCHAR(50) NOT NULL,
+	description VARCHAR(50) NOT NULL
 	)")) {
 		
 	die('Could not create mysql table fixationdata: ' . $mysql_connection->error);
