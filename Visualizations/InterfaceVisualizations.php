@@ -45,5 +45,4 @@ class VisualizationScanpath implements VisualizationStrategy {
     }
     //New visualizations need to be added here
 }
-
-?>
+//when we have a server, this code needs a small test
