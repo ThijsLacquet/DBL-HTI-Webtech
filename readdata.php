@@ -15,6 +15,10 @@ if (! $mysql_connection->query("CREATE DATABASE IF NOT EXISTS fixationdata")) {
 	die('Could not create mysql database fixationdata: ' . $mysql_connection->error);
 }
 
+if ( $mysql_connection->query("DESCRIBE fixationdata.fixationdata")) {
+	die('This table already exists');
+}
+
 if (! $mysql_connection->query("
 	CREATE TABLE IF NOT EXISTS fixationdata.fixationdata(
 	entry_id INT(32) NOT NULL PRIMARY KEY AUTO_INCREMENT,
