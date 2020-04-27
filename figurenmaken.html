@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta>
 <title>figurenmaken</title>
 </head>
 <body>
-<canvas id="myCanvas" width="200" height="100"></canvas>
+<canvas id="myCanvas" width="1650" height="1200"></canvas>
 
 <script>
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 ctx.beginPath();
-ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+//er moet nog een functie gemaakt worden voor de radius
+ctx.arc(1151, 458, 40, 0, 2 * Math.PI);
+ctx.fill();
+ctx.lineWidth = "5";
+ctx.moveTo(1151, 458);
+ctx.lineTo(1371, 316);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(1371, 316, 20, 0, 2 * Math.PI);
 ctx.fill();
 
 </script>
