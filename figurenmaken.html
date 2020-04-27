@@ -8,52 +8,22 @@
 <canvas id="myCanvas" width="1650" height="1200"></canvas>
 
 <script>
+var pointX = [1151, 1371, 1342, 762, 624, 712, 753, 804, 724, 652, 495, 425, 620, 601];
+var pointY = [458, 316, 287, 303, 297, 303, 293, 284, 305, 703, 855, 976, 739, 674];
+var duration = [250, 150, 283, 433, 183, 333, 300, 516, 183, 250, 183, 550, 150, 333];
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-ctx.beginPath();
-//er moet nog een functie gemaakt worden voor de radius
-ctx.arc(1151, 458, 20, 0, 2 * Math.PI);
-ctx.fill();
-ctx.lineWidth = "5";
-ctx.moveTo(1151, 458);
-ctx.lineTo(1371, 316);
-ctx.stroke();
-ctx.beginPath();
-ctx.arc(1371, 316, 12, 0, 2 * Math.PI);
-ctx.fill();
-
-ctx.moveTo(1371, 316);
-ctx.lineTo(1342, 287);
-ctx.stroke();
-ctx.beginPath();
-ctx.arc(1342, 287, 25, 0, 2* Math.PI);
-ctx.fill();
-
-ctx.moveTo(1342, 287);
-ctx.lineTo(762, 303);
-ctx.stroke();
-ctx.beginPath;
-ctx.arc(762, 303, 35, 0, 2*Math.PI);
-ctx.fill();
-
-ctx.moveTo(762, 303);
-ctx.lineTo(624, 297);
-ctx.stroke();
-ctx.beginPath;
-ctx.arc(624, 297, 14, 0, 2* Math.PI);
-ctx.fill();
-
-ctx.moveTo(624, 297);
-ctx.lineTo(712, 303);
-ctx.stroke();
-ctx.beginPath;
-ctx.arc(712, 303, 27, 0, 2* Math.PI);
-ctx.fill();
-
-
-
-
-
+var i = 0;
+for (i = 0; i < pointX.length; i++) {
+	ctx.beginPath();
+	ctx.arc(pointX[i], pointY[i], duration[i]/20, 0, 2 * Math.PI);
+	ctx.fill();
+	ctx.moveTo(pointX[i], pointY[i]);
+	if (!(i == pointX.length - 1)) {
+		ctx.lineTo(pointX[i+1], pointY[i+1]);
+		ctx.stroke();
+	}
+}
 
 </script>
 
