@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Image to use:</p>
+<img id="antwerp" width="1650" height="1200" src="C:/Users/vglee/Documents/GitHub/DBL-HTI-Webtech/Provided_data/stimuli/01_Antwerpen_S1.jpg">
+
+<p>Canvas:</p>
+<canvas id="myCanvas" width="240" height="297">
+</canvas>
+
+<script>
+window.onload = function() {
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  var img = document.getElementById("antwerp");
+  ctx.drawImage(img, 10, 10);
+}
+</script>
+
+</body>
+</html>
