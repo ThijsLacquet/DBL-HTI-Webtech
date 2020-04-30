@@ -48,7 +48,6 @@
 .text p{
   font-size: 25px;
 }
-
 .us {
   text-align: center;
 }
@@ -78,4 +77,15 @@
   text-align: center;
   width: 100%;
   height: auto;
+
+.us p{
+  font-size: 25px;
+}
+
+.person {
+  text-align: center;
+  float: left;
+  width: 16.66%;
+  font-size: 20px;
+  font-weight: bold;
 }
