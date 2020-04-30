@@ -65,17 +65,27 @@
   border-color: black;  /**/
 }
 
-.image {
-  margin: 5px;
+.vis_text_left {
+  text-align: left;
   float: left;
-  width: 180px;
-  border-style: solid;
-  border-color: black;
+  margin: 20px;
+  width: 70%;
 }
 
-.image img {
-  text-align: center;
-  width: 100%;
+.vis_text_right {
+  text-align: left;
+  float: left;
+  margin: 30px;
+  width: 70%;
+}
+
+.image {
+  text-align: right;
+  float: left;
+  width: 20%;
+  margin-left: 20px;
+
+  max-width: 100%;
   height: auto;
 }
 
