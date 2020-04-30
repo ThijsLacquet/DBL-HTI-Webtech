@@ -18,5 +18,25 @@
     <p>By group 39</p>
   </div>
 
+  <div class="upload_text">
+    <h1>How to upload the data?</h1>
+    <p>With usage of the upload button you can make a visualization. You can choose
+      between four different visualization for your eye-tracking data. In the upload
+      button you need to give your eye-tracking data. If you inserted your data
+       in the upload button, you need to make a choice
+      which visualization you want your data in. If you go to the
+      <a href="visualization.htm">visualization page</a>
+      you can find the description of the different kinds of visualizations.
+      If you made your choice in visualization you need to press the button "visualize"
+      and you can find your visualization bellow. </p>
+  </div>
+
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+	    <input type="file" name="Upload_file" id="Upload_file">
+	    <input type="submit" value="Upload CSV" name="submit">
+	</form>
+
+
+
 </body>
 </html>
