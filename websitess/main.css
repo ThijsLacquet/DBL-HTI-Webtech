@@ -55,3 +55,27 @@
 .us h1{
   font-size: 50px;
 }
+
+.vis {
+  float: left;
+  padding: 10px;
+  height: 450px;
+  width: 95%;
+  margin: 20px;
+  border-style: solid;
+  border-color: black;  /**/
+}
+
+.image {
+  margin: 5px;
+  float: left;
+  width: 180px;
+  border-style: solid;
+  border-color: black;
+}
+
+.image img {
+  text-align: center;
+  width: 100%;
+  height: auto;
+}
