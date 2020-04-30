@@ -55,16 +55,6 @@
   font-size: 50px;
 }
 
-.vis {
-  float: left;
-  padding: 10px;
-  height: 450px;
-  width: 95%;
-  margin: 20px;
-  border-style: solid;
-  border-color: black;  /**/
-}
-
 .vis_text_left {
   text-align: left;
   float: left;
