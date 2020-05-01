@@ -12,6 +12,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
+$query = "
+	SELECT COUNT(DISTINCT user) AS numofusers
+	FROM fixationdata
+";
+
+$result = $conn->query($query);
+
+$row  = $result->fetch_assoc();
+
+$numofusers = $row['numofusers'];
 
 $query = "
 	SELECT *
@@ -29,30 +39,38 @@ $query = "
 	FROM fixationdata
 	WHERE stimuliname = '01_Antwerpen_S1.jpg') X) Y
 	WHERE AOI <> prevAOI OR timestamp = 0
-	ORDER BY timestamp, user
+	ORDER BY user, timestamp
 ";
 
 $result = $conn->query($query);
 
 
-echo "<table style='width:150px'>";
-echo "<tr>";
-echo "<th>t</th>";
-echo "<th>user</th>";
-echo "<th>AOI</th>";
-echo "</tr>";
+$switchtimes = array();
 
-if($result)
-    while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>".$row['timestamp']."</td>";
-        echo "<td>".$row['user']."</td>";
-        echo "<td>".$row['AOI']."</td>";
-        echo "</tr>";
-    }
-else
-	die("Something wrong with the query: ".$conn->error);
+$prev = NULL;
 
-echo "</table>";
+$maxt = 0;
+
+while($row = $result->fetch_assoc()){
+	if($row['user'] != $prev){
+		if(isset($userarray)){
+			array_push($switchtimes, $userarray);
+		}
+		$userarray = array();
+	}
+
+	array_push($userarray, [$row['timestamp'], $row['AOI']]);
+
+
+	if($row['timestamp'] > $maxt){
+		$maxt = $row['timestamp'];
+	}
+}
+
+$data->switchtimes = $switchtimes;
+$data->numofusers = $numofusers;
+$data->maxt = $maxt;
+
+echo json_encode($data);
 
 ?>

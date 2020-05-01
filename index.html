@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Blue skies</title>
 </head>
 <body>
 
@@ -21,5 +21,83 @@
 
 		<input type="submit" value="AOI" name="submit">
 	</form>
+
+	<canvas id="myCanvas" width="600" height="600"></canvas>
+
+	<script type="text/javascript">
+
+		var data = [
+			[0, 0, 100, 1, 400, 0],
+			[0, 1, 300, 0, 350, 1],
+			[0, 0, 50,	1, 100, 0, 150, 1, 175, 0, 300, 1]
+		];
+
+		var maxt = 400;
+
+		var numofAOIs = 2;
+		var numofusers = 3;
+
+		var canvas = document.getElementById("myCanvas");
+
+		var ctx = canvas.getContext("2d");
+
+		var width = canvas.getAttribute("width");
+		var height = canvas.getAttribute("height");
+
+		var linesAOIdist = width/numofAOIs;
+		var linesuserdist = 0.5*(linesAOIdist/numofusers);
+
+		ctx.beginPath();
+
+		var x = linesAOIdist/2;
+
+		while(x < width){
+			for(var i = -numofusers/2;i < numofusers/2; i++){
+				ctx.moveTo(x + i * linesuserdist, 0);
+				ctx.lineTo(x + i * linesuserdist, height);
+			}
+			x += linesAOIdist;
+		}
+		ctx.stroke();
+
+		ctx.lineWidth = 10;
+
+		for(var user = 0; user < numofusers; user++){
+			var switchtimes = data[user];
+
+			var prev = (switchtimes[1] + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+
+			ctx.beginPath();
+			ctx.moveTo(prev,0);
+
+
+			for(var i = 2; i < switchtimes.length; i += 2){
+				var t = switchtimes[i];
+				var AOI = switchtimes[i+1];
+
+				var pos = (AOI + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+
+				ctx.lineTo(prev,(t/maxt) * height);
+				ctx.lineTo(pos, (t/maxt) * height);
+
+				prev = pos;
+			}
+	
+			ctx.strokeStyle = getRandomColor();
+			ctx.stroke();
+		}
+
+
+		function getRandomColor() {
+		  var letters = '0123456789ABCDEF';
+		  var color = '#';
+		  for (var i = 0; i < 6; i++) {
+		    color += letters[Math.floor(Math.random() * 16)];
+		  }
+		  return color;
+		}
+
+
+	</script>
 </body>
 </html>
