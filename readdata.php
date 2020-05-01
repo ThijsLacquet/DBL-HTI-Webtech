@@ -2,8 +2,11 @@
 /*
 	Author: Thijs Lacquet
 */
+echo "start <br>";
 
 require 'sql.php';
+
+$path = "Provided_data/all_fixation_data_cleaned_up.csv";
 
 set_time_limit(600); //Allows this script to run for a maximum of 5 minutes
 
@@ -31,15 +34,63 @@ if (! $mysql_connection->query("
 	die('Could not create mysql table fixationdata: ' . $mysql_connection->error);
 }
 
+
+$data = file($path);
+$n_lines = count($data);
+$linesperquery = 10000;
+
+$line = array();
+
+for ($i = 0; $i < $n_lines; $i = $i = $i + 1) {
+	$line[$i] = explode('	', $data[$i]);
+}
+
+
+for ($i = 1; $i < $n_lines; $i = $i + $linesperquery) { 
+	$linestoinsert = $linesperquery;
+	
+	if ($n_lines - $i < $linestoinsert) {
+		$linestoinsert = $n_lines - $i;
+	}
+	
+	$query = 'INSERT INTO fixationdata.fixationdata(timestamp, stimuliname, fixationindex, fixationduration,
+		mappedfixationpointx, mappedfixationpointy, user, description)VALUES';
+	
+	for ($offset = 0; $offset < $linestoinsert; $offset = $offset + 1) {
+		$query .= '(';
+		
+		for ($column = 0; $column < 8; $column = $column + 1) {
+			$query .= "'";
+			$query .= $line[$i + $offset][$column];
+			$query .= "'";
+			if ($column != 7) {
+				$query .= ',';
+			}
+		}
+		$query .= ')';
+		
+		if ($offset != $linestoinsert - 1) {
+			$query .= ',';
+		}
+	}
+	
+	//echo $query;
+	//echo '<br>', '<br>';
+	
+	
+	if (! $mysql_connection->query($query)) {
+		die('sql error: ' . $mysql_connection->error);
+	}
+}
+
+/*
 //Read csv file
 //TODO use user uploaded csv file
-$input = fopen("Provided_data/all_fixation_data_cleaned_up.csv", "r") or die("File could not be opened");
-
-fgets($input); //Skip first line in file
+$input = fopen($path, "r") or die("File could not be opened");
 
 while (!feof($input)) {
 	$line = explode('	', fgets($input));
-	
+	echo $line[0];
 	//TODO nice error message if input is in the wrong format
 	//TODO prevent SQL injection
 	if (! $mysql_connection->query("
@@ -49,8 +100,9 @@ while (!feof($input)) {
 			
 		die('sql error: ' . $mysql_connection->error);
 	}
-}
+}*/
 
-fclose ($input);
+//fclose ($input);
+
 $mysql_connection->close();
 ?>
