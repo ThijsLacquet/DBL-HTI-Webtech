@@ -13,13 +13,14 @@ class Readdata {
 	* $throws Exception If a mysql query does not succeed
 	*/	
 	function __construct() {
-		//Create database and tables if they do not exist yet
 		$this->mysql_connection = connectsql();
 
+		//Create database if it does not exist yet
 		if (! $this->mysql_connection->query("CREATE DATABASE IF NOT EXISTS fixationdata")) {
 			throw new Exception('Could not create mysql database fixationdata: ' . $this->mysql_connection->error);
 		}
-
+		
+		//Create table if it does not exist yet
 		if (! $this->mysql_connection->query("
 			CREATE TABLE IF NOT EXISTS fixationdata.fixationdata(
 			entry_id INT(32) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -65,13 +66,15 @@ class Readdata {
 		if ($n_lines > $maxlines) {
 			$n_lines = $maxlines;
 		}
-
+		
+		//Extract lines from data
 		$line = array();
 
 		for ($i = 0; $i < $n_lines; $i = $i = $i + 1) {
 			$line[$i] = explode('	', $data[$i]);
 		}
-
+		
+		//Send SQL quaries
 		for ($i = 1; $i < $n_lines; $i = $i + $linesperquery) { 
 			$linestoinsert = $linesperquery;
 			
@@ -79,6 +82,7 @@ class Readdata {
 				$linestoinsert = $n_lines - $i;
 			}
 			
+			//Build SQL query
 			$query = 'INSERT INTO fixationdata.fixationdata(document_id, timestamp, stimuliname, fixationindex, fixationduration,
 				mappedfixationpointx, mappedfixationpointy, user, description)VALUES';
 			
@@ -100,6 +104,7 @@ class Readdata {
 				}
 			}	
 			
+			//Send SQL query
 			if (! $this->mysql_connection->query($query)) {
 				throw new Exception('sql error: ' . $this->mysql_connection->error);
 			}
