@@ -5,23 +5,14 @@ $xmax = $_POST['xmax'];
 $ymin = $_POST['ymin'];
 $ymax = $_POST['ymax'];
 
+$stimuliname = "01_Antwerpen_S1.jpg";
+
 
 $conn = new mysqli('localhost:3306', 'root', '', 'fixationdata');
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-
-$query = "
-	SELECT COUNT(DISTINCT user) AS numofusers
-	FROM fixationdata
-";
-
-$result = $conn->query($query);
-
-$row  = $result->fetch_assoc();
-
-$numofusers = $row['numofusers'];
 
 $query = "
 	SELECT *
@@ -37,7 +28,7 @@ $query = "
 		ELSE 0
 	END AS AOI
 	FROM fixationdata
-	WHERE stimuliname = '01_Antwerpen_S1.jpg') X) Y
+	WHERE stimuliname = '".$stimuliname."') X) Y
 	WHERE AOI <> prevAOI OR timestamp = 0
 	ORDER BY user, timestamp
 ";
@@ -55,20 +46,28 @@ while($row = $result->fetch_assoc()){
 	if($row['user'] != $prev){
 		if(isset($userarray)){
 			array_push($switchtimes, $userarray);
+			echo print_r($userarray)."<br>";
 		}
+
+
+
 		$userarray = array();
 	}
 
+	echo $row['user']."	".$row['timestamp']." ".$row['AOI']."<br>";
 	array_push($userarray, [$row['timestamp'], $row['AOI']]);
 
 
 	if($row['timestamp'] > $maxt){
 		$maxt = $row['timestamp'];
 	}
+
+	$prev = $row['user'];
 }
 
+$data = new stdClass();
+
 $data->switchtimes = $switchtimes;
-$data->numofusers = $numofusers;
 $data->maxt = $maxt;
 
 echo json_encode($data);
