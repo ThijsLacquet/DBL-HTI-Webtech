@@ -4,6 +4,8 @@
 */
 require 'sql.php';
 
+define('LINESPERQUERY', '5000');
+
 class Readdata {
 	private $mysql_connection;
 	
@@ -60,7 +62,6 @@ class Readdata {
 		}
 		
 		$n_lines = count($data);
-		$linesperquery = 5000;
 		
 		//Makes sure that the number of lines won't exceed the maximum number of lines
 		if ($n_lines > $maxlines) {
@@ -75,8 +76,8 @@ class Readdata {
 		}
 		
 		//Send SQL quaries
-		for ($i = 1; $i < $n_lines; $i = $i + $linesperquery) { 
-			$linestoinsert = $linesperquery;
+		for ($i = 1; $i < $n_lines; $i = $i + LINESPERQUERY) { 
+			$linestoinsert = LINESPERQUERY;
 			
 			if ($n_lines - $i < $linestoinsert) {
 				$linestoinsert = $n_lines - $i;
