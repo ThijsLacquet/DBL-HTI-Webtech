@@ -55,28 +55,67 @@
   font-size: 50px;
 }
 
-.vis_text_left {
-  text-align: left;
-  float: left;
-  margin: 20px;
-  width: 70%;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "text_1 text_1 text_1 image_1"
+  "image_2 text_2 text_2 text_2"
+  "text_3 text_3 text_3 image_3"
+  "image_4 text_4 text_4 text_4";
+  grid-row-gap: 50px;
+  grid-column-gap: 20px;
 }
 
-.vis_text_right {
-  text-align: left;
-  float: left;
-  margin: 30px;
-  width: 70%;
+.text_1 {
+  grid-area: text_1;
+  padding-left: 30px;
 }
 
-.image {
-  text-align: right;
-  float: left;
-  width: 20%;
-  margin-left: 20px;
+.text_2 {
+  grid-area: text_2;
+  padding-right: 30px;
+}
 
-  max-width: 100%;
-  height: auto;
+.text_3 {
+  grid-area: text_3;
+  padding-left: 40px;
+}
+
+.text_4 {
+  grid-area: text_4;
+  padding-right: 40px;
+}
+
+.image_1 {
+  grid-area: image_1;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_2 {
+  grid-area: image_2;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_3 {
+  grid-area: image_3;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_4 {
+  grid-area: image_4;
+  align-self: center;
+  justify-self: center;
+}
+
+.grid div:nth-child(even) {
+}
+
+.grid div:nth-child(odd) {
 }
 
 .us p{
