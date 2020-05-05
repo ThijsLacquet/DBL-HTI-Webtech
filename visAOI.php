@@ -1,9 +1,16 @@
 <?php
 
-$xmin = $_POST['xmin'];
-$xmax = $_POST['xmax'];
-$ymin = $_POST['ymin'];
-$ymax = $_POST['ymax'];
+$numofAOIs = 0;
+
+$AOIs = array();
+
+while(isset($_POST['xmin'.$numofAOIs])){
+	$AOI = array($_POST['xmin'.$numofAOIs], $_POST['xmax'.$numofAOIs], $_POST['ymin'.$numofAOIs], $_POST['ymax'.$numofAOIs]);
+
+	array_push($AOIs, $AOI);
+
+	$numofAOIs++;
+}
 
 $stimuliname = "01_Antwerpen_S1.jpg";
 
@@ -21,11 +28,20 @@ $query = "
 	FROM
 	(SELECT user,
 	timestamp - MIN(timestamp) OVER(PARTITION BY user) AS timestamp,
-	CASE 
-		WHEN (mappedfixationpointx BETWEEN ".$xmin." AND ".$xmax.")
-			AND (mappedfixationpointy BETWEEN ".$ymin." AND ".$ymax.")
-			THEN 1
-		ELSE 0
+		CASE 
+";
+
+for ($i=0; $i < $numofAOIs; $i++) { 	
+	$query .= "
+			WHEN (mappedfixationpointx BETWEEN ".$AOIs[$i][0]." AND ".$AOIs[$i][1].")
+				AND (mappedfixationpointy BETWEEN ".$AOIs[$i][2]." AND ".$AOIs[$i][3].")
+				THEN ".($i+1)."
+	";
+
+}
+
+$query .= "
+			ELSE 0
 	END AS AOI
 	FROM fixationdata
 	WHERE stimuliname = '".$stimuliname."') X) Y
@@ -46,7 +62,6 @@ while($row = $result->fetch_assoc()){
 	if($row['user'] != $prev){
 		if(isset($userarray)){
 			array_push($switchtimes, $userarray);
-			echo print_r($userarray)."<br>";
 		}
 
 
@@ -54,7 +69,6 @@ while($row = $result->fetch_assoc()){
 		$userarray = array();
 	}
 
-	echo $row['user']."	".$row['timestamp']." ".$row['AOI']."<br>";
 	array_push($userarray, [$row['timestamp'], $row['AOI']]);
 
 
@@ -69,6 +83,7 @@ $data = new stdClass();
 
 $data->switchtimes = $switchtimes;
 $data->maxt = $maxt;
+$data->numofAOIs = $numofAOIs+1;
 
 echo json_encode($data);
 
