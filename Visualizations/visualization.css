@@ -1,5 +1,5 @@
 /*
-Author: Marleen van Gent
+Author: Marleen van Gent and Thijs Lacquet
 Provides the CSS for the visualization overlay (drawing upon an image)
 */
 
@@ -35,5 +35,12 @@ Provides the CSS for the visualization overlay (drawing upon an image)
 #visCanvasContainer canvas {
 	width: 100%; 
 	height: 100%;
+}
+
+#scarfPlotContainer {
+	position: relative; 
+	width: 1650px; 
+	height: 300px; 
+	overflow: auto;
 }
 
