@@ -1,0 +1,147 @@
+.nav {
+  background-color: black;
+  overflow: hidden;
+}
+
+.nav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.nav a:hover {
+  background-color: white;
+  color: black;
+}
+
+.nav a.active {
+  background-color: #20B2AA;
+  color: white;
+}
+
+.header {
+  padding: 50px;
+	text-align: center;
+	background: #20B2AA;
+	color: white;
+}
+
+.header h1{
+  font-size:60px;
+}
+
+.header p{
+  font-size: 30px;
+}
+
+.text {
+  text-align: center;
+}
+
+.text h1{
+  font-size: 50px;
+}
+
+.text p{
+  font-size: 25px;
+}
+.us {
+  text-align: center;
+}
+.us h1{
+  font-size: 50px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "text_1 text_1 text_1 image_1"
+  "image_2 text_2 text_2 text_2"
+  "text_3 text_3 text_3 image_3"
+  "image_4 text_4 text_4 text_4";
+  grid-row-gap: 50px;
+  grid-column-gap: 20px;
+}
+
+.text_1 {
+  grid-area: text_1;
+  padding-left: 30px;
+}
+
+.text_2 {
+  grid-area: text_2;
+  padding-right: 30px;
+}
+
+.text_3 {
+  grid-area: text_3;
+  padding-left: 40px;
+}
+
+.text_4 {
+  grid-area: text_4;
+  padding-right: 40px;
+}
+
+.image_1 {
+  grid-area: image_1;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_2 {
+  grid-area: image_2;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_3 {
+  grid-area: image_3;
+  align-self: center;
+  justify-self: center;
+}
+
+.image_4 {
+  grid-area: image_4;
+  align-self: center;
+  justify-self: center;
+}
+
+.grid div:nth-child(even) {
+}
+
+.grid div:nth-child(odd) {
+}
+
+.us p{
+  font-size: 25px;
+}
+
+.person {
+  text-align: center;
+  float: left;
+  width: 16.66%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload_text{
+  text-align: center;
+}
+
+.upload_text h1{
+  font-size:60px;
+}
+
+.upload_text p{
+  font-size: 25px;
+}
+
+.upload_text a{
+  color: #20B2AA;
+}
