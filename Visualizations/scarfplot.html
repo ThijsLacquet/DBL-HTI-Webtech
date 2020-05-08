@@ -24,6 +24,7 @@
 </script>
 
 <!-- Place image on screen-->
+<script src="visualization.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="visualization.css">
 
 <title>Scarfplot visualisation demo</title>
@@ -42,48 +43,6 @@
 </div>
 
 <script>
-	function createColors(amount) {
-		var colors = new Array(amount);
-		var deltaColor = 360 / amount;
-		var saturation = 100;
-		var lightness = 50;
-
-		for (var i = 0; i < amount; i++) {
-			var hue = i * deltaColor;
-			colors[i] = `hsl(${hue},${saturation}%,${lightness}%)`;
-		}
-		return colors;
-	}
-
-	function drawAoi(ctx, aoi, colors) {
-		for(var i = 0; i < aoi.length; i++) {
-			ctx.beginPath();
-			ctx.rect(aoi[i].x1, aoi[i].y1, aoi[i].x2 - aoi[i].x1, aoi[i].y2 - aoi[i].y1);
-			
-			//Stroke
-			ctx.globalAlpha = 1;
-			ctx.strokeStyle = colors[i];
-			ctx.lineWidth = 5;
-			ctx.stroke();
-
-			//Fill
-			ctx.globalAlpha = 0.1;
-			ctx.fillStyle = colors[i];
-			ctx.fill();
-		}
-	}
-
-	function isInAoi(currentAoi, currentPointX, currentPointY) {
-		if ((currentAoi.x1 < currentPointX &&
-			currentAoi.x2 > currentPointX) &&
-			(currentAoi.y1 < currentPointY &&
-			currentAoi.y2 > currentPointY)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	function drawScarfPlot(scarfCtx, scarfPlot, aoi, mappedFixationPointX,
 		mappedFixationPointY, timestamp, colors) {
 
