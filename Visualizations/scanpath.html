@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <!-- Author: Marleen van Gent -->
-<!-- Provides the drawing via Javascript of the scanpath visualization -->
+<!-- Provides calling of the drawing via Javascript of the scanpath visualization -->
 <html>
 <head>
 <meta>
 
 <link rel="stylesheet" type="text/css" href="visualization.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="../drawingScanpath.js"></script>
 
 <title>Scanpath visualisation demo</title>
 </head>
@@ -21,30 +23,8 @@
 </div>
 
 <script>
-var pointX = [[1151, 1371, 1342, 762, 624, 712, 753, 804, 724, 652, 495, 425, 620, 601], [670, 1355, 511, 495, 467, 707, 765, 1244, 1364, 421, 356, 1409, 1368, 858, 707, 824, 1053, 1265, 597, 447], [1411, 1320, 1151, 1331, 1040, 966, 1332, 888, 729, 773, 1024, 1226, 1332, 741, 688, 663, 511, 490, 440, 402, 1359, 1341, 1060], [749, 419, 427, 1246, 1337, 1115, 821, 1286, 1018, 778, 698, 694, 564, 463, 423, 1337, 1285, 1331, 1314, 1348, 1355, 979, 748, 604, 514, 425, 526, 671]];
-var pointY = [[458, 316, 287, 303, 297, 303, 293, 284, 305, 703, 855, 976, 739, 674], [450, 249, 791, 840, 944, 418, 224, 204, 279, 993, 975, 186, 290, 270, 280, 244, 243, 248, 739, 984], [326, 311, 286, 306, 275, 270, 285, 316, 304, 293, 287, 279, 273, 308, 517, 643, 796, 866, 948, 980, 355, 302, 285], [551, 898, 946, 245, 230, 306, 243, 250, 252, 239, 476, 630, 785, 923, 970, 203, 271, 238, 283, 245, 333, 236, 298, 774, 865, 996, 836, 496]];
-var duration = [[250, 150, 283, 433, 183, 333, 300, 516, 183, 250, 183, 550, 150, 333], [283, 300, 283, 167, 133, 233, 183, 233, 416, 533, 216, 233, 233, 250, 283, 200, 283, 233, 300, 583], [266, 266, 216, 600, 433, 150, 316, 167, 333, 949, 150, 167, 167, 266, 166, 117, 167, 166, 216, 267, 116, 500, 133], [150, 216, 150, 250, 183, 166, 266, 266, 233, 267, 166, 167, 200, 183, 450, 133, 100, 133, 100, 333, 117, 233, 350, 316, 233, 516, 150, 217]];
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-var i = 0;
-var j = 0;
-for (j = 0; j < pointX.length; j++) {
-	var r = Math.floor(Math.random() * 255);
-	var g = Math.floor(Math.random() * 255);
-	var b = Math.floor(Math.random() * 255); 
-	ctx.fillStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
-	ctx.strokeStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
-	for (i = 0; i < pointX[j].length; i++) {
-		ctx.beginPath();
-		ctx.arc(pointX[j][i], pointY[j][i], duration[j][i]/15, 0, 2 * Math.PI);
-		ctx.fill();
-		ctx.moveTo(pointX[j][i], pointY[j][i]);
-		if (!(i == pointX.length - 1)) {
-			ctx.lineTo(pointX[j][i+1], pointY[j][i+1]);
-			ctx.stroke();
-		}
-	}
-}
+console.log("start at " + performance.now())
+start();
 </script>
 
 </body>
