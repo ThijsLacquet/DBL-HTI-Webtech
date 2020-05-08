@@ -14,6 +14,7 @@ function drawScanpath(data) {
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
 	var j = 0;
+	ctx.lineWidth = 3;
 	for (j = 0; j < data.length; j++) {
 //to do implement colours same as Thijs
 		if (j == 0 || data[j]['user'] != data[j - 1]['user']) {
@@ -24,10 +25,10 @@ function drawScanpath(data) {
 			ctx.strokeStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
 		}
 		ctx.beginPath();
-		ctx.arc(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy'], data[j]['fixationduration']/15, 0, 2 * Math.PI);
+		ctx.arc(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy'], data[j]['fixationduration']/20, 0, 2 * Math.PI);
 		ctx.fill();
 		ctx.moveTo(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy']);
-		if (!(j == (data.length - 1))) {
+		if (!(j == (data.length - 1)) || data[j]['user'] == data[j + 1]['user']) {
 			ctx.lineTo(data[j + 1]['mappedfixationpointx'], data[j + 1]['mappedfixationpointy'])
 			ctx.stroke();
 		}
