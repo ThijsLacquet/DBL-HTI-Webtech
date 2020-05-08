@@ -82,3 +82,99 @@ function isInAoi(currentAoi, currentPointX, currentPointY) {
         return false;
     }
 }
+
+function onScroll() {
+    event.preventDefault();
+
+    var newWidth;
+    var newHeight;
+    var zoomFactor = 1.5;
+    var zoom;
+
+    if (event.deltaY < 0) { //Scrolling up
+        zoom = zoomFactor;
+    } else { //Scrolling down
+        zoom = 1 / zoomFactor;
+    }
+
+    newWidth = (myImg.width * zoom);
+    newHeight = (myImg.height * zoom);
+    
+    var currentZoom = parseFloat(myImg.style.width) / visContainer.clientWidth;
+    if (isNaN(currentZoom)) {
+        currentZoom = 1;
+    }
+
+    var currentPortionWidth = visContainer.clientWidth / currentZoom;
+    var newPortionWidth = visContainer.clientWidth / currentZoom / zoom;
+    var currentPortionHeight = visContainer.clientHeight / currentZoom;
+    var newPortionHeight = visContainer.clientHeight / currentZoom / zoom;
+
+    var currOffSetX = parseInt(myImg.style.marginLeft);
+    var offSetX = (currOffSetX - (currentPortionWidth - newPortionWidth) / 2) * zoom;
+
+    var currOffSetY = parseInt(myImg.style.marginTop);
+    var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
+
+    if (newWidth < visContainer.clientWidth || newHeight < visContainer.clientHeight) {
+        newWidth = visContainer.clientWidth;
+        newHeight = visContainer.clientHeight;
+        offSetX = 0;
+        offSetY = 0;
+    }
+
+    myImg.style.width = newWidth + "px";
+    myImg.style.height = newHeight + "px";
+    myImg.style.marginLeft = offSetX + "px";
+    myImg.style.marginTop = offSetY + "px";
+
+    canvas.style.width = newWidth + "px";
+    canvas.style.height = newHeight + "px";
+    canvas.style.marginLeft = offSetX + "px";
+    canvas.style.marginTop = offSetY + "px";
+
+    return false;
+}
+
+function onMouseMove() {
+    if (event.buttons == 1) {
+        if (event.clientX != posX || event.clientY != posY) {
+            offSetX = parseInt(myImg.style.marginLeft) + event.clientX - posX;
+            offSetY = parseInt(myImg.style.marginTop) + event.clientY - posY;
+
+            posX = event.clientX;
+            posY = event.clientY;
+
+            myImg.style.marginLeft = offSetX + "px";
+            myImg.style.marginTop = offSetY + "px";
+            canvas.style.marginLeft = offSetX + "px";
+            canvas.style.marginTop = offSetY + "px";
+        }
+    }
+}
+
+function onMouseDown() {
+    if (event.button == 0) {
+        posX = event.clientX;
+        posY = event.clientY;
+    }
+}
+
+function setup(myImg, canvas, visContainer) {
+	canvas.width = visContainer.clientWidth;
+	canvas.height = visContainer.clientHeight;
+    
+    canvas.addEventListener("wheel", onScroll);
+	canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mousedown", onMouseDown);
+    
+    myImg.style.marginLeft = "0px";
+	myImg.style.marginTop = "0px";
+	myImg.style.width = visContainer.clientWidth;
+	myImg.style.height = visContainer.clientHeight;
+
+	canvas.style.marginLeft = "0px";
+	canvas.style.marginTop = "0px";
+	canvas.style.width = visContainer.clientWidth;
+	canvas.style.height = visContainer.clientHeight;
+}

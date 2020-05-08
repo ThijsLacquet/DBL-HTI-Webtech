@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <!-- Author: Thijs Lacquet -->
-<!-- Provides the drawing via Javascript of the scanpath visualization -->
 <html>
 <head>
 <meta>
@@ -43,7 +42,7 @@
 </div>
 
 <script>
-	function drawScarfPlot(scarfCtx, scarfPlot, aoi, mappedFixationPointX,
+	function drawScarfPlot(ctx, scarfPlot, aoi, mappedFixationPointX,
 		mappedFixationPointY, timestamp, colors) {
 
 		if (mappedFixationPointX.length != mappedFixationPointY.length &&
@@ -69,43 +68,43 @@
 		for (var i = 0; i < n - 1; i++) { //Loop over all transitions
 			for (var j = 0; j < aoi.length; j++) { //Loop over all AOI's
 				if (isInAoi(aoi[j], mappedFixationPointX[i], mappedFixationPointY[i])) {
-					scarfCtx.beginPath();
+					ctx.beginPath();
 					//Draw part of scarfplot
-					scarfCtx.rect(deltaPixel * timestampZerod[i] + offSetX, 0,
+					ctx.rect(deltaPixel * timestampZerod[i] + offSetX, 0,
 						deltaPixel * (timestampZerod[i + 1] - timestampZerod[i]), userHeight);
 
-					scarfCtx.fillStyle = colors[j];
-					scarfCtx.fill();
+					ctx.fillStyle = colors[j];
+					ctx.fill();
 					break;
 				}
 			}
 		}
 
 		//Add elements for one single user
-		scarfCtx.beginPath();
-		scarfCtx.strokeStyle = 'black';
-		scarfCtx.lineWidth = 5;
-		scarfCtx.rect(0, 0, offSetX, userHeight);
-		scarfCtx.rect(offSetX, 0, scarfPlot.clientWidth - offSetX, userHeight);
-		scarfCtx.stroke();
+		ctx.beginPath();
+		ctx.strokeStyle = 'black';
+		ctx.lineWidth = 5;
+		ctx.rect(0, 0, offSetX, userHeight);
+		ctx.rect(offSetX, 0, scarfPlot.clientWidth - offSetX, userHeight);
+		ctx.stroke();
 
-		scarfCtx.font = "30px Arial";
-		scarfCtx.fillStyle = 'black';
-		scarfCtx.textAlign = "center";
-		scarfCtx.fillText("p1", offSetX / 2, userHeight / 2);
+		ctx.font = "30px Arial";
+		ctx.fillStyle = 'black';
+		ctx.textAlign = "center";
+		ctx.fillText("p1", offSetX / 2, userHeight / 2);
 		
 	}
 
-	var img = document.getElementById('myImage');
+	var myImg = document.getElementById('myImage');
 	var canvas = document.getElementById('myCanvas');
 	var visContainer = document.getElementById('visContainer');
 	var visImgContainer = document.getElementById('visImgContainer');
 	var scarfPlot = document.getElementById('scarfPlot');
 
-    img.src = imageFile;	
-	canvas.width = visContainer.clientWidth;
-	canvas.height = visContainer.clientHeight;
-	scarfPlot.width = scarfPlotContainer.clientWidth;
+    scarfPlot.width = scarfPlotContainer.clientWidth;
+
+	myImg.src = imageFile;
+	setup(myImg, canvas, visContainer);
 
 	var ctx = canvas.getContext("2d");
 	var scarfCtx = scarfPlot.getContext("2d");
@@ -114,6 +113,9 @@
 	
 	drawAoi(ctx, aoi, colors);
 	drawScarfPlot(scarfCtx, scarfPlot, aoi, mappedFixationPointX, mappedFixationPointY, timestamp, colors);
+
+	var posX;
+	var posY;
 </script>
 
 </body>
