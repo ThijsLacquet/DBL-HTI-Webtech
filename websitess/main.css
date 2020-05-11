@@ -125,11 +125,11 @@
 /* GRID FOR PERSONS */
 .grid_persons {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "picture_1 picture_2 picture_3 picture_4 picture_5 picture_6"
-  "name_1 name_2 name_3 name_4 name_5 name_6";
+  "picture_1 picture_2 picture_3 picture_4 picture_5"
+  "name_1 name_2 name_3 name_4 name_5";
   text-align: center;
   font-size: 20px;
   font-weight: bold;
@@ -155,32 +155,30 @@
   grid-area: name_5;
 }
 
-.name_6 {
-  grid-area: name_6;
-}
 
 .picture_1 {
   grid-area: picture_1;
+  margin: 4px;
 }
 
 .picture_2 {
   grid-area: picture_2;
+  margin: 4px;
 }
 
 .picture_3 {
   grid-area: picture_3;
+  margin: 4px;
 }
 
 .picture_4 {
   grid-area: picture_4;
+  margin: 4px;
 }
 
 .picture_5 {
   grid-area: picture_5;
-}
-
-.picture_6 {
-  grid-area: picture_6;
+  margin: 4px;
 }
 
 .grid_persons div:nth-child(even) {
@@ -189,25 +187,17 @@
 .grid_persons div:nth-child(odd) {
 }
 
-/* END GRID FOR PERSONS */
-
-
 img {
     display: block;
     margin: 0 auto;
     max-width: 100%;
 }
 
+/* END GRID FOR PERSONS */
+
+
 .us p{
   font-size: 25px;
-}
-
-.person {
-  text-align: center;
-  float: left;
-  width: 16.66%;
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .upload_text{
