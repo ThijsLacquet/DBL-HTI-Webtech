@@ -90,9 +90,11 @@ function onScroll() {
     var newHeight;
     var zoomFactor = 1.5;
     var zoom;
+    var correction;
 
     if (event.deltaY < 0) { //Scrolling up
         zoom = zoomFactor;
+        correction = 1.12;
     } else { //Scrolling down
         zoom = 1 / zoomFactor;
     }
@@ -110,10 +112,10 @@ function onScroll() {
     var currentPortionHeight = visContainer.clientHeight / currentZoom;
     var newPortionHeight = visContainer.clientHeight / currentZoom / zoom;
 
-    var currOffSetX = parseInt(myImg.style.marginLeft);
+    var currOffSetX = parseFloat(myImg.style.marginLeft);
     var offSetX = (currOffSetX - (currentPortionWidth - newPortionWidth) / 2) * zoom;
 
-    var currOffSetY = parseInt(myImg.style.marginTop);
+    var currOffSetY = parseFloat(myImg.style.marginTop);
     var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
 
     if (newWidth < visContainer.clientWidth || newHeight < visContainer.clientHeight) {
