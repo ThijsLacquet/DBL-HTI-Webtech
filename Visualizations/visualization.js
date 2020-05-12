@@ -126,6 +126,14 @@ class Visualization {
         this.img.src = src;
     }
 
+    draw(src, mappedFixationPointX, mappedFixationPointY) {
+        this.mappedFixationPointX = mappedFixationPointX;
+        this.mappedFixationPointY = mappedFixationPointY;
+
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.img.src = src;
+    }
+
     onScroll() {
         //For some reason, these are undefined here
         this.img = img;
