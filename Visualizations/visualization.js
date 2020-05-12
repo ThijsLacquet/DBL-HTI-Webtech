@@ -11,6 +11,11 @@ class Visualization {
     var aoi;
     var width;
     var height;
+
+    var mappedFixationPointX
+    var mappedFixationPointY
+    var timestamp
+    var user
     */
 
     constructor(canvas, img, width, height) {
@@ -48,14 +53,6 @@ class Visualization {
     * @throws {IllegalArgumentException} If amount is not a number, or if amount < 0
     */
     createColors(amount) {
-        if (typeof(amount) != "number") {
-            throw("IllegalArgumentException");
-        }
-
-        if (amount < 0) {
-            throw("IllegalArgumentException");
-        }
-
         var colors = new Array(amount);
         var deltaColor = 360 / amount;
         var saturation = 100;
@@ -73,20 +70,21 @@ class Visualization {
     * Draws the area's of interest on the context of the canvas
     */
     drawAoi() {
-        for(var i = 0; i < aoi.length; i++) {
-            ctx.beginPath();
-            ctx.rect(aoi[i].x1, aoi[i].y1, aoi[i].x2 - aoi[i].x1, aoi[i].y2 - aoi[i].y1);
+        for(var i = 0; i < this.aoi.length; i++) {
+            this.ctx.beginPath();
+            this.ctx.rect(this.aoi[i].x1, this.aoi[i].y1, this.aoi[i].x2 - this.aoi[i].x1,
+                this.aoi[i].y2 - this.aoi[i].y1);
             
             //Stroke
-            ctx.globalAlpha = 1;
-            ctx.strokeStyle = colors[i];
-            ctx.lineWidth = 5;
-            ctx.stroke();
+            this.ctx.globalAlpha = 1;
+            this.ctx.strokeStyle = this.colors[i];
+            this.ctx.lineWidth = 5;
+            this.ctx.stroke();
 
             //Fill
-            ctx.globalAlpha = 0.1;
-            ctx.fillStyle = colors[i];
-            ctx.fill();
+            this.ctx.globalAlpha = 0.1;
+            this.ctx.fillStyle = this.colors[i];
+            this.ctx.fill();
         }
     }
 
@@ -115,13 +113,16 @@ class Visualization {
 
     setAoi(aoi) {
         this.aoi = aoi;
+        this.createColors(aoi.length);
     }
 
-    clear() {
+    draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
+        this.mappedFixationPointX = mappedFixationPointX;
+        this.mappedFixationPointY = mappedFixationPointY;
+        this.timestamp = timestamp;
+        this.user = user;
+
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    draw(src) {
         this.img.src = src;
     }
 
