@@ -10,7 +10,6 @@ function start(){
 }
 
 function drawScanpath(data) {
-	console.log("start drawing at time " + performance.now())
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
 	var j = 0;
@@ -25,7 +24,7 @@ function drawScanpath(data) {
 			ctx.strokeStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
 		}
 		ctx.beginPath();
-		ctx.arc(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy'], data[j]['fixationduration']/20, 0, 2 * Math.PI);
+		ctx.arc(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy'], (data[j]['fixationduration']/20), 0, 2 * Math.PI);
 		ctx.fill();
 		ctx.moveTo(data[j]['mappedfixationpointx'], data[j]['mappedfixationpointy']);
 		if (!(j == (data.length - 1)) || data[j]['user'] == data[j + 1]['user']) {
@@ -33,5 +32,4 @@ function drawScanpath(data) {
 			ctx.stroke();
 		}
 	}
-	console.log("end drawing at time " + performance.now())
 }
