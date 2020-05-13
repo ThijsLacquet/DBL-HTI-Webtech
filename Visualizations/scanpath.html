@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="../drawingScanpath.js"></script>
 
-<title>Scanpath visualisation demo</title>
+<title>Scanpath visualisation</title>
 </head>
 <body>
 <div id="visContainer">
@@ -23,8 +23,10 @@
 </div>
 
 <script>
-console.log("start at " + performance.now())
-start();
+//the variable below should be implemented on the site so that the user can change the size, so this is still hardcoded
+var size = 0.06;
+//ctrl f5 to see the changes 
+start(size);
 </script>
 
 </body>
