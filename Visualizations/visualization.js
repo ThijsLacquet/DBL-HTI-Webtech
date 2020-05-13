@@ -116,29 +116,29 @@ class Visualization {
         this.createColors(aoi.length);
     }
 
-    draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
-        this.timestamp = timestamp;
-        this.user = user;
+ //   draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
+   //     this.mappedFixationPointX = mappedFixationPointX;
+     //   this.mappedFixationPointY = mappedFixationPointY;
+       // this.timestamp = timestamp;
+        //this.user = user;
 
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.img.src = src;
-    }
+//        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //      this.img.src = src;
+    //}
     
-    draw(src, data) {
+    draw(data, size) {
     	this.data = data;
+    	this.size = size;
     	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    	this.img.src = src;
     }
 
-    draw(src, mappedFixationPointX, mappedFixationPointY) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
+   // draw(src, mappedFixationPointX, mappedFixationPointY) {
+     //   this.mappedFixationPointX = mappedFixationPointX;
+       // this.mappedFixationPointY = mappedFixationPointY;
 
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.img.src = src;
-    }
+        //this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //this.img.src = src;
+    //}
 
     onScroll() {
         //For some reason, these are undefined here

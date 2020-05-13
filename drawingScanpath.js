@@ -1,5 +1,5 @@
 //Author: Marleen van Gent
-//Provides the drawing via Javascript of the scanpath visualization
+//Provides the not object oriented/previous version of drawing via Javascript of the scanpath visualization
 
 function start(size){ 
 	array = null; 
