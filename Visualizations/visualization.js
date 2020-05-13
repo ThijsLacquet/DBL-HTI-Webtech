@@ -125,6 +125,12 @@ class Visualization {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.img.src = src;
     }
+    
+    draw(src, data) {
+    	this.data = data;
+    	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    	this.img.src = src;
+    }
 
     draw(src, mappedFixationPointX, mappedFixationPointY) {
         this.mappedFixationPointX = mappedFixationPointX;
