@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- Author: Marleen van Gent -->
+<!-- Provides calling of the drawing via Javascript of the scanpath visualization -->
+<html>
+<head>
+<meta>
+
+<link rel="stylesheet" type="text/css" href="visualization.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="../drawingScanpath.js"></script>
+
+<title>Scanpath visualisation demo</title>
+</head>
+<body>
+<div id="visContainer">
+	<div id="visImgContainer">
+		<img src="../Provided_data/stimuli/01_Antwerpen_S1.jpg">
+	</div>
+	<div id="visCanvasContainer">
+		<canvas id="myCanvas" width="1650" height="1200"></canvas>
+	</div>
+</div>
+
+<script>
+console.log("start at " + performance.now())
+start();
+</script>
+
+</body>
+</html>
