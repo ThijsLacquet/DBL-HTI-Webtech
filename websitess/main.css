@@ -211,35 +211,35 @@ img {
   align: center;
   grid-area: interactiontool;
   width: ###px;
-  height: 400px;
+  height: 300px;
   background-color: pink;
 }
 
 .heatmap{
   grid-area: heatmap;
   width: ###px/4;
-  height: 400px;
+  height: 350px;
   background-color: #20B2AA;
 }
 
 .scanpath{
   grid-area: scanpath;
   width: ###px/4;
-  height: 400px;
+  height: 350px;
   background-color: pink;
 }
 
 .parallelscan{
   grid-area: parallelscan;
   width: ###px/4;
-  height: 400px;
+  height: 350px;
   background-color: #20B2AA;
 }
 
 .scarfplot{
   grid-area: scarfplot;
   width: ###px/4;
-  height: 400px;
+  height: 350px;
   background-color: pink;
 }
 
