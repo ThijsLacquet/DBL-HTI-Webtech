@@ -197,22 +197,76 @@ img {
 
 
 /* GRID FOR DISPLAY */
+.grid_interactiontool{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "vistool1 vistool2 vistool3 vistool4 vistool5 vistool6 vistool7";
+  text-align: center;
+}
+
+.vistool1{
+  grid-area: vistool1;
+  width: ###px/7;
+  height: 800px;
+  background-color: white;
+}
+
+.vistool2{
+  grid-area: vistool2;
+  width: ###px/7;
+  height: 200px;
+  background-color: #20B2AA;
+}
+
+.vistool3{
+  grid-area: vistool3;
+  width: ###px/7;
+  height: 200px;
+  background-color: white;
+}
+
+.vistool4{
+  grid-area: vistool4;
+  width: ###px/7;
+  height: 200px;
+  background-color: #20B2AA;
+}
+
+.vistool5{
+  grid-area: vistool5;
+  width: ###px/7;
+  height: 200px;
+  background-color: white;
+}
+
+.vistool6{
+  grid-area: vistool6;
+  width: ###px/7;
+  height: 200px;
+  background-color: #20B2AA;
+}
+
+.vistool7{
+  grid-area: vistool7;
+  width: ###px/7;
+  height: 200px;
+  background-color: white;
+}
+
+.grid_interactiontool div:nth-child(even) {
+}
+
+.grid_interactiontool div:nth-child(odd) {
+}
+
 .grid_display{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-template-areas:
-  "interactiontool interactiontool interactiontool interactiontool"
   "heatmap scanpath parallelscan scarfplot";
-
-}
-
-.interactiontool{
-  align: center;
-  grid-area: interactiontool;
-  width: ###px;
-  height: 300px;
-  background-color: pink;
 }
 
 .heatmap{
