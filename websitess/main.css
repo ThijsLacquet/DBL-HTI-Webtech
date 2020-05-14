@@ -202,22 +202,22 @@ img {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
-  "tools heatmap"
-  "tools scarfplot"
-  "tools scanpath"
+  "tools heatmapE"
+  "tools scarfplotE"
+  "tools scanpathE"
   "tools parallelSP";
 }
 
-.heatmap {
-  grid-area: heatmap;
+.heatmapE {
+  grid-area: heatmapE;
 }
 
-.scarfplot {
-  grid-area: scarfplot;
+.scarfplotE {
+  grid-area: scarfplotE;
 }
 
-.scanpath {
-  grid-area: scanpath;
+.scanpathE {
+  grid-area: scanpathE;
 }
 
 .parallelSP {
@@ -237,6 +237,62 @@ img {
 }
 
 /* END GRID FOR LINKING VISUALIZATIONS */
+
+
+/* GRID FOR DISPLAY */
+.grid_display{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "interactiontool interactiontool interactiontool interactiontool"
+  "heatmap scanpath parallelscan scarfplot";
+
+}
+
+.interactiontool{
+  align: center;
+  grid-area: interactiontool;
+  width: ###px;
+  height: 400px;
+  background-color: pink;
+}
+
+.heatmap{
+  grid-area: heatmap;
+  width: ###px/4;
+  height: 400px;
+  background-color: #20B2AA;
+}
+
+.scanpath{
+  grid-area: scanpath;
+  width: ###px/4;
+  height: 400px;
+  background-color: pink;
+}
+
+.parallelscan{
+  grid-area: parallelscan;
+  width: ###px/4;
+  height: 400px;
+  background-color: #20B2AA;
+}
+
+.scarfplot{
+  grid-area: scarfplot;
+  width: ###px/4;
+  height: 400px;
+  background-color: pink;
+}
+
+.grid_display div:nth-child(even) {
+}
+
+.grid_display div:nth-child(odd) {
+}
+
+/*END OF GRID FOR DISPLAY*/
 
 
 .us p{
