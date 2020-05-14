@@ -196,6 +196,49 @@ img {
 /* END GRID FOR PERSONS */
 
 
+/* GRID FOR LINKING VISUALIZATIONS */
+.grid_linking {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "tools heatmap"
+  "tools scarfplot"
+  "tools scanpath"
+  "tools parallelSP";
+}
+
+.heatmap {
+  grid-area: heatmap;
+}
+
+.scarfplot {
+  grid-area: scarfplot;
+}
+
+.scanpath {
+  grid-area: scanpath;
+}
+
+.parallelSP {
+  grid-area: parallelSP;
+}
+
+.tools {
+  grid-area: tools;
+}
+
+.grid_linking div:nth-child(even) {
+  background-color: red;
+}
+
+.grid_linking div:nth-child(odd) {
+  background-color: green;
+}
+
+/* END GRID FOR LINKING VISUALIZATIONS */
+
+
 .us p{
   font-size: 25px;
 }
