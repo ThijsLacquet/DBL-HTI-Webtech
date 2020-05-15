@@ -1,3 +1,50 @@
+<?php
+/*
+*	Author: Thijs Lacquet
+*/
+require 'sql.php';
+
+define('LINESPERQUERY', '5000');
+
+class Readdata {
+	private $mysql_connection;
+	
+	/*
+	* Opens the SQL connection. Creates the SQL database and table if they do not exist yet.
+	* 
+	* $throws Exception If a mysql query does not succeed
+	*/	
+	function __construct() {
+		$this->mysql_connection = connectsql();
+
+		//Create database if it does not exist yet
+		if (! $this->mysql_connection->query("CREATE DATABASE IF NOT EXISTS fixationdata")) {
+			throw new Exception('Could not create mysql database fixationdata: ' . $this->mysql_connection->error);
+		}
+		
+		//Create table if it does not exist yet
+		if (! $this->mysql_connection->query("
+			CREATE TABLE IF NOT EXISTS fixationdata.fixationdata(
+			entry_id INT(32) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+			document_id INT (32) NOT NULL,
+			timestamp INT(32) NOT NULL,
+			stimuliname VARCHAR(50) NOT NULL,
+			fixationindex INT(32) NOT NULL,
+			fixationduration INT(32) NOT NULL,
+			mappedfixationpointx INT(32) NOT NULL,
+			mappedfixationpointy INT(32) NOT NULL,
+			user VARCHAR(50) NOT NULL,
+			description VARCHAR(50) NOT NULL
+			)")) {
+				
+			throw new Exception('Could not create mysql table fixationdata: ' . $this->mysql_connection->error);
+		}
+	}
+	
+	function __destruct() {
+		$this->mysql_connection->close();
+	}
+	
 	/*
 	* Reads data from the csv indicated by path and puts it in the SQL database
 	*
