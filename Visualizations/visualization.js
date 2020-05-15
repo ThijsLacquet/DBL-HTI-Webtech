@@ -19,6 +19,10 @@ class Visualization {
     */
 
     constructor(canvas, img, width, height) {
+        if (width == undefined || height == undefined) {
+            throw("IllegalArgumentException, width or height is undefined");
+        }
+
         this.canvas = canvas;
         this.img = img;
         this.ctx = canvas.getContext("2d");

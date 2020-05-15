@@ -3,6 +3,12 @@ Author: Marleen van Gent and Thijs Lacquet
 Provides the CSS for the visualization overlay (drawing upon an image)
 */
 
+#visContainer {
+	position: relative; 
+	width: 1650px; 
+	height: 1200px; 
+}
+
 #visContainerHM {
 	position: relative;
 	width: 1650px;
