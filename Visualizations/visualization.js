@@ -115,7 +115,8 @@ class Visualization {
         this.aoi = aoi;
         this.createColors(aoi.length);
     }
-
+	
+	
     draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
         this.mappedFixationPointX = mappedFixationPointX;
         this.mappedFixationPointY = mappedFixationPointY;
@@ -125,14 +126,12 @@ class Visualization {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.img.src = src;
     }
-
-    draw(src, mappedFixationPointX, mappedFixationPointY) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
-
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.img.src = src;
-    }
+   
+    /*draw(data, size) {
+    	this.data = data;
+    	this.size = size;
+    	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }*/
 
     onScroll() {
         //For some reason, these are undefined here
