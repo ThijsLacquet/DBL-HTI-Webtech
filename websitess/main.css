@@ -202,55 +202,55 @@ img {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-  "vistool1 vistool2 vistool3 vistool4 vistool5 vistool6 vistool7";
+  "select explore reconfigure encode abstract filter connect";
   text-align: center;
 }
 
-.vistool1{
-  grid-area: vistool1;
-  width: ###px/7;
+.select{
+  grid-area: select;
+  width: 300px;
   height: 800px;
   background-color: white;
 }
 
-.vistool2{
-  grid-area: vistool2;
-  width: ###px/7;
+.explore{
+  grid-area: explore;
+  width: 100px;
   height: 200px;
   background-color: #20B2AA;
 }
 
-.vistool3{
-  grid-area: vistool3;
-  width: ###px/7;
+.reconfigure{
+  grid-area: reconfigure;
+  width: 100px;
   height: 200px;
   background-color: white;
 }
 
-.vistool4{
-  grid-area: vistool4;
-  width: ###px/7;
+.encode{
+  grid-area: encode;
+  width: 100px;
   height: 200px;
   background-color: #20B2AA;
 }
 
-.vistool5{
-  grid-area: vistool5;
-  width: ###px/7;
+.abstract{
+  grid-area: abstract;
+  width: 100px;
   height: 200px;
   background-color: white;
 }
 
-.vistool6{
-  grid-area: vistool6;
-  width: ###px/7;
+.filter{
+  grid-area: filter;
+  width: 100px;
   height: 200px;
   background-color: #20B2AA;
 }
 
-.vistool7{
-  grid-area: vistool7;
-  width: ###px/7;
+.connect{
+  grid-area: connect;
+  width: 100px;
   height: 200px;
   background-color: white;
 }
@@ -267,6 +267,7 @@ img {
   grid-template-rows: 1fr;
   grid-template-areas:
   "heatmap scanpath parallelscan scarfplot";
+  text-align: center;
 }
 
 .heatmap{
