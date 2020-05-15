@@ -55,6 +55,8 @@
   font-size: 50px;
 }
 
+
+/* GRID FOR VISUALIZATIONS */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -117,17 +119,128 @@
 
 .grid div:nth-child(odd) {
 }
+/* END GRID FOR VISUALIZATIONS */
+
+
+/* GRID FOR PERSONS */
+.grid_persons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "picture_1 picture_2 picture_3 picture_4 picture_5"
+  "name_1 name_2 name_3 name_4 name_5";
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.name_1 {
+  grid-area: name_1;
+}
+
+.name_2 {
+  grid-area: name_2;
+}
+
+.name_3 {
+  grid-area: name_3;
+}
+
+.name_4 {
+  grid-area: name_4;
+}
+
+.name_5 {
+  grid-area: name_5;
+}
+
+
+.picture_1 {
+  grid-area: picture_1;
+  margin: 4px;
+}
+
+.picture_2 {
+  grid-area: picture_2;
+  margin: 4px;
+}
+
+.picture_3 {
+  grid-area: picture_3;
+  margin: 4px;
+}
+
+.picture_4 {
+  grid-area: picture_4;
+  margin: 4px;
+}
+
+.picture_5 {
+  grid-area: picture_5;
+  margin: 4px;
+}
+
+.grid_persons div:nth-child(even) {
+}
+
+.grid_persons div:nth-child(odd) {
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* END GRID FOR PERSONS */
+
+
+/* GRID FOR LINKING VISUALIZATIONS */
+.grid_linking {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "tools heatmap"
+  "tools scarfplot"
+  "tools scanpath"
+  "tools parallelSP";
+}
+
+.heatmap {
+  grid-area: heatmap;
+}
+
+.scarfplot {
+  grid-area: scarfplot;
+}
+
+.scanpath {
+  grid-area: scanpath;
+}
+
+.parallelSP {
+  grid-area: parallelSP;
+}
+
+.tools {
+  grid-area: tools;
+}
+
+.grid_linking div:nth-child(even) {
+  background-color: red;
+}
+
+.grid_linking div:nth-child(odd) {
+  background-color: green;
+}
+
+/* END GRID FOR LINKING VISUALIZATIONS */
+
 
 .us p{
   font-size: 25px;
-}
-
-.person {
-  text-align: center;
-  float: left;
-  width: 16.66%;
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .upload_text{

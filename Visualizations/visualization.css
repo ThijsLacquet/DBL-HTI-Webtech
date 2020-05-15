@@ -3,16 +3,22 @@ Author: Marleen van Gent and Thijs Lacquet
 Provides the CSS for the visualization overlay (drawing upon an image)
 */
 
-#visContainer {
-	position: relative; 
-	width: 1650px; 
-	height: 1200px; 
+#visContainerHM {
+	position: relative;
+	width: 1650px;
+	height: 1200px;
+}
+
+#visContainerSP {
+	position: relative;
+	width: 1650px;
+	height: 1200px;
 }
 
 #visImgContainer {
-	width: 100%; 
-	height: 100%; 
-	position: absolute; 
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	z-index: 1;
 	overflow: hidden;
 }
@@ -23,22 +29,21 @@ Provides the CSS for the visualization overlay (drawing upon an image)
 }
 
 #visCanvasContainer {
-	width: 100%; 
-	height: 100%; 
-	position: absolute; 
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	z-index: 2;
 	overflow: hidden;
 }
 
 #visCanvasContainer canvas {
-	width: 100%; 
+	width: 100%;
 	height: 100%;
 }
 
 #scarfPlotContainer {
-	position: relative; 
-	width: 1650px; 
-	height: 200px; 
+	position: relative;
+	width: 1650px;
+	height: 200px;
 	overflow: auto;
 }
-
