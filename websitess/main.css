@@ -194,117 +194,100 @@ img {
 }
 
 /* END GRID FOR PERSONS */
-
-
 /* GRID FOR DISPLAY */
-.grid_interactiontool{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas:
-  "select explore reconfigure encode abstract filter connect";
-  text-align: center;
-}
-
-.select{
-  grid-area: select;
-  width: 300px;
-  height: 800px;
-  background-color: white;
-}
-
-.explore{
-  grid-area: explore;
-  width: 100px;
-  height: 200px;
-  background-color: #20B2AA;
-}
-
-.reconfigure{
-  grid-area: reconfigure;
-  width: 100px;
-  height: 200px;
-  background-color: white;
-}
-
-.encode{
-  grid-area: encode;
-  width: 100px;
-  height: 200px;
-  background-color: #20B2AA;
-}
-
-.abstract{
-  grid-area: abstract;
-  width: 100px;
-  height: 200px;
-  background-color: white;
-}
-
-.filter{
-  grid-area: filter;
-  width: 100px;
-  height: 200px;
-  background-color: #20B2AA;
-}
-
-.connect{
-  grid-area: connect;
-  width: 100px;
-  height: 200px;
-  background-color: white;
-}
-
-.grid_interactiontool div:nth-child(even) {
-}
-
-.grid_interactiontool div:nth-child(odd) {
-}
-
 .grid_display{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
   "heatmap scanpath parallelscan scarfplot";
-  text-align: center;
 }
 
 .heatmap{
   grid-area: heatmap;
-  width: ###px/4;
   height: 350px;
-  background-color: #20B2AA;
 }
 
 .scanpath{
   grid-area: scanpath;
-  width: ###px/4;
   height: 350px;
-  background-color: pink;
 }
 
 .parallelscan{
   grid-area: parallelscan;
-  width: ###px/4;
   height: 350px;
-  background-color: #20B2AA;
 }
 
 .scarfplot{
   grid-area: scarfplot;
-  width: ###px/4;
   height: 350px;
-  background-color: pink;
 }
 
 .grid_display div:nth-child(even) {
+  background-color: #20B2AA;
 }
 
 .grid_display div:nth-child(odd) {
+  background-color: pink;
 }
 
 /*END OF GRID FOR DISPLAY*/
+
+/* GRID FOR TOOLS */
+
+.grid_tools{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
+
+}
+
+.tool1{
+  grid-area: tool1;
+  height: 80px;
+}
+
+.tool2{
+  grid-area: tool2;
+  height: 80px;
+}
+
+.tool3{
+  grid-area: tool3;
+  height: 80px;
+}
+
+.tool4{
+  grid-area: tool4;
+  height: 80px;
+}
+
+.tool5{
+  grid-area: tool5;
+  height: 80px;
+}
+
+.tool6{
+  grid-area: tool6;
+  height: 80px;
+}
+
+.tool7{
+  grid-area: tool7;
+  
+}
+
+.grid_tools div:nth-child(even) {
+  background-color: pink;
+}
+
+.grid_tools div:nth-child(odd) {
+  background-color: #20B2AA;
+}
+/* END OF GRID FOR TOOLS */
+
 
 
 .us p{
