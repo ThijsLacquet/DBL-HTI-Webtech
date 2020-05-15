@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">
   <script src="../Visualizations/visualization.js" type="text/javascript"></script>
   <script src="../Visualizations/heatmap.js" type="text/javascript"></script>
   <script src="../Visualizations/scarfplot.js" type="text/javascript"></script>
@@ -55,21 +54,39 @@
 
   <div class="grid_linking">
     <div class="tools">tools</div>
-    <div class="heatmap">heatmap</div>
-    <div class="scarfplot">scarfplot</div>
-    <div class="scanpath">scanpath</div>
+    <div class="heatmapE">
+
+      <div id="visContainerHM">
+        <div id="visImgContainerHM">
+            <img id="myImageHM">
+        </div>
+        <div id="visCanvasContainerHM">
+          <canvas id="myCanvasHM"></canvas>
+        </div>
+      </div>
+
+    </div>
+    <div class="scarfplotE">
+
+      <div id="visContainerSP">
+      	<div id="visImgContainerSP">
+      			<img id="myImageSP">
+      	</div>
+      	<div id="visCanvasContainerSP">
+      		<canvas id="myCanvasSP"></canvas>
+      	</div>
+      </div>
+      <div id="scarfPlotContainer">
+      	<canvas id="scarfCanvas"></canvas>
+      </div>
+
+    </div>
+    <div class="scanpathE">scanpath</div>
     <div class="parallelSP">parallelSP</div>
   </div>
 
 
-  <!--<div id="visContainerHM">
-  	<div id="visImgContainer">
-  			<img id="myImage">
-  	</div>
-  	<div id="visCanvasContainer">
-  		<canvas id="myCanvas"></canvas>
-  	</div>
-  </div>
+  <!--
 
   <div id="visContainerSP">
   	<div id="visImgContainer">
@@ -85,14 +102,14 @@
 
   <!-- heb die div van scarfplot even in die andere div gezet want dan zet hij ze onder elkaar en anders gaat dat fout-->
 
-  <!--<script>
-      var img = document.getElementById('myImage');
-  	  var canvas = document.getElementById('myCanvas');
-  	  var visContainer = document.getElementById('visContainer');
-  	  var visImgContainer = document.getElementById('visImgContainer');
+  <script>
+      var img = document.getElementById('myImageHM');
+  	  var canvas = document.getElementById('myCanvasHM');
+  	  var visContainerHM = document.getElementById('visContainerHM');
+  	  var visImgContainerHM = document.getElementById('visImgContainerHM');
 
-      var width = visImgContainer.clientWidth;
-      var height = visImgContainer.clientHeight;
+      var width = visImgContainerHM.clientWidth;
+      var height = visImgContainerHM.clientHeight;
 
       myHeatmap = new Heatmap(canvas, img, width, height);
       myHeatmap.draw(imageFile, mappedFixationPointX, mappedFixationPointY, duration);
@@ -100,20 +117,20 @@
 
 
   <script>
-      var img = document.getElementById('myImage');
-  	  var canvas = document.getElementById('myCanvas');
-  	  var visContainer = document.getElementById('visContainer');
-  	  var visImgContainer = document.getElementById('visImgContainer');
+      var img = document.getElementById('myImageSP');
+  	  var canvas = document.getElementById('myCanvasSP');
+  	  var visContainerSP = document.getElementById('visContainerSP');
+  	  var visImgContainerSP = document.getElementById('visImgContainerSP');
       var scarfCanvas = document.getElementById('scarfCanvas');
       var scarfPlotContainer = document.getElementById('scarfPlotContainer');
 
-      var width = visImgContainer.clientWidth;
-      var height = visImgContainer.clientHeight;
+      var width = visImgContainerSP.clientWidth;
+      var height = visImgContainerSP.clientHeight;
 
       myScarfplot = new Scarfplot(canvas, scarfCanvas, img, width, height);
       myScarfplot.setAoi(aoi);
       myScarfplot.draw(imageFile, mappedFixationPointX, mappedFixationPointY, timestamp, user);
-  </script>-->
+  </script>
 
 
 </body>
