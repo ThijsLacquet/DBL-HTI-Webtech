@@ -67,7 +67,9 @@ class data {
 				if(this.users[i].name == users){
 					this.users[i].enabled = true;
 				}else{
-					this.users[i].enabled = false;
+					if(!append){
+						this.users[i].enabled = false;
+					}
 				}
 			}
 		}
