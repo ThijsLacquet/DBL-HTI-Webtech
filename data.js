@@ -5,6 +5,8 @@ class data {
 		var superThis = this;
 		this.users = [];
 
+		this.AOIs = [];
+
 		this.totalEntries = 0;
 		this.numofUsers = 0;
 
@@ -35,6 +37,14 @@ class data {
 		}
 
 		currentUser.fill();
+	}
+
+	setAOIs(AOIs){
+		this.AOIs = AOIs;
+	}
+
+	getAOIs(){
+		return this.AOIs;
 	}
 
 	selectUsers(users){
