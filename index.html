@@ -2,6 +2,12 @@
 <html>
 <head>
 	<title></title>
+	<script src = "https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="visualizations.js"></script>
+	<script src="ParallelScanpath.js"></script>
+	<script src="ScarfPlot.js"></script>
+	<script src="data.js"></script>
 </head>
 <body>
 
@@ -11,5 +17,27 @@
 	    <input type="submit" value="Upload CSV" name="submit">
 	</form>
 
+	<div id="AOISelection" style="font-size: 0;position: relative;">
+		<img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" id="ASimage" style="width: 100%">
+	</div>
+
+	<div id="ParallelScanpath">
+		<canvas id="PScanvas" width="600" height="600"></canvas>
+	</div>
+
+	<div id="ScarfPlot">
+		<img id="SPimg">
+		<canvas id="SPcanvas"></canvas>
+		<canvas id="SPScarfcanvas"></canvas>
+	</div>
+
+	<div id="ScanPath" style="font-size: 0; position: relative">
+		<img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" id="ScPimage" style="width: 100%">
+		<canvas id="ScPcanvas" style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: 2;"></canvas>
+	</div>
+
+	<script type="text/javascript">
+		var d = new data("01_Antwerpen_S1.jpg");
+	</script>
 </body>
 </html>
