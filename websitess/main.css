@@ -250,48 +250,85 @@ img {
 }
 
 .interactiontool{
-  align: center;
   grid-area: interactiontool;
-  width: ###px;
-  height: 400px;
-  background-color: pink;
 }
 
 .heatmap{
   grid-area: heatmap;
-  width: ###px/4;
-  height: 400px;
-  background-color: #20B2AA;
 }
 
 .scanpath{
   grid-area: scanpath;
-  width: ###px/4;
-  height: 400px;
-  background-color: pink;
 }
 
 .parallelscan{
   grid-area: parallelscan;
-  width: ###px/4;
-  height: 400px;
-  background-color: #20B2AA;
 }
 
 .scarfplot{
   grid-area: scarfplot;
-  width: ###px/4;
-  height: 400px;
-  background-color: pink;
 }
 
 .grid_display div:nth-child(even) {
+  background-color: blue;
 }
 
 .grid_display div:nth-child(odd) {
+  background-color: yellow;
 }
 
 /*END OF GRID FOR DISPLAY*/
+
+/* GRID FOR TOOLS */
+
+.grid_tools{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
+
+}
+
+.tool1{
+  grid-area: tool1;
+}
+
+.tool2{
+  grid-area: tool2;
+}
+
+.tool3{
+  grid-area: tool3;
+}
+
+.tool4{
+  grid-area: tool4;
+}
+
+.tool5{
+  grid-area: tool5;
+}
+
+.tool6{
+  grid-area: tool6;
+}
+
+.tool7{
+  grid-area: tool7;
+}
+
+.grid_tools div:nth-child(even) {
+  background-color: red;
+}
+
+.grid_tools div:nth-child(odd) {
+  background-color: green;
+}
+
+
+/* END OF GRID FOR TOOLS */
+
 
 
 .us p{
@@ -321,14 +358,14 @@ img {
 
 #visContainerHM {
 	position: relative;
-	width: 1650px;
-	height: 1200px;
+	width: 550px;
+	height: 400px;
 }
 
 #visContainerSP {
 	position: relative;
-	width: 1650px;
-	height: 1200px;
+	width: 550px;
+	height: 400px;
 }
 
 #visImgContainerHM {
@@ -385,7 +422,7 @@ img {
 
 #scarfPlotContainer {
 	position: relative;
-	width: 1650px;
-	height: 200px;
+	width: 550px;
+	height: 66.666666666666666666666666666666666666px;
 	overflow: auto;
 }
