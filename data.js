@@ -47,11 +47,13 @@ class data {
 		return this.AOIs;
 	}
 
-	selectUsers(users){
+	selectUsers(users, append){
 		if(typeof(users) == "object"){
 			for(var i=0;i<this.numofUsers;i++){
 
-				this.users[i].enabled = false;
+				if(!append){
+					this.users[i].enabled = false;
+				}
 
 				for(var j=0;j<users.length;j++){
 					if(this.users[i].name == users[j]){
