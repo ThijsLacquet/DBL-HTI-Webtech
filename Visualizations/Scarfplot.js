@@ -9,8 +9,8 @@ class Scarfplot extends Visualization {
     */
 
     constructor(canvas, scarfCanvas, img, width, height) {
-        super(canvas, img, width, height)
-
+        super(canvas, img, width, height);
+ 
         this.scarfCanvas = scarfCanvas;
         this.scarfCanvas.width = width;
         this.scarfCtx = this.scarfCanvas.getContext("2d");
@@ -59,6 +59,7 @@ class Scarfplot extends Visualization {
 			}
 		}
 		this.userData = userData;
+		console.log(userData);
 	}
 
     draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
