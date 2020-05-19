@@ -14,4 +14,5 @@ function connectsql() {
 	}
 	return $mysql_connection;
 }
+
 ?>

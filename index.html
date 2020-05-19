@@ -1,25 +1,233 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Blue skies</title>
+	<script src = "https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
 
 	<form action="upload.php" method="post" enctype="multipart/form-data">
-	    Select image to upload:
-	    <input type="file" name="Upload_file" id="Upload_file">
-	    <input type="submit" value="Upload CSV" name="submit">
+		Select image to upload:
+		<input type="file" name="Upload_file" id="Upload_file">
+		<input type="submit" value="Upload CSV" name="submit">
 	</form>
 
-	<form action="visAOI.php" method="post">
-		Input AOI:
-		<input type="number" name="xmin" min="0">
-		<input type="number" name="xmax" min="0">
+	<form action="visAOI.php" id="AOIform" method="post">
+		<input type="submit" value="submit AOIs" name="submit AOIs"><br>
+		<input type="number" name="xmin0" min="0"><input type="number" name="xmax0" min="0"><input type="number" name="ymin0" min="0"><input type="number" name="ymax0" min="0"><br>
 
-		<input type="number" name="ymin" min="0">
-		<input type="number" name="ymax" min="0">
-
-		<input type="submit" value="AOI" name="submit">
 	</form>
+
+	<button onclick="addAOI()">+</button>
+
+
+	<div>
+		<canvas id="myCanvas" width="600" height="600"></canvas>
+	</div>
+
+
+	<div id="AOISelection" style="width: 800px;font-size: 0">
+		<img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" style="width: 100%;z-index: 1" id="image">
+	</div>
+
+	<ol id="AOIShow">
+	</ol>
+
+	<script type="text/javascript">
+
+
+		var data = {"switchtimes":[[["0","1"],["2632","2"]],[["0","1"],["583","2"],["1166","1"],["2232","2"],["2981","1"],["4697","2"]],[["0","1"],["4447","2"],["5546","1"]],[["0","2"],["516","1"],["2315","2"],["3314","1"],["4813","2"],["6029","1"]],[["0","1"],["3149","2"],["3865","0"],["4448","2"],["4781","1"],["6730","2"]],[["0","1"],["2298","2"],["4031","1"],["5163","0"],["5530","2"],["5746","1"]],[["0","1"],["3947","2"],["7695","1"],["10010","2"]],[["0","1"],["1049","2"],["1648","1"],["2848","2"],["3514","1"]],[["0","1"],["3382","2"],["4497","1"]],[["0","1"],["8628","2"],["10043","1"]],[["0","1"],["1316","2"],["1849","1"],["3115","2"],["4514","1"],["6912","2"],["8212","0"],["8495","1"]],[["0","1"],["2832","2"],["4014","1"],["4380","2"],["5097","1"],["6579","2"],["6679","1"]],[["0","1"],["2182","2"],["3364","1"]],[["0","0"],["233","1"],["2215","2"],["2548","1"],["2981","2"],["3414","0"],["3731","2"],["4480","1"]],[["0","1"],["1332","2"],["3314","1"],["5579","2"],["5863","1"],["8328","2"],["9394","1"]],[["0","2"],["1499","1"],["2915","0"],["3098","2"],["3431","1"],["3914","2"],["4997","1"],["5246","2"],["5696","0"]],[["0","1"],["3215","2"],["4181","1"],["6862","2"],["8211","0"],["8378","1"]],[["0","2"],["817","1"],["1599","2"],["2548","1"],["4614","2"],["4930","0"]],[["0","1"],["716","2"],["1233","1"],["2881","2"],["3664","1"]]],"maxt":"10043","numofAOIs":3};
+
+
+		var maxt = data.maxt;
+
+		var numofAOIs = data.numofAOIs;
+
+		swdata = data.switchtimes;
+
+		var numofusers = swdata.length;
+
+		var canvas = document.getElementById("myCanvas");
+
+		var ctx = canvas.getContext("2d");
+
+		var width = canvas.getAttribute("width");
+		var height = canvas.getAttribute("height");
+
+		var linesAOIdist = width/numofAOIs;
+		var linesuserdist = 0.5*(linesAOIdist/numofusers);
+
+		ctx.beginPath();
+
+		var x = linesAOIdist/2;
+
+		while(x < width){
+			for(var i = -numofusers/2;i < numofusers/2; i++){
+				ctx.moveTo(x + i * linesuserdist, 0);
+				ctx.lineTo(x + i * linesuserdist, height);
+			}
+			x += linesAOIdist;
+		}
+		ctx.stroke();
+
+		ctx.lineWidth = linesuserdist/4;
+
+		for(var user = 0; user < numofusers; user++){
+			var switchtimes = swdata[user];
+
+			var prev = (Number(switchtimes[0][1]) + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+
+			ctx.beginPath();
+			ctx.moveTo(prev,0);
+
+
+			for(var i = 1; i < switchtimes.length; i++){
+				var t = Number(switchtimes[i][0]);
+				var AOI = Number(switchtimes[i][1]);
+
+				var pos = (AOI + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+
+				ctx.lineTo(prev,(t/maxt) * height - 5);
+				ctx.lineTo(pos, (t/maxt) * height + 5);
+
+				prev = pos;
+			}
+	
+			ctx.strokeStyle = getRandomColor();
+			ctx.stroke();
+		}
+
+		function getRandomColor() {
+		  var letters = '0123456789ABCDEF';
+		  var color = '#';
+		  for (var i = 0; i < 6; i++) {
+		    color += letters[Math.floor(Math.random() * 16)];
+		  }
+		  return color;
+		}
+
+
+	</script>
+	<script type="text/javascript">
+		var numofAOIs = 1;
+
+		function addAOI() {
+			var form = document.getElementById("AOIform");
+
+			form.innerHTML += '<input type="number" name="xmin'+numofAOIs+'" min="0"><input type="number" name="xmax'+numofAOIs+'" min="0"><input type="number" name="ymin'+numofAOIs+'" min="0"><input type="number" name="ymax'+numofAOIs+'" min="0"><br>'
+		}
+	</script>
+	<script type="text/javascript">
+		var Xfactor = document.getElementById("image").naturalWidth / document.getElementById("image").clientWidth;
+		var Yfactor = document.getElementById("image").naturalHeight / document.getElementById("image").clientHeight;
+		
+		var SVG = d3.select("#AOISelection").style("position","relative").append("svg")
+			.style("width", "100%").style("height", "100%")
+			.style("position", "absolute")
+			.style("top", 0).style("left", 0)
+			.style("z-index", 2);
+
+		var baseColor = Math.floor(Math.random() * 360);
+		var currAOI;
+		var currColor;
+		var startx, starty;
+		var Created
+
+		var AOImaker = d3.drag()
+		.on("start", function(){
+			Created = false;
+			startx = d3.event.x;
+			starty = d3.event.y;
+			currColor = Math.floor(getNextDistFrac() * 360) + baseColor;
+		})
+		.on("drag", function(){
+			var x = d3.event.x;
+			var y = d3.event.y;
+
+			if(Created == false){
+				if(Math.abs(x - startx) > 10 || Math.abs(y - starty) > 10){
+					var g = SVG.append("g");
+					g.append("text")
+						.attr("x", startx)
+						.attr("y", starty)
+						.attr("font-size", "3rem");
+					currAOI = g.append("polygon")
+						.style("stroke", "hsl("+currColor+", 100%, 50%)")
+						.style("fill", "hsla("+currColor+", 100%, 50%, 0.3)");
+
+					currAOI.on("click", function(){
+						this.parentNode.remove();
+						index();
+						coordsShow(getcoords());
+					})
+
+					Created = true;
+				}
+			}else{
+				currAOI
+					.attr("points", startx+", "+starty+" "+startx+", "+y+" "+x+", "+y+" "+x+", "+starty);
+			}
+		})
+		.on("end", function(){
+			index();
+			coordsShow();
+		});
+
+
+		AOImaker(SVG);
+
+		var nom = 1;
+		var denom = 2;
+
+		function getNextDistFrac(){
+			var frac = nom/denom;
+
+			if(nom == denom - 1){
+				nom = 1;
+				denom *= 2;
+			}
+
+			if(nom < denom/2){
+				nom += denom/2;
+			}else{
+				nom += 2 - denom/2;
+			}
+
+			return frac;
+		}
+
+		function index(){
+			SVG.selectAll("g").select("text").text(function(d, i){
+				return i + 1;
+			})
+		}
+
+		function getcoords(){
+			var coords = [];
+
+			SVG.selectAll("g").select("polygon").each(function(){
+				coords.push(
+					[this.points.getItem(0).x * Xfactor, this.points.getItem(0).y * Yfactor,
+					this.points.getItem(2).x * Xfactor, this.points.getItem(2).y * Yfactor]
+					);
+			})
+
+			return coords
+		}
+
+		function coordsShow(){
+
+			d3.select("#AOIShow")
+				.text("")
+				.selectAll("li")
+				.data(getcoords())
+				.enter()
+				.append("li")
+				.text(function(d){
+					return d;
+				})
+		}
+
+	</script>
 </body>
 </html>
