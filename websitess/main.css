@@ -194,6 +194,50 @@ img {
 }
 
 /* END GRID FOR PERSONS */
+
+
+/* GRID FOR LINKING VISUALIZATIONS */
+.grid_linking {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "tools heatmapE heatmapE"
+  "tools scarfplotE scarfplotE"
+  "tools scanpathE scanpathE"
+  "tools parallelSP parallelSP";
+  grid-gap: 30px;
+}
+
+.heatmapE {
+  grid-area: heatmapE;
+}
+
+.scarfplotE {
+  grid-area: scarfplotE;
+}
+
+.scanpathE {
+  grid-area: scanpathE;
+}
+
+.parallelSP {
+  grid-area: parallelSP;
+}
+
+.tools {
+  grid-area: tools;
+}
+
+.grid_linking div:nth-child(even) {
+}
+
+.grid_linking div:nth-child(odd) {
+}
+
+/* END GRID FOR LINKING VISUALIZATIONS */
+
+
 /* GRID FOR DISPLAY */
 .grid_display{
   display: grid;
@@ -276,7 +320,7 @@ img {
 
 .tool7{
   grid-area: tool7;
-  
+
 }
 
 .grid_tools div:nth-child(even) {
@@ -308,4 +352,80 @@ img {
 
 .upload_text a{
   color: #20B2AA;
+}
+
+
+
+
+/* Making the visualizations work */
+
+#visContainerHM {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
+#visContainerSP {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
+#visImgContainerHM {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#visImgContainerSP {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#visImgContainerHM img {
+	width: 100%;
+	height: 100%;
+}
+
+#visImgContainerSP img {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerHM {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
+#visCanvasContainerSP {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
+#visCanvasContainerHM canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerSP canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#scarfPlotContainer {
+	position: relative;
+	width: 550px;
+	height: 66.666666666666666666666666666666666666px;
+	overflow: auto;
 }
