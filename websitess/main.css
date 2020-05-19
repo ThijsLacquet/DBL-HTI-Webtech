@@ -199,13 +199,11 @@ img {
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "tools heatmapE heatmapE"
-  "tools scarfplotE scarfplotE"
-  "tools scanpathE scanpathE"
-  "tools parallelSP parallelSP";
+  "heatmapE scanpathE"
+  "scarfplotE parallelSP";
   grid-gap: 30px;
 }
 
@@ -215,6 +213,7 @@ img {
 
 .scarfplotE {
   grid-area: scarfplotE;
+
 }
 
 .scanpathE {
