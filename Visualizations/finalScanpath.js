@@ -1,5 +1,6 @@
 /*
 * Author: Marleen van Gent
+* using visualization.js
 */
 class Scanpath extends Visualization {
 	constructor(canvas, img, width, height) {
