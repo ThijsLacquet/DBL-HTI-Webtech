@@ -253,7 +253,7 @@ img {
 
 /* END GRID FOR PERSONS */
 
-
+/* Author: Ezra Gerris and Tanja Markink */
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
@@ -294,7 +294,6 @@ img {
 
 /* END GRID FOR LINKING VISUALIZATIONS */
 
-
 /* GRID FOR DISPLAY */
 .grid_display{
   display: grid;
@@ -333,6 +332,7 @@ img {
 }
 
 /*END OF GRID FOR DISPLAY*/
+
 
 /* GRID FOR TOOLS */
 
@@ -389,7 +389,7 @@ img {
 }
 /* END OF GRID FOR TOOLS */
 
-
+/* Author: Ezra Gerris */
 /* MAKING THE VISUALIZATIONS WORK */
 #visContainerHM {
 	position: relative;
