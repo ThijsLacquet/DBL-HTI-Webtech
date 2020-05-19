@@ -8,7 +8,15 @@ class Scarfplot extends Visualization {
     var scarfCtx;
     */
 
+	/*
+	* Initializes the canvas and context for the plots below the image.
+	* @throws {IllegalArgumentException} If scarfCanvas is undefined.
+	*/
     constructor(canvas, scarfCanvas, img, width, height) {
+		if (scarfCanvas == undefined) {
+			throw("IllegalArgumentException");
+		}
+
         super(canvas, img, width, height);
  
         this.scarfCanvas = scarfCanvas;
@@ -16,6 +24,9 @@ class Scarfplot extends Visualization {
         this.scarfCtx = this.scarfCanvas.getContext("2d");
     }
 
+	/*
+	* Formats the data so it can be used by this visualization.
+	*/
     formatData() {
 		if (mappedFixationPointX.length != mappedFixationPointY.length ||
 			mappedFixationPointX.length != timestamp.length) {
@@ -62,6 +73,9 @@ class Scarfplot extends Visualization {
 		console.log(userData);
 	}
 
+	/*
+	* Draws the visualization.
+	*/
     draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
         super.draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user);
 

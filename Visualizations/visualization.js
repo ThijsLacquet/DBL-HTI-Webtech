@@ -18,9 +18,18 @@ class Visualization {
     var user
     */
 
+    /*
+    * Configures canvas and image; Adds eventlisteners for zooming and panning interactions
+    *
+    * @param canvas - Canvas where the visualization is drawn on
+    * @param img - Background image of the visualization
+    * @param width - Width of the canvas and image
+    * @param height - Height of the canvas and image
+    * @throws {IllegalArgumentException} If the width, height, canvas or img are undefined
+    */
     constructor(canvas, img, width, height) {
-        if (width == undefined || height == undefined) {
-            throw("IllegalArgumentException, width or height is undefined");
+        if (canvas == undefined || img == undefined || width == undefined || height == undefined) {
+            throw("IllegalArgumentException");
         }
 
         this.canvas = canvas;
@@ -45,7 +54,6 @@ class Visualization {
         this.posX = 0;
         this.posY = 0;
 
-        this.canvas.addEventListener("mousedown", this.onMouseDown);
         this.canvas.addEventListener("mousemove", this.onMouseMove);
         this.canvas.addEventListener("wheel", this.onScroll, false);
     }
@@ -57,6 +65,10 @@ class Visualization {
     * @throws {IllegalArgumentException} If amount is not a number, or if amount < 0
     */
     createColors(amount) {
+        if (!(amount > 0)) {
+            throw("IllegalArgumentException");
+        }
+
         var colors = new Array(amount);
         var deltaColor = 360 / amount;
         var saturation = 100;
@@ -99,6 +111,7 @@ class Visualization {
     * @param {number} currentPointX - X coordinate
     * @param {number} currentPointY - Y coordinate
     * @throws {IllegalArgumentException} if currentPointX or currentPointY are not a number
+    * @returns true if the given coordinate is in the area of interest
     */
     isInAoi(currentAoi, currentPointX, currentPointY) {
         if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
@@ -115,6 +128,10 @@ class Visualization {
         }
     }
 
+    /*
+    * Sets the area of interests of the visualization
+    * @param {Array {x1, x2, y1, y2}} aoi - Array of the area's of interest
+    */
     setAoi(aoi) {
         this.aoi = aoi;
         this.createColors(aoi.length);
@@ -137,8 +154,16 @@ class Visualization {
     	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     }*/
 
+    /*
+    * Is executed when the wheel event fires. Handles zooming in and out.
+    * @throws {NullPointerException} if event is undefined
+    */
     onScroll() {
-        //For some reason, these are undefined here
+        if (event == undefined) {
+            throw(NullPointerException);
+        }
+
+        //For some reason, this.img and this.canvas are undefined here. This code should not be necessary
         this.img = img;
         this.canvas = canvas;
 
@@ -194,7 +219,15 @@ class Visualization {
         return false;
     }
 
+     /*
+    * Is executed when the mousemove event fires. Pans the visualization if the left mousebutton is pressed
+    * @throws {NullPointerException} if event is undefined
+    */
     onMouseMove() {
+        if (event == undefined) {
+            throw(NullPointerException);
+        
+        }
         if (event.buttons == 1) {
             if (event.clientX != this.posX || event.clientY != this.posY) {
                 var offSetX = parseInt(this.img.style.marginLeft) + event.clientX - this.posX;
@@ -208,13 +241,6 @@ class Visualization {
                 this.canvas.style.marginLeft = offSetX + "px";
                 this.canvas.style.marginTop = offSetY + "px";
             }
-        }
-    }
-
-    onMouseDown() {
-        if (event.button == 0) {
-            this.posX = event.clientX;
-            this.posY = event.clientY;
         }
     }
 }

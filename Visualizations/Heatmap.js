@@ -7,6 +7,9 @@ class Heatmap extends Visualization {
         super(canvas, img, width, height);
     }
 
+    /*
+    * Creates a matrix which contains the intensity of every pixel
+    */
     createMatrix(radius) {
         //Create two dimensional array for every pixel
         var data = new Array(this.width);
@@ -37,6 +40,9 @@ class Heatmap extends Visualization {
         this.data = data;
     }
 
+    /*
+    * Creates an array of amount colors, gradually going from red to yellow to green.
+    */
     createColors(amount) {
         var colors = new Array(amount);
         
@@ -51,6 +57,9 @@ class Heatmap extends Visualization {
         this.colors = colors;        
     }
 
+    /*
+    * Draws the visualization.
+    */
     draw(src, mappedFixationPointX, mappedFixationPointY, duration) {
         this.duration = duration;
         super.draw(src, mappedFixationPointX, mappedFixationPointY);
