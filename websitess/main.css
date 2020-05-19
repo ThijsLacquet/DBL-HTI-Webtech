@@ -1,3 +1,4 @@
+/* Author: Tanja Markink */
 .nav {
   background-color: black;
   overflow: hidden;
@@ -48,14 +49,71 @@
 .text p{
   font-size: 25px;
 }
-.us {
-  text-align: center;
-}
+
 .us h1{
+  text-align: center;
   font-size: 50px;
 }
 
+.upload_text{
+  text-align: center;
+}
 
+.upload_text h1{
+  font-size:60px;
+}
+
+.upload_text p{
+  font-size: 25px;
+}
+
+.upload_text a{
+  color: #20B2AA;
+}
+
+/* GRID FOR DISPLAY */
+.grid_display{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "interactiontool interactiontool interactiontool interactiontool"
+  "heatmap scanpath parallelscan scarfplot";
+}
+
+.interactiontool{
+  grid-area: interactiontool;
+}
+
+.heatmap{
+  grid-area: heatmap;
+}
+
+.scanpath{
+  grid-area: scanpath;
+}
+
+.parallelscan{
+  grid-area: parallelscan;
+}
+
+.scarfplot{
+  grid-area: scarfplot;
+}
+
+.grid_display div:nth-child(even) {
+  background-color: blue;
+}
+
+.grid_display div:nth-child(odd) {
+  background-color: yellow;
+}
+
+/*END OF GRID FOR DISPLAY*/
+
+
+
+/* Author: Ezra Gerris */
 /* GRID FOR VISUALIZATIONS */
 .grid {
   display: grid;
@@ -238,46 +296,6 @@ img {
 /* END GRID FOR LINKING VISUALIZATIONS */
 
 
-/* GRID FOR DISPLAY */
-.grid_display{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-  "interactiontool interactiontool interactiontool interactiontool"
-  "heatmap scanpath parallelscan scarfplot";
-
-}
-
-.interactiontool{
-  grid-area: interactiontool;
-}
-
-.heatmap{
-  grid-area: heatmap;
-}
-
-.scanpath{
-  grid-area: scanpath;
-}
-
-.parallelscan{
-  grid-area: parallelscan;
-}
-
-.scarfplot{
-  grid-area: scarfplot;
-}
-
-.grid_display div:nth-child(even) {
-  background-color: blue;
-}
-
-.grid_display div:nth-child(odd) {
-  background-color: yellow;
-}
-
-/*END OF GRID FOR DISPLAY*/
 
 /* GRID FOR TOOLS */
 
@@ -330,32 +348,7 @@ img {
 /* END OF GRID FOR TOOLS */
 
 
-
-.us p{
-  font-size: 25px;
-}
-
-.upload_text{
-  text-align: center;
-}
-
-.upload_text h1{
-  font-size:60px;
-}
-
-.upload_text p{
-  font-size: 25px;
-}
-
-.upload_text a{
-  color: #20B2AA;
-}
-
-
-
-
-/* Making the visualizations work */
-
+/* MAKING THE VISUALIZATIONS WORK */
 #visContainerHM {
 	position: relative;
 	width: 550px;
@@ -426,3 +419,4 @@ img {
 	height: 66.666666666666666666666666666666666666px;
 	overflow: auto;
 }
+/* END OF MAKING THE VISUALIZATIONS WORK */
