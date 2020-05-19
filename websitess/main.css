@@ -253,17 +253,15 @@ img {
 
 /* END GRID FOR PERSONS */
 
-
+/* Author: Ezra Gerris and Tanja Markink */
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "tools heatmapE heatmapE"
-  "tools scarfplotE scarfplotE"
-  "tools scanpathE scanpathE"
-  "tools parallelSP parallelSP";
+  "heatmapE scanpathE"
+  "scarfplotE parallelSP";
   grid-gap: 30px;
 }
 
@@ -273,6 +271,7 @@ img {
 
 .scarfplotE {
   grid-area: scarfplotE;
+
 }
 
 .scanpathE {
@@ -295,6 +294,44 @@ img {
 
 /* END GRID FOR LINKING VISUALIZATIONS */
 
+/* GRID FOR DISPLAY */
+.grid_display{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "heatmap scanpath parallelscan scarfplot";
+}
+
+.heatmap{
+  grid-area: heatmap;
+  height: 350px;
+}
+
+.scanpath{
+  grid-area: scanpath;
+  height: 350px;
+}
+
+.parallelscan{
+  grid-area: parallelscan;
+  height: 350px;
+}
+
+.scarfplot{
+  grid-area: scarfplot;
+  height: 350px;
+}
+
+.grid_display div:nth-child(even) {
+  background-color: #20B2AA;
+}
+
+.grid_display div:nth-child(odd) {
+  background-color: pink;
+}
+
+/*END OF GRID FOR DISPLAY*/
 
 
 /* GRID FOR TOOLS */
@@ -310,44 +347,49 @@ img {
 
 .tool1{
   grid-area: tool1;
+  height: 80px;
 }
 
 .tool2{
   grid-area: tool2;
+  height: 80px;
 }
 
 .tool3{
   grid-area: tool3;
+  height: 80px;
 }
 
 .tool4{
   grid-area: tool4;
+  height: 80px;
 }
 
 .tool5{
   grid-area: tool5;
+  height: 80px;
 }
 
 .tool6{
   grid-area: tool6;
+  height: 80px;
 }
 
 .tool7{
   grid-area: tool7;
+
 }
 
 .grid_tools div:nth-child(even) {
-  background-color: red;
+  background-color: pink;
 }
 
 .grid_tools div:nth-child(odd) {
-  background-color: green;
+  background-color: #20B2AA;
 }
-
-
 /* END OF GRID FOR TOOLS */
 
-
+/* Author: Ezra Gerris */
 /* MAKING THE VISUALIZATIONS WORK */
 #visContainerHM {
 	position: relative;
