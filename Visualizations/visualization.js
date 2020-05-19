@@ -36,7 +36,7 @@ class Visualization {
         this.img.style.marginTop = "0px";
         this.img.style.width = width;
         this.img.style.height = height;
-    
+
         this.canvas.style.marginLeft = "0px";
         this.canvas.style.marginTop = "0px";
         this.canvas.style.width = width;
@@ -78,7 +78,7 @@ class Visualization {
             this.ctx.beginPath();
             this.ctx.rect(this.aoi[i].x1, this.aoi[i].y1, this.aoi[i].x2 - this.aoi[i].x1,
                 this.aoi[i].y2 - this.aoi[i].y1);
-            
+
             //Stroke
             this.ctx.globalAlpha = 1;
             this.ctx.strokeStyle = this.colors[i];
@@ -119,8 +119,8 @@ class Visualization {
         this.aoi = aoi;
         this.createColors(aoi.length);
     }
-	
-	
+
+
     draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
         this.mappedFixationPointX = mappedFixationPointX;
         this.mappedFixationPointY = mappedFixationPointY;
@@ -130,7 +130,7 @@ class Visualization {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.img.src = src;
     }
-   
+
     /*draw(data, size) {
     	this.data = data;
     	this.size = size;
@@ -143,49 +143,49 @@ class Visualization {
         this.canvas = canvas;
 
         event.preventDefault();
-    
+
         var newWidth;
         var newHeight;
         var zoomFactor = 1.5;
         var zoom;
-    
+
         if (event.deltaY < 0) { //Scrolling up
             zoom = zoomFactor;
         } else { //Scrolling down
             zoom = 1 / zoomFactor;
         }
-    
+
         newWidth = (this.img.width * zoom);
         newHeight = (this.img.height * zoom);
-        
+
         var currentZoom = parseFloat(this.img.style.width) / this.width;
         if (isNaN(currentZoom)) {
             currentZoom = 1;
         }
-    
+
         var currentPortionWidth = this.width / currentZoom;
         var newPortionWidth = this.width / currentZoom / zoom;
         var currentPortionHeight = this.height / currentZoom;
         var newPortionHeight = this.height / currentZoom / zoom;
-    
+
         var currOffSetX = parseFloat(this.img.style.marginLeft);
         var offSetX = (currOffSetX - (currentPortionWidth - newPortionWidth) / 2) * zoom;
-    
+
         var currOffSetY = parseFloat(this.img.style.marginTop);
         var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
-    
+
         if (newWidth < this.width || newHeight < this.height) {
             newWidth = visContainer.clientWidth;
             newHeight = visContainer.clientHeight;
             offSetX = 0;
             offSetY = 0;
         }
-    
+
         this.img.style.width = newWidth + "px";
         this.img.style.height = newHeight + "px";
         this.img.style.marginLeft = offSetX + "px";
         this.img.style.marginTop = offSetY + "px";
-    
+
         this.canvas.style.width = newWidth + "px";
         this.canvas.style.height = newHeight + "px";
         this.canvas.style.marginLeft = offSetX + "px";
@@ -193,16 +193,16 @@ class Visualization {
 
         return false;
     }
-    
+
     onMouseMove() {
         if (event.buttons == 1) {
             if (event.clientX != this.posX || event.clientY != this.posY) {
                 var offSetX = parseInt(this.img.style.marginLeft) + event.clientX - this.posX;
                 var offSetY = parseInt(this.img.style.marginTop) + event.clientY - this.posY;
-    
+
                 this.posX = event.clientX;
                 this.posY = event.clientY;
-    
+
                 this.img.style.marginLeft = offSetX + "px";
                 this.img.style.marginTop = offSetY + "px";
                 this.canvas.style.marginLeft = offSetX + "px";
@@ -210,7 +210,7 @@ class Visualization {
             }
         }
     }
-    
+
     onMouseDown() {
         if (event.button == 0) {
             this.posX = event.clientX;

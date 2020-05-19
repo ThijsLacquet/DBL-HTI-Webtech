@@ -4,9 +4,9 @@ Provides the CSS for the visualization overlay (drawing upon an image)
 */
 
 #visContainer {
-	position: relative; 
-	width: 1650px; 
-	height: 1200px; 
+	position: relative;
+	width: 1650px;
+	height: 1200px;
 }
 
 #visContainerHM {

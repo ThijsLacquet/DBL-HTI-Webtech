@@ -1,3 +1,4 @@
+/* Author: Tanja Markink */
 .nav {
   background-color: black;
   overflow: hidden;
@@ -48,14 +49,71 @@
 .text p{
   font-size: 25px;
 }
-.us {
-  text-align: center;
-}
+
 .us h1{
+  text-align: center;
   font-size: 50px;
 }
 
+.upload_text{
+  text-align: center;
+}
 
+.upload_text h1{
+  font-size:60px;
+}
+
+.upload_text p{
+  font-size: 25px;
+}
+
+.upload_text a{
+  color: #20B2AA;
+}
+
+/* GRID FOR DISPLAY */
+.grid_display{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "interactiontool interactiontool interactiontool interactiontool"
+  "heatmap scanpath parallelscan scarfplot";
+}
+
+.interactiontool{
+  grid-area: interactiontool;
+}
+
+.heatmap{
+  grid-area: heatmap;
+}
+
+.scanpath{
+  grid-area: scanpath;
+}
+
+.parallelscan{
+  grid-area: parallelscan;
+}
+
+.scarfplot{
+  grid-area: scarfplot;
+}
+
+.grid_display div:nth-child(even) {
+  background-color: blue;
+}
+
+.grid_display div:nth-child(odd) {
+  background-color: yellow;
+}
+
+/*END OF GRID FOR DISPLAY*/
+
+
+
+/* Author: Ezra Gerris */
 /* GRID FOR VISUALIZATIONS */
 .grid {
   display: grid;
@@ -199,25 +257,26 @@ img {
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
-  "tools heatmap"
-  "tools scarfplot"
-  "tools scanpath"
-  "tools parallelSP";
+  "tools heatmapE heatmapE"
+  "tools scarfplotE scarfplotE"
+  "tools scanpathE scanpathE"
+  "tools parallelSP parallelSP";
+  grid-gap: 30px;
 }
 
-.heatmap {
-  grid-area: heatmap;
+.heatmapE {
+  grid-area: heatmapE;
 }
 
-.scarfplot {
-  grid-area: scarfplot;
+.scarfplotE {
+  grid-area: scarfplotE;
 }
 
-.scanpath {
-  grid-area: scanpath;
+.scanpathE {
+  grid-area: scanpathE;
 }
 
 .parallelSP {
@@ -229,32 +288,135 @@ img {
 }
 
 .grid_linking div:nth-child(even) {
-  background-color: red;
 }
 
 .grid_linking div:nth-child(odd) {
-  background-color: green;
 }
 
 /* END GRID FOR LINKING VISUALIZATIONS */
 
 
-.us p{
-  font-size: 25px;
+
+/* GRID FOR TOOLS */
+
+.grid_tools{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
+
 }
 
-.upload_text{
-  text-align: center;
+.tool1{
+  grid-area: tool1;
 }
 
-.upload_text h1{
-  font-size:60px;
+.tool2{
+  grid-area: tool2;
 }
 
-.upload_text p{
-  font-size: 25px;
+.tool3{
+  grid-area: tool3;
 }
 
-.upload_text a{
-  color: #20B2AA;
+.tool4{
+  grid-area: tool4;
 }
+
+.tool5{
+  grid-area: tool5;
+}
+
+.tool6{
+  grid-area: tool6;
+}
+
+.tool7{
+  grid-area: tool7;
+}
+
+.grid_tools div:nth-child(even) {
+  background-color: red;
+}
+
+.grid_tools div:nth-child(odd) {
+  background-color: green;
+}
+
+
+/* END OF GRID FOR TOOLS */
+
+
+/* MAKING THE VISUALIZATIONS WORK */
+#visContainerHM {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
+#visContainerSP {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
+#visImgContainerHM {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#visImgContainerSP {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#visImgContainerHM img {
+	width: 100%;
+	height: 100%;
+}
+
+#visImgContainerSP img {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerHM {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
+#visCanvasContainerSP {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
+#visCanvasContainerHM canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerSP canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#scarfPlotContainer {
+	position: relative;
+	width: 550px;
+	height: 66.666666666666666666666666666666666666px;
+	overflow: auto;
+}
+/* END OF MAKING THE VISUALIZATIONS WORK */
