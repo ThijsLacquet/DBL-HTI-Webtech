@@ -26,15 +26,16 @@ class Readdata {
 		if (! $this->mysql_connection->query("
 			CREATE TABLE IF NOT EXISTS fixationdata.fixationdata(
 			entry_id INT(32) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			document_id INT (32) NOT NULL,
+			user_id INT (64) NOT NULL,
+			filename VARCHAR(64) NOT NULL,
 			timestamp INT(32) NOT NULL,
-			stimuliname VARCHAR(50) NOT NULL,
+			stimuliname VARCHAR(64) NOT NULL,
 			fixationindex INT(32) NOT NULL,
 			fixationduration INT(32) NOT NULL,
 			mappedfixationpointx INT(32) NOT NULL,
 			mappedfixationpointy INT(32) NOT NULL,
-			user VARCHAR(50) NOT NULL,
-			description VARCHAR(50) NOT NULL
+			user VARCHAR(64) NOT NULL,
+			description VARCHAR(64) NOT NULL
 			)")) {
 				
 			throw new Exception('Could not create mysql table fixationdata: ' . $this->mysql_connection->error);
@@ -50,11 +51,13 @@ class Readdata {
 	*
 	* @param string $path Path to the csv to be read
 	* @param int $maxlines Maximum number of lines to be read
-	* $param int $document_id Unique document id for the csv. This is added to the database entries
+	* $param int $user_id Unique user id for the csv. This is added to the database entries
 	* $throws Exception If the mysql query did not succeed
 	* $throws Exception If the file could not be opened
 	*/	
-	public function read($path, $maxlines, $document_id) {		
+	public function read($path, $maxlines, $user_id, $filename) {
+		$time = time();
+
 		$data = file($path);
 		
 		if (!$data) {
@@ -75,6 +78,16 @@ class Readdata {
 			$line[$i] = explode('	', $data[$i]);
 		}
 		
+		//Remove all data from the same file from the same user
+		if (! $this->mysql_connection->query("
+			DELETE FROM fixationdata.fixationdata
+			WHERE filename = '{$filename}'
+			AND user_id = '{$user_id}'
+			")) {
+
+			throw new Exception('sql error: ' . $this->mysql_connection->error);
+		}
+
 		//Send SQL quaries
 		for ($i = 1; $i < $n_lines; $i = $i + LINESPERQUERY) { 
 			$linestoinsert = LINESPERQUERY;
@@ -84,11 +97,12 @@ class Readdata {
 			}
 			
 			//Build SQL query
-			$query = 'INSERT INTO fixationdata.fixationdata(document_id, timestamp, stimuliname, fixationindex, fixationduration,
-				mappedfixationpointx, mappedfixationpointy, user, description)VALUES';
+			$query = 'INSERT INTO fixationdata.fixationdata(user_id, filename, timestamp, stimuliname,
+			fixationindex, fixationduration, mappedfixationpointx, mappedfixationpointy,
+			user, description)VALUES';
 			
 			for ($offset = 0; $offset < $linestoinsert; $offset = $offset + 1) {
-				$query .= "({$document_id}, ";
+				$query .= "({$user_id}, '{$filename}', ";
 				
 				for ($column = 0; $column < 8; $column = $column + 1) {
 					$query .= "'";
