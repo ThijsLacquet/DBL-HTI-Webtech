@@ -2,10 +2,10 @@
 /*
 * Author: Thijs Lacquet and ??
 */ 
-include_once '../readdata.php';
+include_once 'readdata.php';
 include_once 'user.php';
 
-$dir = dirname(__FILE__)."/CSV/";
+$dir = dirname(__FILE__)."/../../data/"; //Directory with uploaded data
 $expire = 24 * 3600; //Time before cookie/user expires in seconds; currently 1 day
 
 //Establish user

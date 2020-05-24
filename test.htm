@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="main.css">
-  <script src="../Visualizations/visualization.js" type="text/javascript"></script>
-  <script src="../Visualizations/heatmap.js" type="text/javascript"></script>
-  <script src="../Visualizations/scarfplot.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">
+  <script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
+  <script src="Scripts/Visualizations/heatmap.js" type="text/javascript"></script>
+  <script src="Scripts/Visualizations/scarfplot.js" type="text/javascript"></script>
+  <!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
   <title>Test page for linking visualizations</title>
 
   <script>
@@ -33,9 +33,9 @@
   	var user = ['p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1',
   		'p1', 'p1', 'p1', 'p1', 'p1', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p3', 'p3', 'p3',
   		'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3'];
-  	var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1630, y1:20, y2:580},
-  		{x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1630, y1:620, y2:1180}];
-  	var imageFile = "../Provided_data/stimuli/05_Frankfurt_S1.jpg";
+    var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1872, y1:20, y2:580},
+		  {x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1872, y1:620, y2:1180}];
+  	var imageFile = "Provided_data/stimuli/05_Frankfurt_S1.jpg";
   </script>
 
 </head>
@@ -109,11 +109,13 @@
   	  var visContainerHM = document.getElementById('visContainerHM');
   	  var visImgContainerHM = document.getElementById('visImgContainerHM');
 
-      var width = visImgContainerHM.clientWidth;
-      var height = visImgContainerHM.clientHeight;
+      var width = visContainerHM.clientWidth;
+      var height = visContainerHM.clientHeight;
 
-      myHeatmap = new Heatmap(canvas, img, width, height);
-      myHeatmap.draw(imageFile, mappedFixationPointX, mappedFixationPointY, duration);
+      myHeatmap = new Heatmap(canvas, img);
+	    myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
+	    myHeatmap.setImage(imageFile);
+      myHeatmap.draw();
   </script>
 
 
@@ -131,7 +133,9 @@
 
       myScarfplot = new Scarfplot(canvas, scarfCanvas, img, width, height);
       myScarfplot.setAoi(aoi);
-      myScarfplot.draw(imageFile, mappedFixationPointX, mappedFixationPointY, timestamp, user);
+      myScarfplot.setData(mappedFixationPointX, mappedFixationPointY, null, timestamp, user);
+      myScarfplot.setImage(imageFile);
+      myScarfplot.draw();
   </script>
 
 
