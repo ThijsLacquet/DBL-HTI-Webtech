@@ -2,8 +2,8 @@
 /*
 * Author: Thijs Lacquet and ??
 */ 
-include_once '../readdata.php';
-include_once 'user.php';
+include_once __DIR__.'/readdata.php';
+include_once __DIR__.'user.php';
 
 $dir = dirname(__FILE__)."/CSV/";
 $expire = 24 * 3600; //Time before cookie/user expires in seconds; currently 1 day
