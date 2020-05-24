@@ -389,7 +389,7 @@ img {
 
 /* Author: Ezra Gerris */
 /* MAKING THE VISUALIZATIONS WORK */
-#visContainerHM {
+#visContainerHM{
 	position: relative;
 	width: 550px;
 	height: 400px;
