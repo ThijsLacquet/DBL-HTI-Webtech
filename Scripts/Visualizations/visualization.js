@@ -145,15 +145,10 @@ class Visualization {
         this.createColors(aoi.length);
     }
 
+    /*
+    * Sets the source of the image
+    */
     setImage(src) {
-        var this2 = this;
-
-        if (this.mappedFixationPointX == undefined) {
-            this.img.onload = function() {} //Clear onload function
-        } else {
-            
-        }
-
         this.img.src = src;
     }
 
@@ -165,6 +160,10 @@ class Visualization {
         this.user = user;
     }
 
+    /*
+    * Draws the visualization by calling drawIfLoaded. If the image has not been loaded yet, 
+    * draw the visualization on the next img.onload event.
+    */
     draw() {
         if (this.img.naturalWidth != 0) { //Image is already loaded
             this.drawIfLoaded();
@@ -180,6 +179,9 @@ class Visualization {
         }
     }
 
+    /*
+    * Draws the visualization. Assumes that the image has already been loaded.
+    */
     drawIfLoaded() {
         if (this.img.naturalWidth == undefined) {
             throw("NaturalWidth is undefined");
@@ -290,6 +292,9 @@ class Visualization {
         }
     }
 
+    /*
+    * Is executed when the mousedown event fires. Sets the current mouse position as the origin for panning.
+    */
     onMouseDown() {
         if (event.buttons == 1) {
             this.posX = event.clientX;
