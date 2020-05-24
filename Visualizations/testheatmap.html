@@ -58,8 +58,10 @@
     var width = visImgContainer.clientWidth;
     var height = visImgContainer.clientHeight;
 
-    myHeatmap = new Heatmap(canvas, img, width, height);
-    myHeatmap.draw(imageFile, mappedFixationPointX, mappedFixationPointY, duration);
+	myHeatmap = new Heatmap(canvas, img);
+	myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
+	myHeatmap.setImage(imageFile);
+    myHeatmap.draw();
 </script>
 
 </body>

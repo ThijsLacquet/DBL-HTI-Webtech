@@ -3,8 +3,8 @@
 */
 
 class Heatmap extends Visualization {
-    constructor(canvas, img, width, height) {
-        super(canvas, img, width, height);
+    constructor(canvas, img) {
+        super(canvas, img);
     }
 
     /*
@@ -21,11 +21,18 @@ class Heatmap extends Visualization {
             }
         }
 
-        var pX = this.mappedFixationPointX;
-        var pY = this.mappedFixationPointY;
+        //Scale points to local size
+        var pX = new Array(this.mappedFixationPointX.length);
+        var pY = new Array(this.mappedFixationPointY.length);
+
+        for (var i = 0; i < this.mappedFixationPointX.length; i++) {
+            pX[i] = this.mappedFixationPointX[i] * this.widthScale;
+            pY[i] = this.mappedFixationPointY[i] * this.heightScale;
+        }
+
         for (var i = 0; i < pX.length; i++) {
-            for (var x = pX[i] - radius; (x < pX[i] + radius) && (x < this.width); x++) {
-                for (var y = pY[i] - radius; y < pY[i] + radius && y < this.height; y++) {
+            for (var x = Math.round(pX[i] - radius); (x < pX[i] + radius) && (x < this.width); x++) {
+                for (var y = Math.round(pY[i] - radius); y < pY[i] + radius && y < this.height; y++) {
                     var distance = Math.sqrt(Math.pow(pX[i] - x, 2) + Math.pow(pY[i] - y, 2));
 
                     if (distance < radius && x >= 0 && y >= 0) {
@@ -60,9 +67,8 @@ class Heatmap extends Visualization {
     /*
     * Draws the visualization.
     */
-    draw(src, mappedFixationPointX, mappedFixationPointY, duration) {
-        this.duration = duration;
-        super.draw(src, mappedFixationPointX, mappedFixationPointY);
+    drawIfLoaded() {
+        super.drawIfLoaded();
 
         var nColors = 100;
         

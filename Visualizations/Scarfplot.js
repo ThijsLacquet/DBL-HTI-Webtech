@@ -12,16 +12,16 @@ class Scarfplot extends Visualization {
 	* Initializes the canvas and context for the plots below the image.
 	* @throws {IllegalArgumentException} If scarfCanvas is undefined.
 	*/
-    constructor(canvas, scarfCanvas, img, width, height) {
+    constructor(canvas, scarfCanvas, img) {
 		if (scarfCanvas == undefined) {
 			throw("IllegalArgumentException");
 		}
 
-        super(canvas, img, width, height);
+        super(canvas, img);
  
         this.scarfCanvas = scarfCanvas;
         this.scarfCanvas.width = width;
-        this.scarfCtx = this.scarfCanvas.getContext("2d");
+		this.scarfCtx = this.scarfCanvas.getContext("2d");
     }
 
 	/*
@@ -70,20 +70,19 @@ class Scarfplot extends Visualization {
 			}
 		}
 		this.userData = userData;
-		console.log(userData);
 	}
 
 	/*
 	* Draws the visualization.
 	*/
-    draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
-        super.draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user);
+    drawIfLoaded() {
+        super.drawIfLoaded();
 
         this.drawAoi();
         this.formatData();
 
-        var offSetX = 200;
-		var userHeight = 100;
+        var offSetX = 200 * this.widthScale;
+		var userHeight = 100 * this.heightScale;
 
 		var totalTime = 0;
 		
@@ -121,13 +120,12 @@ class Scarfplot extends Visualization {
 			//Add elements for one single user
 			this.scarfCtx.beginPath();
 			this.scarfCtx.strokeStyle = 'black';
-			this.scarfCtx.lineWidth = 5;
-			this.scarfCtx.rect(0, userHeight * k, offSetX, userHeight * (k + 1));
-            this.scarfCtx.rect(offSetX, userHeight * k, this.width - offSetX,
-                userHeight * (k + 1));
+			this.scarfCtx.lineWidth = 7 * this.heightScale;
+			this.scarfCtx.rect(0, userHeight * k, offSetX, userHeight * (k + 1)); //rect around user text
+			this.scarfCtx.rect(offSetX, userHeight * k, this.width - offSetX, userHeight * (k + 1));
 			this.scarfCtx.stroke();
 
-			this.scarfCtx.font = "30px Arial";
+			this.scarfCtx.font = 30 * this.widthScale + "px Arial";
 			this.scarfCtx.fillStyle = 'black';
 			this.scarfCtx.textAlign = "center";
 			this.scarfCtx.fillText(this.userData[k].user, offSetX / 2, userHeight * (k + 0.5));

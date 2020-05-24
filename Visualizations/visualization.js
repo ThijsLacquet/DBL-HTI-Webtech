@@ -25,37 +25,40 @@ class Visualization {
     * @param img - Background image of the visualization
     * @param width - Width of the canvas and image
     * @param height - Height of the canvas and image
-    * @throws {IllegalArgumentException} If the width, height, canvas or img are undefined
+    * @throws {IllegalArgumentException} If the canvas or img are undefined
     */
-    constructor(canvas, img, width, height) {
-        if (canvas == undefined || img == undefined || width == undefined || height == undefined) {
+    constructor(canvas, img) {
+        if (canvas == undefined || img == undefined) {
             throw("IllegalArgumentException");
         }
 
         this.canvas = canvas;
         this.img = img;
         this.ctx = canvas.getContext("2d");
-        this.width = width;
-        this.height = height;
+        this.width = this.img.width;
+        this.height = this.img.height;
 
         this.canvas.width = this.width;
         this.canvas.height = this.height;
 
         this.img.style.marginLeft = "0px";
         this.img.style.marginTop = "0px";
-        this.img.style.width = width;
-        this.img.style.height = height;
+        this.img.style.width = this.width;
+        this.img.style.height = this.height;
 
         this.canvas.style.marginLeft = "0px";
         this.canvas.style.marginTop = "0px";
-        this.canvas.style.width = width;
-        this.canvas.style.height = height;
+        this.canvas.style.width = this.width;
+        this.canvas.style.height = this.height;
 
         this.posX = 0;
         this.posY = 0;
 
-        this.canvas.addEventListener("mousemove", this.onMouseMove);
-        this.canvas.addEventListener("wheel", this.onScroll, false);
+        this.canvas.addEventListener("mousedown", function(){this.onMouseDown();}.bind(this), false);
+        this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
+        this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
+
+        this.width = this.img.width;
     }
 
     /*
@@ -86,15 +89,20 @@ class Visualization {
     * Draws the area's of interest on the context of the canvas
     */
     drawAoi() {
+        if (this.heightScale == undefined || this.widthScale == undefined) {
+            throw("Scale is undefined");
+        }
+
         for(var i = 0; i < this.aoi.length; i++) {
             this.ctx.beginPath();
-            this.ctx.rect(this.aoi[i].x1, this.aoi[i].y1, this.aoi[i].x2 - this.aoi[i].x1,
-                this.aoi[i].y2 - this.aoi[i].y1);
+            this.ctx.rect(this.aoi[i].x1 * this.widthScale, this.aoi[i].y1* this.heightScale,
+                (this.aoi[i].x2 - this.aoi[i].x1) * this.widthScale,
+                (this.aoi[i].y2 - this.aoi[i].y1) * this.heightScale);
 
             //Stroke
             this.ctx.globalAlpha = 1;
             this.ctx.strokeStyle = this.colors[i];
-            this.ctx.lineWidth = 5;
+            this.ctx.lineWidth = 5 * this.widthScale;
             this.ctx.stroke();
 
             //Fill
@@ -137,15 +145,58 @@ class Visualization {
         this.createColors(aoi.length);
     }
 
+    setImage(src) {
+        var this2 = this;
 
-    draw(src, mappedFixationPointX, mappedFixationPointY, timestamp, user) {
+        if (this.mappedFixationPointX == undefined) {
+            this.img.onload = function() {} //Clear onload function
+        } else {
+            
+        }
+
+        this.img.src = src;
+    }
+
+    setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user) {
         this.mappedFixationPointX = mappedFixationPointX;
         this.mappedFixationPointY = mappedFixationPointY;
+        this.duration = duration;
         this.timestamp = timestamp;
         this.user = user;
+    }
 
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.img.src = src;
+    draw() {
+        console.log("Drawing img");
+        if (this.img.naturalWidth != 0) { //Image is already loaded
+            console.log("Image is already loaded");
+            this.drawIfLoaded();
+        } else { //Image is not loaded yet. Draw as soon as the image is loaded
+            var visThis = this;
+
+            this.img.onload = function() { //Draw image, then reset the onload function
+                console.log("Image is loaded");
+                console.log(visThis.img.naturalWidth);
+                visThis.drawIfLoaded();
+
+                visThis.img.onload = function() {} //Reset onload function
+
+            }.bind(visThis) //Make sure that the onload function can access the scope of the current this
+        }
+    }
+
+    drawIfLoaded() {
+        if (this.img.naturalWidth == undefined) {
+            throw("NaturalWidth is undefined");
+        }
+
+        if (this.img.naturalWidth <= 0) {
+            throw("NaturalWidth <= 0");
+        }
+
+        this.widthScale = this.width / this.img.naturalWidth;
+        this.heightScale = this.height / this.img.naturalHeight;
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     /*draw(data, size) {
@@ -159,14 +210,12 @@ class Visualization {
     * @throws {NullPointerException} if event is undefined
     */
     onScroll() {
+        console.log(this.img.naturalWidth); //TODO
+
         if (event == undefined) {
             throw(NullPointerException);
         }
-
-        //For some reason, this.img and this.canvas are undefined here. This code should not be necessary
-        this.img = img;
-        this.canvas = canvas;
-
+        
         event.preventDefault();
 
         var newWidth;
@@ -200,12 +249,12 @@ class Visualization {
         var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
 
         if (newWidth < this.width || newHeight < this.height) {
-            newWidth = visContainer.clientWidth;
-            newHeight = visContainer.clientHeight;
+            newWidth = this.width;
+            newHeight = this.height;
             offSetX = 0;
             offSetY = 0;
         }
-
+        
         this.img.style.width = newWidth + "px";
         this.img.style.height = newHeight + "px";
         this.img.style.marginLeft = offSetX + "px";
@@ -219,7 +268,7 @@ class Visualization {
         return false;
     }
 
-     /*
+    /*
     * Is executed when the mousemove event fires. Pans the visualization if the left mousebutton is pressed
     * @throws {NullPointerException} if event is undefined
     */
@@ -241,6 +290,13 @@ class Visualization {
                 this.canvas.style.marginLeft = offSetX + "px";
                 this.canvas.style.marginTop = offSetY + "px";
             }
+        }
+    }
+
+    onMouseDown() {
+        if (event.buttons == 1) {
+            this.posX = event.clientX;
+            this.posY = event.clientY;
         }
     }
 }

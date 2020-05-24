@@ -248,7 +248,6 @@
 img {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
 }
 
 /* END GRID FOR PERSONS */
@@ -271,7 +270,6 @@ img {
 
 .scarfplotE {
   grid-area: scarfplotE;
-
 }
 
 .scanpathE {
@@ -458,7 +456,8 @@ img {
 #scarfPlotContainer {
 	position: relative;
 	width: 550px;
-	height: 66.666666666666666666666666666666666666px;
-	overflow: auto;
+	height: 66.666px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 /* END OF MAKING THE VISUALIZATIONS WORK */
