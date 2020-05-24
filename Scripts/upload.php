@@ -8,6 +8,10 @@ include_once 'user.php';
 $dir = dirname(__FILE__)."/../../data/"; //Directory with uploaded data
 $expire = 24 * 3600; //Time before cookie/user expires in seconds; currently 1 day
 
+if (!file_exists($dir)) {
+	die("Please make the data folder outside the repository");
+}
+
 //Establish user
 $myUser = new User($dir);
 $user = $myUser->addUser();

@@ -49,8 +49,8 @@ Provides the CSS for the visualization overlay (drawing upon an image)
 
 #scarfPlotContainer {
 	position: relative;
-	width: 825px;
-	height: 150px;
+	width: 1200px;
+	height: 1650px;
 	overflow-y: auto;
   	overflow-x: hidden;
 }

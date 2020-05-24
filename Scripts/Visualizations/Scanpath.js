@@ -3,25 +3,26 @@
 * using visualization.js
 */
 class Scanpath extends Visualization {
-	constructor(canvas, img, width, height) {
-		super(canvas, img, width, height);
+	constructor(canvas, img) {
+		super(canvas, img);
 	}
 	
 	start(size) {
 		var array = null;
 		var superThis = this;
-		$.post( "../connecting.php", function( data ) {
+
+		$.post( "../Scripts/connecting.php", function( data ) {
 			array = JSON.parse(data);
-			superThis.draw(array, size);
+			superThis.drawOld(array, size);
 		});	
 	}
 	
 	//amount is the number of colours needed, needs to be implemented
 	
-	draw(data, size) {
+	drawOld(data, size) {
 		console.log(data);
 		console.log("correct one");
-		super.draw(data, size);
+		super.drawOld(data, size);
 		var j = 0;
 		this.ctx.lineWidth = 3;
 		

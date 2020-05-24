@@ -14,7 +14,11 @@ if ($mysql_connection->connect_error) {
 }
 
 #the variable stimuliPicture needs to be altered such that the participant can select the stimuli picture
-$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
+//$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
+//$result = $mysql_connection->query($sql);
+
+$stimuliPicture = '02_Berlin_S2.jpg';
+$sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture'";
 $result = $mysql_connection->query($sql);
 
 #throws error if the query is not correctly implemented

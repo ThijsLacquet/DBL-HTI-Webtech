@@ -195,11 +195,14 @@ class Visualization {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    /*draw(data, size) {
+    /*
+    * Old draw code. Not resizable in css
+    */
+    drawOld(data, size) {
     	this.data = data;
     	this.size = size;
     	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }*/
+    }
 
     /*
     * Is executed when the wheel event fires. Handles zooming in and out.
