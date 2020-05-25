@@ -114,6 +114,58 @@
 
 
 /* Author: Ezra Gerris */
+
+/* DROPDOWN MENU FOR CHOOSING IMAGE*/
+.dropbutton {
+  background-color: #20B2AA;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbutton:hover, .dropbutton:focus {
+  background-color: #18857f;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #dddddd;
+  z-index: 1;
+}
+
+.content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+#input {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px 10px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#input:focus {outline: 3px solid #ddd;}
+
+.show {display: block;}
+/* END OF DROPDOWN MENU FOR CHOOSING IMAGE */
+
 /* GRID FOR VISUALIZATIONS */
 .grid {
   display: grid;
