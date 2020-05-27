@@ -15,16 +15,16 @@ $user = $myUser->addUser();
 //Remove expired users
 $myUser->removeExpired();
 
-//Upload file
+//Upload all files
 if (count($_FILES["Upload_file"]["name"]) > 0) {
     for ($i = 0; $i < count($_FILES["Upload_file"]["name"]); $i++) {
         $filename = basename($_FILES["Upload_file"]["name"][$i]);
         $file = $dir . $user . '/' . $filename;
-        
-        if (strtoLower(pathinfo($file, PATHINFO_EXTENSION)) != 'csv') {
-            die("Only CSV files allowed");
+        $extension = strtoLower(pathinfo($file, PATHINFO_EXTENSION));
+        if (!(in_array( $extension, array('jpg', 'jpeg', 'png', 'csv')))) {
+            die("Only CSV, JPG, JPEG, and PNG files are allowed");
         }
-        
+
         if (file_exists($file)) {
             die("File already exists");
         }
@@ -32,15 +32,18 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         if (!move_uploaded_file($_FILES["Upload_file"]["tmp_name"][$i], $file)) {
             die("Something went wrong while uploading");
         }
+        
+        //Here we could add a parameter such that an exception would be thrown if the data had two csv files while uploading
+
+        //Read csv into database
+        if ($extension == 'csv') {
+            $readdata = new Readdata();
+            $readdata->read($file, 200000, $user, $filename);
+            unset($readdata);
+            unset($myUser);
+        }
     }
 }
 
-//Read csv into database
-$readdata = new Readdata();
-
-$readdata->read($file, 200000, $user, $filename);
-
-unset($readddata);
-unset($myUser);
 
 ?>
