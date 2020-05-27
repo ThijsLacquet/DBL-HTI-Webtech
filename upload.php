@@ -33,8 +33,6 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             die("Something went wrong while uploading");
         }
         
-        //Here we could add a parameter such that an exception would be thrown if the data had two csv files while uploading
-
         //Read csv into database
         if ($extension == 'csv') {
             $readdata = new Readdata();
