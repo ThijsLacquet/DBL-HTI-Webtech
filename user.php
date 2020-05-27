@@ -98,7 +98,7 @@ Class User {
                 $this->removeDir($this->dir . $current_user);
 
                 if (! $this->mysql_connection->query("
-                    DELETE FROM fixationdata.users WHERE user_id = {$current_user}")) {
+                    DELETE FROM fixationdata.fixationdata WHERE user_id = {$current_user}")) {
 
                     throw new Exception('sql error: ' . $this->mysql_connection->error);
                 }
