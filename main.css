@@ -261,7 +261,7 @@ img {
   grid-template-areas:
   "heatmapE scanpathE"
   "scarfplotE parallelSP";
-  grid-gap: 10px;
+  grid-gap: 30px;
 }
 
 .heatmapE {

@@ -42,10 +42,13 @@ class Scanpath extends Visualization {
 			this.ctx.fill();
 			this.ctx.moveTo(this.data[j]['mappedfixationpointx'], this.data[j]['mappedfixationpointy']);
 			
-			if (!(j == (this.data.length - 1)) || this.data[j]['user'] == this.data[j + 1]['user']) {
-				this.ctx.lineTo(this.data[j + 1]['mappedfixationpointx'], this.data[j + 1]['mappedfixationpointy']);
-				this.ctx.stroke();
-			}	
+			
+			if (!(j == this.data.length - 1)) {
+				if (this.data[j]['user'] == this.data[j + 1]['user']) {
+					this.ctx.lineTo(this.data[j + 1]['mappedfixationpointx'], this.data[j + 1]['mappedfixationpointy'])
+					this.ctx.stroke();
+				}
+			}
 			
 		}
 	}

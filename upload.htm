@@ -39,8 +39,8 @@
 <!--Making the upload button work-->
   <form action="Scripts/upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:
-	    <input type="file" name="Upload_file" id="Upload_file">
-	    <input type="submit" value="Upload CSV" name="submit">
+	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
+	    <input type="submit" value="Upload files" name="submit">
 	</form>
 
 
