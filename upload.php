@@ -1,6 +1,6 @@
 <?php
 /*
-* Author: Thijs Lacquet and ??
+* Author: Thijs Lacquet and Marleen van Gent
 */ 
 include_once __DIR__.'/readdata.php';
 include_once __DIR__.'/user.php';
