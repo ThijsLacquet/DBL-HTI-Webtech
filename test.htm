@@ -7,6 +7,8 @@
   <script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
   <script src="Scripts/Visualizations/Heatmap.js" type="text/javascript"></script>
   <script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
+  <script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
   <title>Test page for linking visualizations</title>
 
@@ -92,10 +94,18 @@
       </div>
 
     </div>
-    <div class="scanpathE">scanpath
-      <div id="visContainer">
+    <div class="scanpathE">
 
+      <div id="visContainerSC">
+        <div id="visImgContainerSC">
+          <img id= "MyImageSC">
+        </div>
+        <div id="visCanvasContainerSC">
+          <canvas id="myCanvasSC"></canvas>
+        </div>
       </div>
+
+
     </div>
     <div class="parallelSP">parallelSP</div>
   </div>
@@ -137,6 +147,25 @@
       myScarfplot.setImage(imageFile);
       myScarfplot.draw();
   </script>
+
+<!--Drawing the scanpath-->
+  <script>
+    var size = 0.06;
+
+    var img = document.getElementById('myImageSC');
+    var canvas = document.getElementById('myCanvasSC');
+    var visContainerSC = document.getElementById('visContainerSC');
+    var visImgContainerSC = document.getElementById('visImgContainerSC');
+
+    var width = visImageContainerSC.clientWidth;
+    var heigth = visImgContainerSC.clientHeight;
+
+    myScanpath = new Scanpath(canvas, img);
+    myScanpath.start(size);
+  </script>
+
+
+
 
 
 </body>

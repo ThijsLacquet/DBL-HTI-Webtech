@@ -261,7 +261,7 @@ img {
   grid-template-areas:
   "heatmapE scanpathE"
   "scarfplotE parallelSP";
-  grid-gap: 30px;
+  grid-gap: 10px;
 }
 
 .heatmapE {
@@ -459,5 +459,37 @@ img {
 	height: 66.666px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+#visContainerSC {
+  position: relative;
+	width: 550px;
+	height: 400px;
+}
+
+#visImgContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#visImgContainerSC img {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
+#visCanvasContainerSC canvas {
+	width: 100%;
+	height: 100%;
 }
 /* END OF MAKING THE VISUALIZATIONS WORK */
