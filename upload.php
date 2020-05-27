@@ -15,6 +15,10 @@ $user = $myUser->addUser();
 //Remove expired users
 $myUser->removeExpired();
 
+if (count($_FILES["Upload_file"]["name"]) > 0) {
+    throw new Exception("yay");
+}
+
 //Upload file
 $filename = basename($_FILES["Upload_file"]["name"]);
 $file = $dir . $user . '/' . $filename;
