@@ -29,45 +29,6 @@
        To upload your data, navigate to the <a href="upload.htm">Upload</a> page.</h2>
   </div>
 
-<!--Drop down menu-->
-<div class="dropdown">
-  <button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
-  <div id="dropdown" class="content">
-    <input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-    <a href="#image1">Image 1</a>
-    <a href="#image2">Image 2</a>
-    <a href="#image3">Image 3</a>
-    <a href="#image4">Image 4</a>
-    <a href="#image5">Image 5</a>
-    <a href="#image6">Image 6</a>
-    <a href="#image7">Image 7</a>
-  </div>
-</div>
-
-<!--Dit stukje javascript moet nog ergens anders gezet worden-->
-<script>
-function hideOrShow() {
-  document.getElementById("dropdown").classList.toggle("show");
-}
-
-function filterFunction() {
-  var input, filter, b, c;
-  input = document.getElementById("input");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("dropdown");
-  b = div.getElementsByTagName("a");
-  for (c = 0; c < b.length; c++) {
-    txtValue = b[c].textContent || b[c].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      b[c].style.display = "";
-    } else {
-      b[c].style.display = "none";
-    }
-  }
-}
-</script>
-
-
 <!--Visualization grid, resizing website works on this-->
 <div class="grid">
   <div class="text_1">
