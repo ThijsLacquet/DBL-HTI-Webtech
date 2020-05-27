@@ -15,24 +15,24 @@ $user = $myUser->addUser();
 //Remove expired users
 $myUser->removeExpired();
 
-if (count($_FILES["Upload_file"]["name"]) > 0) {
-    throw new Exception("yay");
-}
-
 //Upload file
-$filename = basename($_FILES["Upload_file"]["name"]);
-$file = $dir . $user . '/' . $filename;
-
-if(strtolower(pathinfo($file, PATHINFO_EXTENSION)) != "csv"){
-	die("Only CSV files allowed");
-}
-
-if(file_exists($file)){
-	die("File already exists");
-}
-
-if(!move_uploaded_file($_FILES["Upload_file"]["tmp_name"], $file)){
-	die("Something went wrong while uploading");
+if (count($_FILES["Upload_file"]["name"]) > 0) {
+    for ($i = 0; $i < count($_FILES["Upload_file"]["name"]); $i++) {
+        $filename = basename($_FILES["Upload_file"]["name"][$i]);
+        $file = $dir . $user . '/' . $filename;
+        
+        if (strtoLower(pathinfo($file, PATHINFO_EXTENSION)) != 'csv') {
+            die("Only CSV files allowed");
+        }
+        
+        if (file_exists($file)) {
+            die("File already exists");
+        }
+        
+        if (!move_uploaded_file($_FILES["Upload_file"]["tmp_name"][$i], $file)) {
+            die("Something went wrong while uploading");
+        }
+    }
 }
 
 //Read csv into database
