@@ -4,7 +4,7 @@
 #connecting to the database
 require 'sql.php';
 
-$stimuliPicture = $_POST['stimuliPicture'];
+#$stimuliPicture = $_POST['stimuliPicture'];
 
 $mysql_connection = connectsql();
 

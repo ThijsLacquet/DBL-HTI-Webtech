@@ -7,8 +7,8 @@
   <script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
   <script src="Scripts/Visualizations/Heatmap.js" type="text/javascript"></script>
   <script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
-  <script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
   <title>Test page for linking visualizations</title>
 
   <script>
@@ -97,7 +97,7 @@
 
       <div id="visContainerSC">
         <div id="visImgContainerSC">
-          <img id= "MyImageSC">
+          <img id= "MyImageSC" src="../Provided_data/stimuli/02_Berlin_S2.jpg">
         </div>
         <div id="visCanvasContainerSC">
           <canvas id="myCanvasSC"></canvas>
@@ -156,17 +156,16 @@
     var visContainerSC = document.getElementById('visContainerSC');
     var visImgContainerSC = document.getElementById('visImgContainerSC');
 
-    var width = visImageContainerSC.clientWidth;
+    var width = visImgContainerSC.clientWidth;
     var heigth = visImgContainerSC.clientHeight;
 
+
     myScanpath = new Scanpath(canvas, img);
+    //myScanpath.setImage(imageFile);
     myScanpath.start(size);
-    myScanpath.setImage(imageFile);
-    myScanpath.draw();
+
+
   </script>
-
-
-
 
 
 </body>

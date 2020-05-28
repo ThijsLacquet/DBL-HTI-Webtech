@@ -401,6 +401,12 @@ img {
 	height: 400px;
 }
 
+#visContainerSC {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
 #visImgContainerHM {
 	width: 100%;
 	height: 100%;
@@ -417,12 +423,25 @@ img {
 	overflow: hidden;
 }
 
+#visImgContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
 #visImgContainerHM img {
 	width: 100%;
 	height: 100%;
 }
 
 #visImgContainerSP img {
+	width: 100%;
+	height: 100%;
+}
+
+#visImgContainerSC img {
 	width: 100%;
 	height: 100%;
 }
@@ -443,6 +462,14 @@ img {
 	overflow: hidden;
 }
 
+#visCanvasContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
 #visCanvasContainerHM canvas {
 	width: 100%;
 	height: 100%;
@@ -453,6 +480,12 @@ img {
 	height: 100%;
 }
 
+#visCanvasContainerSC canvas {
+	width: 100%;
+	height: 100%;
+}
+
+
 #scarfPlotContainer {
 	position: relative;
 	width: 550px;
@@ -461,35 +494,5 @@ img {
   overflow-x: hidden;
 }
 
-#visContainerSC {
-  position: relative;
-	width: 550px;
-	height: 400px;
-}
 
-#visImgContainerSC {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 1;
-	overflow: hidden;
-}
-
-#visImgContainerSC img {
-	width: 100%;
-	height: 100%;
-}
-
-#visCanvasContainerSC {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 2;
-	overflow: hidden;
-}
-
-#visCanvasContainerSC canvas {
-	width: 100%;
-	height: 100%;
-}
 /* END OF MAKING THE VISUALIZATIONS WORK */
