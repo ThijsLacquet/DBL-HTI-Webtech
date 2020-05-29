@@ -26,6 +26,8 @@ class Scanpath extends Visualization {
 		var j = 0;
 		this.ctx.lineWidth = 3;
 
+
+
 		for(j = 0; j < this.data.length ; j++) {
 			if (j == 0 || this.data[j]['user'] != this.data[j - 1]['user']) {
 				//still need to implement the nice color way from Thijs
