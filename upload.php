@@ -41,6 +41,28 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             unset($myUser);
         }
     }
+    
+    $images = glob($dir . $user . "/*.jpg");
+    foreach ($images as $image) {
+        echo $image;
+    }
+    
+    $files = [];
+    $images = preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
+    
+    if ($handle = opendir($dir . $user)) {
+        
+        while (false !== ($entry = readdir($handle))) {
+            $files[] = $entry;
+        }
+        $imagesName = preg_grep('/\.jpg$/i', $files);
+        
+        foreach($imagesName as $imageName)
+        {
+            echo $imageName.'<br/>'; // List all Images
+        }
+        closedir($handle);
+    }
 }
 
 
