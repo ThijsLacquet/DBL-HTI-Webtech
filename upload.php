@@ -42,11 +42,14 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         }
     }
     
+    $dataLocation = array();
     $images = glob($dir . $user . "/*.jpg");
     foreach ($images as $image) {
-        echo $image;
+        $dataLocation[] = $image;
     }
+    print_r($dataLocation);
     
+    $dataNames = array();
     $files = [];
     $images = preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
     
@@ -59,10 +62,17 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         
         foreach($imagesName as $imageName)
         {
-            echo $imageName.'<br/>'; // List all Images
+            $dataNames[] = $imageName.'<br/>';
         }
         closedir($handle);
     }
+    print_r($dataNames);
+    
+    $imagesData['location'] = $dataLocation;
+    $imagesData['name'] = $dataNames;
+    $dataJSON = json_encode($imagesData);
+    
+    echo $dataJSON;
 }
 
 
