@@ -162,24 +162,28 @@
   grid-area: image_1;
   align-self: center;
   justify-self: center;
+  max-width: 100%;
 }
 
 .image_2 {
   grid-area: image_2;
   align-self: center;
   justify-self: center;
+  max-width: 100%;
 }
 
 .image_3 {
   grid-area: image_3;
   align-self: center;
   justify-self: center;
+  max-width: 100%;
 }
 
 .image_4 {
   grid-area: image_4;
   align-self: center;
   justify-self: center;
+  max-width: 100%;
 }
 
 .grid div:nth-child(even) {
@@ -227,26 +231,31 @@
 .picture_1 {
   grid-area: picture_1;
   margin: 4px;
+  max-width: 100%;
 }
 
 .picture_2 {
   grid-area: picture_2;
   margin: 4px;
+  max-width: 100%;
 }
 
 .picture_3 {
   grid-area: picture_3;
   margin: 4px;
+  max-width: 100%;
 }
 
 .picture_4 {
   grid-area: picture_4;
   margin: 4px;
+  max-width: 100%;
 }
 
 .picture_5 {
   grid-area: picture_5;
   margin: 4px;
+  max-width: 100%;
 }
 
 .grid_persons div:nth-child(even) {
@@ -258,7 +267,6 @@
 img {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
 }
 
 /* END GRID FOR PERSONS */
@@ -414,6 +422,12 @@ img {
 	height: 400px;
 }
 
+#visContainerSC {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}
+
 #visImgContainerHM {
 	width: 100%;
 	height: 100%;
@@ -430,12 +444,25 @@ img {
 	overflow: hidden;
 }
 
+#visImgContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	overflow: hidden;
+}
+
 #visImgContainerHM img {
 	width: 100%;
 	height: 100%;
 }
 
 #visImgContainerSP img {
+	width: 100%;
+	height: 100%;
+}
+
+#visImgContainerSC img {
 	width: 100%;
 	height: 100%;
 }
@@ -456,12 +483,25 @@ img {
 	overflow: hidden;
 }
 
+#visCanvasContainerSC {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}
+
 #visCanvasContainerHM canvas {
 	width: 100%;
 	height: 100%;
 }
 
 #visCanvasContainerSP canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerSC canvas {
 	width: 100%;
 	height: 100%;
 }
