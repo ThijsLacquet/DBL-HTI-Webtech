@@ -2,7 +2,7 @@
 /*
 * Author: Thijs Lacquet
 */ 
-include_once __DIR__.'../sql.php';
+include_once 'sql.php';
 
 define('COOKIE_NAME', 'user');
 define('EXPIRE', '86400');
