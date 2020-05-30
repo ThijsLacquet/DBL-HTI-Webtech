@@ -35,7 +35,7 @@
   		'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3'];
     var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1872, y1:20, y2:580},
 		  {x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1872, y1:620, y2:1180}];
-  	var imageFile = "Provided_data/stimuli/05_Frankfurt_S1.jpg";
+  	var imageFile = "Provided_data/stimuli/08_Riga_S1.jpg";        //Dropdown menu afbeelding
   </script>
 
 </head>
@@ -52,6 +52,55 @@
     <h1>Test page</h1>
     <p>By group 39</p>
   </div>
+
+  <!--Drop down menu-->
+  <div class="dropdown">
+    <button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
+    <div id="dropdown" class="content">
+      <input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
+      <a href="#image1">
+        Image 1
+        <!--<script>
+            var imageFile = "Provided_data/stimuli/01_Antwerpen_S1.jpg";
+        </script>-->
+      </a>
+      <a href="#image2">
+        Image 2
+        <!--<script>
+            var imageFile = "Provided_data/stimuli/02_Berlin_S1.jpg";
+        </script>-->
+      </a>
+      <a href="#image3">Image 3</a>
+      <a href="#image4">Image 4</a>
+      <a href="#image5">Image 5</a>
+      <a href="#image6">Image 6</a>
+      <a href="#image7">Image 7</a>
+    </div>
+  </div>
+
+  <!--Dit stukje javascript moet nog ergens anders gezet worden denk ik-->
+  <script>
+  function hideOrShow() {
+    document.getElementById("dropdown").classList.toggle("show");
+  }
+
+  function filterFunction() {
+    var input, filter, b, c;
+    input = document.getElementById("input");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("dropdown");
+    b = div.getElementsByTagName("a");
+    for (c = 0; c < b.length; c++) {
+      txtValue = b[c].textContent || b[c].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        b[c].style.display = "";
+      } else {
+        b[c].style.display = "none";
+      }
+    }
+  }
+  </script>
+
 
   <div class="grid_tools">
     <div class="tool1">tool1</div>

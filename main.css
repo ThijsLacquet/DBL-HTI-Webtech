@@ -71,49 +71,59 @@
   color: #20B2AA;
 }
 
-/* GRID FOR DISPLAY */
-.grid_display{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-  "interactiontool interactiontool interactiontool interactiontool"
-  "heatmap scanpath parallelscan scarfplot";
-}
-
-.interactiontool{
-  grid-area: interactiontool;
-}
-
-.heatmap{
-  grid-area: heatmap;
-}
-
-.scanpath{
-  grid-area: scanpath;
-}
-
-.parallelscan{
-  grid-area: parallelscan;
-}
-
-.scarfplot{
-  grid-area: scarfplot;
-}
-
-.grid_display div:nth-child(even) {
-  background-color: blue;
-}
-
-.grid_display div:nth-child(odd) {
-  background-color: yellow;
-}
-
-/*END OF GRID FOR DISPLAY*/
-
-
-
 /* Author: Ezra Gerris */
+/* DROPDOWN MENU FOR CHOOSING IMAGE*/
+.dropbutton {
+  background-color: #20B2AA;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbutton:hover, .dropbutton:focus {
+  background-color: #18857f;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  max-height: 140px; /* grid_tools-padding-top - 10 */
+  overflow: auto;
+  border: 1px solid #dddddd;
+  z-index: 1;
+}
+
+.content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+#input {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px 10px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#input:focus {outline: 3px solid #ddd;}
+
+.show {display: block;}
+/* END OF DROPDOWN MENU FOR CHOOSING IMAGE */
+
 /* GRID FOR VISUALIZATIONS */
 .grid {
   display: grid;
@@ -248,6 +258,7 @@
 img {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 /* END GRID FOR PERSONS */
@@ -340,6 +351,8 @@ img {
   grid-template-rows: 1fr;
   grid-template-areas:
   "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
+  padding-top: 150px;
+  padding-bottom: 30px;
 
 }
 
