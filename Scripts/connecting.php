@@ -17,7 +17,7 @@ if ($mysql_connection->connect_error) {
 //$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
 //$result = $mysql_connection->query($sql);
 
-$stimuliPicture = '02_Berlin_S2.jpg';
+//$stimuliPicture = '02_Berlin_S2.jpg';
 $sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture'";
 $result = $mysql_connection->query($sql);
 

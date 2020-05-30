@@ -1,6 +1,6 @@
 <?php
 /*
-* Author: Thijs Lacquet and ??
+* Author: Thijs Lacquet and Marleen van Gent
 */ 
 include_once 'readdata.php';
 include_once 'user.php';
@@ -19,28 +19,65 @@ $user = $myUser->addUser();
 //Remove expired users
 $myUser->removeExpired();
 
-//Upload file
-$filename = basename($_FILES["Upload_file"]["name"]);
-$file = $dir . $user . '/' . $filename;
+//Upload all files
+if (count($_FILES["Upload_file"]["name"]) > 0) {
+    for ($i = 0; $i < count($_FILES["Upload_file"]["name"]); $i++) {
+        $filename = basename($_FILES["Upload_file"]["name"][$i]);
+        $file = $dir . $user . '/' . $filename;
+        $extension = strtoLower(pathinfo($file, PATHINFO_EXTENSION));
+        if (!(in_array( $extension, array('jpg', 'jpeg', 'png', 'csv')))) {
+            die("Only CSV, JPG, JPEG, and PNG files are allowed");
+        }
 
-if(strtolower(pathinfo($file, PATHINFO_EXTENSION)) != "csv"){
-	die("Only CSV files allowed");
+        if (file_exists($file)) {
+            die("File already exists");
+        }
+        
+        if (!move_uploaded_file($_FILES["Upload_file"]["tmp_name"][$i], $file)) {
+            die("Something went wrong while uploading");
+        }
+        
+        //Read csv into database
+        if ($extension == 'csv') {
+            $readdata = new Readdata();
+            $readdata->read($file, 200000, $user, $filename);
+            unset($readdata);
+            unset($myUser);
+        }
+    }
+    
+    $dataLocation = array();
+    $images = glob($dir . $user . "/*.jpg");
+    foreach ($images as $image) {
+        $dataLocation[] = $image;
+    }
+    print_r($dataLocation);
+    
+    $dataNames = array();
+    $files = [];
+    $images = preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
+    
+    if ($handle = opendir($dir . $user)) {
+        
+        while (false !== ($entry = readdir($handle))) {
+            $files[] = $entry;
+        }
+        $imagesName = preg_grep('/\.jpg$/i', $files);
+        
+        foreach($imagesName as $imageName)
+        {
+            $dataNames[] = $imageName.'<br/>';
+        }
+        closedir($handle);
+    }
+    print_r($dataNames);
+    
+    $imagesData['location'] = $dataLocation;
+    $imagesData['name'] = $dataNames;
+    $dataImages = json_encode($imagesData);
+    
+    echo $dataImages;
 }
 
-if(file_exists($file)){
-	die("File already exists");
-}
-
-if(!move_uploaded_file($_FILES["Upload_file"]["tmp_name"], $file)){
-	die("Something went wrong while uploading: ".$_FILES["Upload_file"]["error"]);
-}
-
-//Read csv into database
-$readdata = new Readdata();
-
-$readdata->read($file, 200000, $user, $filename);
-
-unset($readddata);
-unset($myUser);
 
 ?>
