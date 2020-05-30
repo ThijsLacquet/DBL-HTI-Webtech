@@ -70,9 +70,9 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
     
     $imagesData['location'] = $dataLocation;
     $imagesData['name'] = $dataNames;
-    $dataJSON = json_encode($imagesData);
+    $dataImages = json_encode($imagesData);
     
-    echo $dataJSON;
+    echo $dataImages;
 }
 
 
