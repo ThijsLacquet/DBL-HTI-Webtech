@@ -32,7 +32,7 @@ if(file_exists($file)){
 }
 
 if(!move_uploaded_file($_FILES["Upload_file"]["tmp_name"], $file)){
-	die("Something went wrong while uploading");
+	die("Something went wrong while uploading: ".$_FILES["Upload_file"]["error"]);
 }
 
 //Read csv into database
