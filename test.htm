@@ -156,7 +156,11 @@
     <div class="parallelSP">parallelSP</div>
   </div>
 
-
+  <!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
+  <input type="button" id="download_heatmap" value="Download heatmap"/>
+  <input type="button" id="download_scarfplot" value="Download scarfplot"/>
+  <input type="button" id="download_scanpath" value="Download scanpath"/>
+  <input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
 <!--Drawing the heatmap-->
   <script>
@@ -164,38 +168,32 @@
   	  var canvas = document.getElementById('myCanvasHM');
   	  var visContainerHM = document.getElementById('visContainerHM');
   	  var visImgContainerHM = document.getElementById('visImgContainerHM');
-
-      var width = visContainerHM.clientWidth;
-      var height = visContainerHM.clientHeight;
+      var download_button = document.getElementById("download_heatmap");
 
       myHeatmap = new Heatmap(canvas, img);
-	    myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
-	    myHeatmap.setImage(imageFile);
+      myHeatmap.setDownloadButton(download_button, canvas);
+      myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
+      myHeatmap.setImage(imageFile);
       myHeatmap.draw();
-  </script>
 
 
 <!--Drawing the scarfplot-->
-  <script>
       var img = document.getElementById('myImageSP');
   	  var canvas = document.getElementById('myCanvasSP');
   	  var visContainerSP = document.getElementById('visContainerSP');
   	  var visImgContainerSP = document.getElementById('visImgContainerSP');
       var scarfCanvas = document.getElementById('scarfCanvas');
       var scarfPlotContainer = document.getElementById('scarfPlotContainer');
+      var download_button = document.getElementById("download_scarfplot");
 
-      var width = visImgContainerSP.clientWidth;
-      var height = visImgContainerSP.clientHeight;
-
-      myScarfplot = new Scarfplot(canvas, scarfCanvas, img, width, height);
+      myScarfplot = new Scarfplot(canvas, scarfCanvas, img);
+      myHeatmap.setDownloadButton(download_button, scarfCanvas)
       myScarfplot.setAoi(aoi);
       myScarfplot.setData(mappedFixationPointX, mappedFixationPointY, null, timestamp, user);
       myScarfplot.setImage(imageFile);
       myScarfplot.draw();
-  </script>
 
   <!--Drawing the scanpath-->
-  <script>
     var size = 0.06;
 
     var img = document.getElementById('myImageSC');
@@ -204,8 +202,7 @@
     var visImgContainerSC = document.getElementById('visImgContainerSC');
 
     var width = visImgContainerSC.clientWidth;
-    var heigth = visImgContainerSC.clientHeight;
-
+    var height = visImgContainerSC.clientHeight;
 
     myScanpath = new Scanpath(canvas, img);
     myScanpath.setImage(imageFile);
