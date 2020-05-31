@@ -335,6 +335,8 @@ class Visualization {
             element.click();
 
             document.body.removeChild(element);
+
+            superThis.draw();
         }.bind(superThis), false);
     }
 }
