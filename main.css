@@ -162,28 +162,24 @@
   grid-area: image_1;
   align-self: center;
   justify-self: center;
-  max-width: 100%;
 }
 
 .image_2 {
   grid-area: image_2;
   align-self: center;
   justify-self: center;
-  max-width: 100%;
 }
 
 .image_3 {
   grid-area: image_3;
   align-self: center;
   justify-self: center;
-  max-width: 100%;
 }
 
 .image_4 {
   grid-area: image_4;
   align-self: center;
   justify-self: center;
-  max-width: 100%;
 }
 
 .grid div:nth-child(even) {
@@ -231,31 +227,26 @@
 .picture_1 {
   grid-area: picture_1;
   margin: 4px;
-  max-width: 100%;
 }
 
 .picture_2 {
   grid-area: picture_2;
   margin: 4px;
-  max-width: 100%;
 }
 
 .picture_3 {
   grid-area: picture_3;
   margin: 4px;
-  max-width: 100%;
 }
 
 .picture_4 {
   grid-area: picture_4;
   margin: 4px;
-  max-width: 100%;
 }
 
 .picture_5 {
   grid-area: picture_5;
   margin: 4px;
-  max-width: 100%;
 }
 
 .grid_persons div:nth-child(even) {
@@ -264,12 +255,8 @@
 .grid_persons div:nth-child(odd) {
 }
 
-img {
-    display: block;
-    margin: 0 auto;
-}
-
 /* END GRID FOR PERSONS */
+
 
 /* Author: Ezra Gerris and Tanja Markink */
 /* GRID FOR LINKING VISUALIZATIONS */
@@ -410,6 +397,11 @@ img {
 
 /* Author: Ezra Gerris */
 /* MAKING THE VISUALIZATIONS WORK */
+img {
+    display: block;
+    margin: 0 auto;
+}
+
 #visContainerHM{
 	position: relative;
 	width: 550px;
