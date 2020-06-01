@@ -38,7 +38,7 @@
   		'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3'];
     var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1872, y1:20, y2:580},
 		  {x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1872, y1:620, y2:1180}];
-  	var imageFile = "Provided_data/stimuli/08_Riga_S1.jpg";        //Dropdown menu afbeelding
+    var imageName = "08_Riga_S1.jpg";
   </script>
 
 </head>
@@ -167,8 +167,11 @@
   <input type="button" id="download_scanpath" value="Download scanpath"/>
   <input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
-<!--Drawing the heatmap-->
   <script>
+      //Execute php script to access image outside of webserver root directory
+      var imagePath = "Scripts/getImage.php?img=" + imageName;
+
+      <!--Drawing the heatmap-->
       var img = document.getElementById('myImageHM');
   	  var canvas = document.getElementById('myCanvasHM');
   	  var visContainerHM = document.getElementById('visContainerHM');
@@ -178,11 +181,11 @@
       myHeatmap = new Heatmap(canvas, img);
       myHeatmap.setDownloadButton(download_button, canvas);
       myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
-      myHeatmap.setImage(imageFile);
+      myHeatmap.setImage(imagePath);
       myHeatmap.draw();
 
 
-<!--Drawing the scarfplot-->
+      <!--Drawing the scarfplot-->
       var img = document.getElementById('myImageSP');
   	  var canvas = document.getElementById('myCanvasSP');
   	  var visContainerSP = document.getElementById('visContainerSP');
@@ -195,23 +198,24 @@
       myHeatmap.setDownloadButton(download_button, scarfCanvas)
       myScarfplot.setAoi(aoi);
       myScarfplot.setData(mappedFixationPointX, mappedFixationPointY, null, timestamp, user);
-      myScarfplot.setImage(imageFile);
+      //myScarfplot.setImage(imageFile);
+      myScarfplot.setImage(imagePath);
       myScarfplot.draw();
 
-  <!--Drawing the scanpath-->
-    var size = 0.06;
+      <!--Drawing the scanpath-->
+      var size = 0.06;
 
-    var img = document.getElementById('myImageSC');
-    var canvas = document.getElementById('myCanvasSC');
-    var visContainerSC = document.getElementById('visContainerSC');
-    var visImgContainerSC = document.getElementById('visImgContainerSC');
+      var img = document.getElementById('myImageSC');
+      var canvas = document.getElementById('myCanvasSC');
+      var visContainerSC = document.getElementById('visContainerSC');
+      var visImgContainerSC = document.getElementById('visImgContainerSC');
 
-    var width = visImgContainerSC.clientWidth;
-    var height = visImgContainerSC.clientHeight;
+      var width = visImgContainerSC.clientWidth;
+      var height = visImgContainerSC.clientHeight;
 
-    myScanpath = new Scanpath(canvas, img);
-    myScanpath.setImage(imageFile);
-    myScanpath.start(size);
+      myScanpath = new Scanpath(canvas, img);
+      myScanpath.setImage(imagePath);
+      myScanpath.start(size);
   </script>
 
   <script src="Scripts/Visualizations/AOIselection.js"></script>
