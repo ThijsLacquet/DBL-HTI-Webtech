@@ -3,8 +3,8 @@ class ParallelScanpath extends visualization{
 	//This will be called to initialize the visualizations
 	//Parameters:
 	//	canvas: this is a DOM object of the canvas that the visualization is displayed on
-	constructor(canvas, img, width, height){
-		super(canvas, img, width, height);
+	constructor(canvas, img){
+		super(canvas, img);
 	}
 
 
@@ -13,19 +13,12 @@ class ParallelScanpath extends visualization{
 	//	data:		the data that will be displayed (we moeten nog wel ff afspreken hoe die er precies uit gaat zien)
 	//	AOIs:		an array of AOIs, which are 4-element arrays that represent the coordinates of the areas of interest
 	//	selection: 	a boolean array with the same lenght as the data, which represents which indices of the data are selected 
-	draw(data){
+	draw(d){
+		var maxt = d.maxtime;
 
-		
-		
-		console.log(data);
+		var numofAOIs = d.getAOIs().length;
 
-		var maxt = data.maxt;
-
-		var numofAOIs = data.numofAOIs;
-
-		var swdata = data.switchtimes;
-
-		var numofusers = 7//swdata.length;
+		var numofusers = AOIs.length;
 
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
@@ -47,27 +40,28 @@ class ParallelScanpath extends visualization{
 		}
 		this.ctx.stroke();
 
-		console.log(linesAOIdist);
-
 		this.ctx.lineWidth = linesuserdist/4;
 
 		for(var user = 0; user < numofusers; user++){
-			var switchtimes = swdata[user];
+			var currentUser = d.users[i];
 
-			var prev = (Number(switchtimes[0][1]) + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+			var AOIs = currentUser.getAOI();
+			var times = currentUser.getTime();
+
+			var prev = (AOIs[0] + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
 			this.ctx.beginPath();
 			this.ctx.moveTo(prev,0);
 
 
 			for(var i = 1; i < switchtimes.length; i++){
-				var t = Number(switchtimes[i][0]);
-				var AOI = Number(switchtimes[i][1]);
+				var t = times[i]
+				var AOI = AOIs[i];
 
 				var pos = (AOI + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
-				this.ctx.lineTo(prev,(t/maxt) * this.height - 5);
-				this.ctx.lineTo(pos, (t/maxt) * this.height + 5);
+				this.ctx.lineTo(prev,(t/maxt) * this.height);
+				this.ctx.lineTo(pos, (t/maxt) * this.height);
 
 				prev = pos;
 			}
