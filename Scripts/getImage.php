@@ -7,7 +7,7 @@
     $myUser = new User($dir);
     $user = $myUser->addUser();
 
-    header('Content-Type: image/*');
+    header('Content-Type: image/jpg');
 
     readfile("../../data/" . $user . "/" . $_GET['img']);
 ?>
