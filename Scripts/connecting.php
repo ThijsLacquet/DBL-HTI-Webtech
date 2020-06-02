@@ -3,10 +3,16 @@
 
 #connecting to the database
 require 'sql.php';
+include_once 'user.php';
 
 //$stimuliPicture = $_POST['stimuliPicture']; //Comment out for scanpath demo
 
 $mysql_connection = connectsql();
+
+//Establish user
+$dir = dirname(__FILE__)."/../../data/";
+$myUser = new User($dir);
+$user = $myUser->addUser();
 
 #throws error if not connected to database
 if ($mysql_connection->connect_error) {
@@ -18,7 +24,7 @@ if ($mysql_connection->connect_error) {
 //$result = $mysql_connection->query($sql);
 
 $stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
-$sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture'";
+$sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' AND user_id = '$user'";
 $result = $mysql_connection->query($sql);
 
 #throws error if the query is not correctly implemented
