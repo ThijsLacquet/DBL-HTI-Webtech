@@ -4,7 +4,7 @@ class data {
 	//the constuctor makes a new instance of this data object
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
-	constructor(stimuliname){
+	constructor(stimuliname, callback){
 		var array = null;
 		var superThis = this;
 		this.users = [];
@@ -19,6 +19,8 @@ class data {
 			superThis.totalEntries = array.length;
 
 			superThis.interpret(array);
+
+			callback();
 		});
 	}
 
@@ -29,10 +31,17 @@ class data {
 		var currentUser;
 		var currentName = null;
 
+		this.maxtime = 0;
+		var maxt;
+
+
 		for(var i=0;i<this.totalEntries;i++){
 			if(array[i].user != currentName){
 				if(currentUser !=  null){
-					currentUser.fill();
+					maxt = currentUser.fill();
+					if(maxt > this.maxtime){
+						this.maxtime = maxt;
+					}
 				}
 				currentName = array[i].user;
 				currentUser = new dataUser(currentName);
@@ -54,6 +63,281 @@ class data {
 		return this.AOIs;
 	}
 
+	getTime(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.time);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.time;
+				}
+			}
+		}
+	}
+
+	getX(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.x);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.x;
+				}
+			}
+		}
+	}
+
+	getY(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.y);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.y;
+				}
+			}
+		}
+	}
+
+	getDuration(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.duration);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.duration;
+				}
+			}
+		}
+	}
+
+	getUser(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.user.name);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.user.name;
+				}
+			}
+		}
+	}
+
+	getAOI(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.AOI);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.AOI;
+				}
+			}
+		}
+	}
 
 	//this function selects the users that you want to be selected
 	//Parameters:
@@ -143,53 +427,10 @@ class data {
 		});
 	}
 
-	//This return the data in the format the heatmap can use
-	//Parameters:
-	//	filtered: a bool, true gives the filtered data, false gives all the data
-	//Return value:
-	//	[x, y, dt]
-	//		x: an array of x-coordinates
-	//		y: an array of y-coordinates
-	//		dt: an array of durations
-	toHeatmapformat(filtered){
-		var x = [];
-		var y = [];
-		var dt = [];
-
-		if(filtered){
-			for(var i=0;i<this.numofUsers;i++){
-				if(this.users[i].enabled == false){
-					continue;
-				}
-
-				for(var j=0;j<this.users[i].numofEntries;j++){
-					if(this.users[i].entries[j].enabled == false){
-						continue;
-					}
-
-					x.push(this.users[i].entries[j].x);
-					y.push(this.users[i].entries[j].y);
-					dt.push(this.users[i].entries[j].duration);
-				}
-			}
-		}else{
-			x = Array(this.totalEntries);
-			y = Array(this.totalEntries);
-			dt = Array(this.totalEntries);
-
-			var k = 0;
-
-			for(var i=0;i<this.numofUsers;i++){
-				for(var j=0;j<this.users[i].numofEntries;j++){
-					x[k] = this.users[i].entries[j].x;
-					y[k] = this.users[i].entries[j].y;
-					dt[k] = this.users[i].entries[j].duration;
-					k++;
-				}
-			}
+	divideInAOIs(AOIs){
+		for(var i=0;i<this.numofUsers;i++){
+			this.users[i].divideInAOIs(AOIs);
 		}
-
-		return [x, y, dt];
 	}
 }
 
@@ -207,20 +448,202 @@ class dataUser {
 	}
 
 	fill(){
-		this.mintime = this.entries[0].time;
-		this.maxtime = this.entries[this.numofEntries - 1].time;
+		var offset = this.entries[0].time;
+		for(var i=0;i<this.numofEntries;i++){
+			this.entries[i].time -= offset;
+		}
+
+		return this.maxtime = this.entries[this.numofEntries - 1].time;
 	}
 
+	divideInAOIs(AOIs){
+		
+		var currentEntry;
+
+		for(var i=0;i<this.numofEntries;i++){
+			currentEntry = this.entries[i];
+
+			for(var j=0;j<AOIs.length;j++){
+				if(currentEntry.isInAOI(AOIs[j])){
+					currentEntry.AOI = j;
+				}
+			}
+		}
+	}
+
+	getTime(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.time);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].time;
+			}
+		}
+
+		return array;
+	}
+
+	getX(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.x);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].x;
+			}
+		}
+
+		return array;
+	}
+
+	getY(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.y);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].y;
+			}
+		}
+
+		return array;
+	}
+
+	getDuration(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.duration);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].duration;
+			}
+		}
+
+		return array;
+	}
+
+	getAOI(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.AOI);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].AOI;
+			}
+		}
+
+		return array;
+	}
 }
 
 class dataEntry {
 	constructor(array, user){
+		this.AOI = 0;
 		this.enabled = true;
 		this.user = user;
 		this.x = Number(array['mappedfixationpointx']);
 		this.y = Number(array['mappedfixationpointy']);
 		this.time = Number(array['timestamp']);
 		this.duration = Number(array['fixationduration']);
+	}
+
+	isInAOI(AOI) {
+		//By Thijs
+
+	    if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
+	        throw("IllegalArgumentException");
+	    }
+
+	    return (AOI.x1 < this.x &&
+	        AOI.x2 > this.x &&
+	        AOI.y1 < this.y &&
+	        AOI.y2 > this.y)
 	}
 }
 
