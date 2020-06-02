@@ -31,10 +31,17 @@ class data {
 		var currentUser;
 		var currentName = null;
 
+		this.maxtime = 0;
+		var maxt;
+
+
 		for(var i=0;i<this.totalEntries;i++){
 			if(array[i].user != currentName){
 				if(currentUser !=  null){
-					currentUser.fill();
+					maxt = currentUser.fill();
+					if(maxt > this.maxtime){
+						this.maxtime = maxt;
+					}
 				}
 				currentName = array[i].user;
 				currentUser = new dataUser(currentName);
@@ -153,47 +160,6 @@ class data {
 	//		x: an array of x-coordinates
 	//		y: an array of y-coordinates
 	//		dt: an array of durations
-	toHeatmapformat(filtered){
-		var x = [];
-		var y = [];
-		var dt = [];
-
-		if(filtered){
-			for(var i=0;i<this.numofUsers;i++){
-				if(this.users[i].enabled == false){
-					continue;
-				}
-
-				for(var j=0;j<this.users[i].numofEntries;j++){
-					if(this.users[i].entries[j].enabled == false){
-						continue;
-					}
-
-					x.push(this.users[i].entries[j].x);
-					y.push(this.users[i].entries[j].y);
-					dt.push(this.users[i].entries[j].duration);
-				}
-			}
-		}else{
-			x = Array(this.totalEntries);
-			y = Array(this.totalEntries);
-			dt = Array(this.totalEntries);
-
-			var k = 0;
-
-			for(var i=0;i<this.numofUsers;i++){
-				for(var j=0;j<this.users[i].numofEntries;j++){
-					x[k] = this.users[i].entries[j].x;
-					y[k] = this.users[i].entries[j].y;
-					dt[k] = this.users[i].entries[j].duration;
-					k++;
-				}
-			}
-		}
-
-		return [x, y, dt];
-	}
-}
 
 class dataUser {
 	constructor(username){
@@ -209,8 +175,12 @@ class dataUser {
 	}
 
 	fill(){
-		this.mintime = this.entries[0].time;
-		this.maxtime = this.entries[this.numofEntries - 1].time;
+		var offset = this.entries[0].time;
+		for(var i=0;i<this.numofEntries;i++){
+			this.entries[i].time -= offset;
+		}
+
+		return this.maxtime = this.entries[this.numofEntries - 1].time;
 	}
 
 }
