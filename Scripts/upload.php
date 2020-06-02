@@ -45,13 +45,6 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             unset($myUser);
         }
     }
-    $dataLocation = array();
-    $images = glob($dir . $user . "/*.jpg");
-    foreach ($images as $image) {
-        $dataLocation[] = $image;
-    }
-    
-    print_r($dataLocation);
     
     $dataNames = array();
     $files = [];
@@ -70,12 +63,8 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         }
         closedir($handle);
     }
-    //To do: goede volgorde in beide arrays
-    print_r($dataNames);
     
-    $imagesData['location'] = $dataLocation;
-    $imagesData['name'] = $dataNames;
-    $dataImages = json_encode($imagesData);
+    $dataImages = json_encode($dataNames);
     
     echo $dataImages;
 }
