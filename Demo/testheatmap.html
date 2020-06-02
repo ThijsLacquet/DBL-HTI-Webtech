@@ -49,19 +49,21 @@
 	</div>
 </div>
 
+<input type="button" id="down_but" value="Download visualization"/>
+
 <script>
     var img = document.getElementById('myImage');
 	var canvas = document.getElementById('myCanvas');
+	var download_button = document.getElementById("down_but");
 	//var visContainer = document.getElementById('visContainer');
 	//var visImgContainer = document.getElementById('visImgContainer');
 
-    var width = visImgContainer.clientWidth;
-    var height = visImgContainer.clientHeight;
-
-	myHeatmap = new Heatmap(canvas, img);
+	myHeatmap = new Heatmap(canvas, img, download_button);
 	myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
 	myHeatmap.setImage(imageFile);
     myHeatmap.draw();
+
+	myHeatmap.setDownloadButton(download_button, canvas);
 </script>
 
 </body>

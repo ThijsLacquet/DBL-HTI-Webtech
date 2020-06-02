@@ -20,7 +20,7 @@ class Scarfplot extends Visualization {
         super(canvas, img);
  
         this.scarfCanvas = scarfCanvas;
-        this.scarfCanvas.width = width;
+        this.scarfCanvas.width = this.width;
 		this.scarfCtx = this.scarfCanvas.getContext("2d");
     }
 

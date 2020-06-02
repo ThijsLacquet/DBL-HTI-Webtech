@@ -68,6 +68,8 @@ class Visualization {
         }    
     }
 
+
+
     /*
     * Creates amount colors on the HSL scale with an equal seperation in hue
     *
@@ -307,5 +309,41 @@ class Visualization {
             this.posX = event.clientX;
             this.posY = event.clientY;
         }
+    }
+
+    /*
+    * Downloads an image of the canvas when the download button is pressed
+    * @param download_button ElementId of the html downloadbutton
+    * @param canvas Canvas of the image which should be downloaded
+     */
+    setDownloadButton(download_button, canvas) {
+        if (download_button == undefined) {
+            throw("Download button is undefined in setDownloadButton");
+        }
+        if (canvas == undefined) {
+            throw("Canvas is undefined in setDownloadButton");
+        }
+
+        var superThis = this; //Transfers this to new scope
+
+        download_button.addEventListener("click", function() {
+            //Add background image
+            superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height); //Lowers quality of image
+
+            var filename = 'visualization.png';
+            var imgurl = canvas.toDataURL(); //Save graphics as png
+
+            var element = document.createElement('a');
+            element.setAttribute('href', imgurl);
+            element.setAttribute('download', filename);
+
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+
+            superThis.draw();
+        }.bind(superThis), false);
     }
 }
