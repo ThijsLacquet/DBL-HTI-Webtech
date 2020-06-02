@@ -1,10 +1,10 @@
-class ParallelScanpath extends visualization{
+class ParallelScanpath extends Visualization{
 
 	//This will be called to initialize the visualizations
 	//Parameters:
 	//	canvas: this is a DOM object of the canvas that the visualization is displayed on
-	constructor(canvas, img){
-		super(canvas, img);
+	constructor(canvas){
+		super(canvas, null);
 	}
 
 
