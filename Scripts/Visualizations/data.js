@@ -4,7 +4,7 @@ class data {
 	//the constuctor makes a new instance of this data object
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
-	constructor(stimuliname){
+	constructor(stimuliname, callback){
 		var array = null;
 		var superThis = this;
 		this.users = [];
@@ -19,6 +19,8 @@ class data {
 			superThis.totalEntries = array.length;
 
 			superThis.interpret(array);
+
+			callback();
 		});
 	}
 
