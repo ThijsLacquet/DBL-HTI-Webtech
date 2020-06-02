@@ -28,7 +28,7 @@ class Visualization {
     * @throws {IllegalArgumentException} If the canvas or img are undefined
     */
     constructor(canvas, img) {
-        if (canvas == undefined || img == undefined) {
+        if (canvas == undefined) {
             throw("IllegalArgumentException");
         }
 

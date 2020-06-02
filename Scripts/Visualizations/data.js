@@ -14,13 +14,16 @@ class data {
 		this.totalEntries = 0;
 		this.numofUsers = 0;
 
-		$.post( "../connecting.php", {stimuliPicture: stimuliname}, function( data ) {
+		$.post( "/Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
+			
+			console.log(data);
+
 			array = JSON.parse(data);
 			superThis.totalEntries = array.length;
 
 			superThis.interpret(array);
 
-			callback();
+			callback(superThis);
 		});
 	}
 

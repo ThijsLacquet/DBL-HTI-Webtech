@@ -9,6 +9,8 @@
   <script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
+  <script src="Scripts/Visualizations/ParallelScanpath.js" type="text/javascript"></script>
+  <script src="Scripts/Visualizations/data.js" type="text/javascript"></script>
   <!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
   <title>Test page for linking visualizations</title>
 
@@ -153,7 +155,14 @@
         </div>
       </div>
     </div>
-    <div class="parallelSP">parallelSP</div>
+    <div class="parallelSP">
+      <div id="visContainerPSP">
+        <div id="visCanvasContainerPSP">
+          <canvas id="myCanvasPSP" width="1650" height="1200"></canvas>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 
 
@@ -212,6 +221,26 @@
     myScanpath.start(size);
   </script>
 
+  <!--setting up the parallel scanpath-->
+  <script>
+    var canvas = document.getElementById('myCanvasPSP');
+    var visContainerPSP = document.getElementById('visContainerPSP');
+
+
+    myParallelScanpath = new ParallelScanpath(canvas);
+  </script>
+
+
+  <script>
+    var imageName = imageFile.substring(imageFile.lastIndexOf("/"), imageFile.length - 1);
+
+    var d = new data(imageName, init)
+
+    function init(d){
+      console.log(d);
+    }
+
+  </script>
 
 </body>
 </html>
