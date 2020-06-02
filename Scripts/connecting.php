@@ -4,8 +4,11 @@
 #connecting to the database
 require 'sql.php';
 
-//$stimuliPicture = $_POST['stimuliPicture']; //Comment out for scanpath demo
-
+if(isset($_POST['stimuliPicture'])){
+	$stimuliPicture = $_POST['stimuliPicture']; //Comment out for scanpath demo
+}else{
+	$stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
+}
 $mysql_connection = connectsql();
 
 #throws error if not connected to database
@@ -17,7 +20,6 @@ if ($mysql_connection->connect_error) {
 //$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
 //$result = $mysql_connection->query($sql);
 
-$stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
 $sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture'";
 $result = $mysql_connection->query($sql);
 
