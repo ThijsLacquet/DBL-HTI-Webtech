@@ -63,6 +63,236 @@ class data {
 		return this.AOIs;
 	}
 
+	getTime(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.time);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.time;
+				}
+			}
+		}
+	}
+
+	getX(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.time);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.x;
+				}
+			}
+		}
+	}
+
+	getY(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.time);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.y;
+				}
+			}
+		}
+	}
+
+	getDuration(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.duration);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.X;
+				}
+			}
+		}
+	}
+
+	getUser(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.time);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.user.name;
+				}
+			}
+		}
+	}
+
 
 	//this function selects the users that you want to be selected
 	//Parameters:
@@ -152,14 +382,12 @@ class data {
 		});
 	}
 
-	//This return the data in the format the heatmap can use
-	//Parameters:
-	//	filtered: a bool, true gives the filtered data, false gives all the data
-	//Return value:
-	//	[x, y, dt]
-	//		x: an array of x-coordinates
-	//		y: an array of y-coordinates
-	//		dt: an array of durations
+	divideInAOIs(AOIs){
+		for(var i=0;i<this.numofUsers;i++){
+			this.users[i].divideInAOIs(AOIs);
+		}
+	}
+}
 
 class dataUser {
 	constructor(username){
@@ -183,16 +411,45 @@ class dataUser {
 		return this.maxtime = this.entries[this.numofEntries - 1].time;
 	}
 
+	divideInAOIs(AOIs){
+		
+		var currentEntry;
+
+		for(var i=0;i<this.numofEntries;i++){
+			currentEntry = this.entries[i];
+
+			for(var j=0;j<AOIs.length;j++){
+				if(currentEntry.isInAOI(AOIs[j])){
+					currentEntry.AOI = j;
+				}
+			}
+		}
+
+	}
 }
 
 class dataEntry {
 	constructor(array, user){
+		this.AOI = 0;
 		this.enabled = true;
 		this.user = user;
 		this.x = Number(array['mappedfixationpointx']);
 		this.y = Number(array['mappedfixationpointy']);
 		this.time = Number(array['timestamp']);
 		this.duration = Number(array['fixationduration']);
+	}
+
+	isInAOI(AOI) {
+		//By Thijs
+
+	    if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
+	        throw("IllegalArgumentException");
+	    }
+
+	    return (AOI.x1 < this.x &&
+	        AOI.x2 > this.x &&
+	        AOI.y1 < this.y &&
+	        AOI.y2 > this.y)
 	}
 }
 
