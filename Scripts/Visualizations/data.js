@@ -132,7 +132,7 @@ class data {
 						continue;
 					}
 
-					array.push(currentEntry.time);
+					array.push(currentEntry.x);
 				}
 			}
 		}else{
@@ -178,7 +178,7 @@ class data {
 						continue;
 					}
 
-					array.push(currentEntry.time);
+					array.push(currentEntry.y);
 				}
 			}
 		}else{
@@ -241,7 +241,7 @@ class data {
 				for(var j=0;j<currentUser.numofEntries;j++){
 					currentEntry = currentUser.entries[j];
 
-					array[k++] = currentEntry.X;
+					array[k++] = currentEntry.duration;
 				}
 			}
 		}
@@ -270,7 +270,7 @@ class data {
 						continue;
 					}
 
-					array.push(currentEntry.time);
+					array.push(currentEntry.user.name);
 				}
 			}
 		}else{
@@ -293,6 +293,51 @@ class data {
 		}
 	}
 
+	getAOI(filtered = true){
+		var array;
+
+		if(filtered){
+			array = [];
+
+			var currentUser;
+			var currentEntry;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				if(!currentUser.enabled){
+					continue;
+				}
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					if(!currentEntry.enabled){
+						continue;
+					}
+
+					array.push(currentEntry.AOI);
+				}
+			}
+		}else{
+			array = Array(this.totalEntries);
+
+			var currentUser;
+			var currentEntry;
+
+			var k = 0;
+
+			for(var i=0;i<this.numofUsers;i++){
+				currentUser = this.users[i];
+
+				for(var j=0;j<currentUser.numofEntries;j++){
+					currentEntry = currentUser.entries[j];
+
+					array[k++] = currentEntry.AOI;
+				}
+			}
+		}
+	}
 
 	//this function selects the users that you want to be selected
 	//Parameters:
@@ -424,7 +469,156 @@ class dataUser {
 				}
 			}
 		}
+	}
 
+	getTime(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.time);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].time;
+			}
+		}
+
+		return array;
+	}
+
+	getX(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.x);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].x;
+			}
+		}
+
+		return array;
+	}
+
+	getY(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.y);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].y;
+			}
+		}
+
+		return array;
+	}
+
+	getDuration(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.duration);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].duration;
+			}
+		}
+
+		return array;
+	}
+
+	getAOI(filtered = true){
+		var array;
+
+		if(filtered){
+
+			array = [];
+
+			var currentEntry;
+
+			for(var i=0;i<this.numofEntries;i++){
+				currentEntry = this.entries[i];
+
+				if(!currentEntry.enabled){
+					continue;
+				}
+
+				array.push(currentEntry.AOI);
+			}
+		}else{
+
+			array = Array(this.numofEntries);
+
+			for(var i=0;i<this.numofEntries;i++){
+				array[i] = this.entries[i].AOI;
+			}
+		}
+
+		return array;
 	}
 }
 
