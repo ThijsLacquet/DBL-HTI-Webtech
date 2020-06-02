@@ -35,16 +35,21 @@ class Visualization {
         this.canvas = canvas;
         this.img = img;
         this.ctx = canvas.getContext("2d");
-        this.width = this.img.width;
-        this.height = this.img.height;
+
+        if(img == null){
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+        }else{
+            this.width = this.img.width;
+            this.height = this.img.height;
+            this.img.style.marginLeft = "0px";
+            this.img.style.marginTop = "0px";
+            this.img.style.width = this.width;
+            this.img.style.height = this.height;
+        }
 
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-
-        this.img.style.marginLeft = "0px";
-        this.img.style.marginTop = "0px";
-        this.img.style.width = this.width;
-        this.img.style.height = this.height;
 
         this.canvas.style.marginLeft = "0px";
         this.canvas.style.marginTop = "0px";
@@ -58,7 +63,9 @@ class Visualization {
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
 
-        this.width = this.img.width;
+        if(img != null){
+            this.width = this.img.width;
+        }    
     }
 
     /*
