@@ -25,8 +25,8 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         $filename = basename($_FILES["Upload_file"]["name"][$i]);
         $file = $dir . $user . '/' . $filename;
         $extension = strtoLower(pathinfo($file, PATHINFO_EXTENSION));
-        if (!(in_array( $extension, array('jpg', 'jpeg', 'png', 'csv')))) {
-            die("Only CSV, JPG, JPEG, and PNG files are allowed");
+        if (!(in_array( $extension, array('jpg', 'jpeg', 'csv')))) {
+            die("Only CSV, JPG, and JPEG files are allowed");
         }
 
         if (file_exists($file)) {
