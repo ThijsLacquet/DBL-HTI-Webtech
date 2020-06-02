@@ -14,6 +14,11 @@
   <title>Test page for linking visualizations</title>
 
   <script>
+	var array = null;
+	$.post( "Scripts/upload.php", function( data ) {
+		array = JSON.parse(data);
+	});
+  
   	//Input data
       var timestamp = [28719,28802,29268,29568,29801,30118,30368,30551,30717,30884,31084,31217,31500,32116,
   		32316,32616,32866,33116,33366,33565,33765,33982,34315,34831,35064,35248,35631,35981, 36948, 37123,
