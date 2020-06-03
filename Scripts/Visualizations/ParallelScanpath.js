@@ -9,13 +9,13 @@ class ParallelScanpath extends Visualization{
 
 	setData(d){
 		this.maxtime = d.maxtime;
-		this.numofAOIs = d.getAOIs().lenght;
+		this.numofAOIs = d.getAOIs().length;
 
-		this.switchtimes = Array(this.numofusers);
+		this.switchtimes = Array(d.numofActiveUsers);
 
 		var j = 0;
 
-		for(var i=0;i<this.numofusers;i++){
+		for(var i=0;i<d.numofUsers;i++){
 			if(!d.users[i].enabled){
 				continue;
 			}
@@ -35,7 +35,9 @@ class ParallelScanpath extends Visualization{
 	draw(){
 		var maxt = this.maxtime;
 
-		var numofAOIs = this.numofAOIs;;
+		var numofAOIs = this.numofAOIs;
+
+		var numofusers = this.numofusers;
 
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
@@ -48,6 +50,8 @@ class ParallelScanpath extends Visualization{
 
 		var x = linesAOIdist/2;
 
+		console.log(linesAOIdist, linesuserdist);
+
 		this.createColors(numofusers);
 
 		while(x < this.width){
@@ -57,6 +61,9 @@ class ParallelScanpath extends Visualization{
 			}
 			x += linesAOIdist;
 		}
+
+		this.ctx.strokeStyle = '#d3d3d3';
+
 		this.ctx.stroke();
 
 		this.ctx.lineWidth = linesuserdist/4;
@@ -64,14 +71,14 @@ class ParallelScanpath extends Visualization{
 		for(var user = 0; user < this.numofusers; user++){
 			var AOIs = this.switchtimes[user][0];
 			var times = this.switchtimes[user][1];
-
+			
 			var prev = (AOIs[0] + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
 			this.ctx.beginPath();
 			this.ctx.moveTo(prev,0);
 
 
-			for(var i = 1; i < switchtimes.length; i++){
+			for(var i = 1; i < AOIs.length; i++){
 				var t = times[i]
 				var AOI = AOIs[i];
 
