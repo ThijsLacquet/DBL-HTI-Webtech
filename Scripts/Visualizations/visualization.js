@@ -167,9 +167,6 @@ class Visualization {
         this.duration = d.getDuration();
         this.timestamp = d.getTime();
         this.user = d.getUser();
-
-        this.aoi = d.getAOIs();
-        this.createColors(aoi.length);
     }
 
     /*

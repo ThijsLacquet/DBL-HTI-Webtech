@@ -190,11 +190,9 @@
 			var visImgContainerHM = document.getElementById('visImgContainerHM');
 			var download_button = document.getElementById("download_heatmap");
 
-			// myHeatmap = new Heatmap(canvas, img);
-			// myHeatmap.setDownloadButton(download_button, canvas);
-			// //myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
-			// myHeatmap.setImage(imagePath);
-			// myHeatmap.draw();
+			myHeatmap = new Heatmap(canvas, img);
+			myHeatmap.setDownloadButton(download_button, canvas);
+			myHeatmap.setImage(imagePath);
 
 
 			<!--Drawing the scarfplot-->
@@ -226,36 +224,38 @@
 
 	<!--setting up the parallel scanpath-->
 
-		var canvas = document.getElementById('myCanvasPSP');
-		var visContainerPSP = document.getElementById('visContainerPSP');
+			var canvas = document.getElementById('myCanvasPSP');
+			var visContainerPSP = document.getElementById('visContainerPSP');
 
 
-		myParallelScanpath = new ParallelScanpath(canvas);
+			myParallelScanpath = new ParallelScanpath(canvas);
 
 
 	<!--data & drawing -->;
 
-		function setData(d){
-			d.setAOIs(aoi);
-			d.divideInAOIs();
+			function setData(d){
+				d.setAOIs(aoi);
+				d.divideInAOIs();
 
-			myParallelScanpath.setData(d);
-			myScarfplot.setData(d);
-			myScanpath.setData(d, size);
-		}
+				myParallelScanpath.setData(d);
+				myScarfplot.setData(d);
+				myScanpath.setData(d, size);
+				myHeatmap.setData(d);
+			}
 
-		function draw(){
-			myParallelScanpath.draw();
-			myScarfplot.draw();
-			myScanpath.draw();
-		}
+			function draw(){
+				myParallelScanpath.draw();
+				myScarfplot.draw();
+				myScanpath.draw();
+				myHeatmap.draw();
+			}
 
-		function init(d){
-			setData(d);
-			draw();
-		}
+			function init(d){
+				setData(d);
+				draw();
+			}
 
-		var d = new data(imageName, init);
+			var d = new data(imageName, init);
 
 	</script>
 	<script src="Scripts/Visualizations/AOIselection.js"></script>
