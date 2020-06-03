@@ -44,13 +44,11 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             }
         }
     }
+    $countImg = count(glob("../../data/" . $user . "/*.jpg"));
+    $countCsv = count(glob("../../data/" . $user . "/*.csv"));
     
-    $dataLocation = array();
-    $images = glob($dir . $user . "/*.jpg");
-    foreach ($images as $image) {
-        $dataLocation[] = $image;
-    }
-    print_r($dataLocation);
+    echo "You have $countImg images in total";
+    echo "You have $countCsv files in total";
     
     $dataNames = array();
     $files = [];
@@ -71,9 +69,7 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
     }
     print_r($dataNames);
     
-    $imagesData['location'] = $dataLocation;
-    $imagesData['name'] = $dataNames;
-    $dataImages = json_encode($imagesData);
+    $dataImages = json_encode($dataNames);
     
     echo $dataImages;
 }
