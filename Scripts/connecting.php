@@ -3,6 +3,7 @@
 
 #connecting to the database
 require 'sql.php';
+include_once 'user.php';
 
 if(isset($_POST['stimuliPicture'])){
 	$stimuliPicture = $_POST['stimuliPicture']; //Comment out for scanpath demo
@@ -11,6 +12,11 @@ if(isset($_POST['stimuliPicture'])){
 }
 $mysql_connection = connectsql();
 
+//Establish user
+$dir = dirname(__FILE__)."/../../data/";
+$myUser = new User($dir);
+$user = $myUser->addUser();
+
 #throws error if not connected to database
 if ($mysql_connection->connect_error) {
     die("Failed to connect to mysql: " . $mysql_connection->connect_error);
@@ -18,6 +24,10 @@ if ($mysql_connection->connect_error) {
 
 #the variable stimuliPicture needs to be altered such that the participant can select the stimuli picture
 $sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user, timestamp";
+=======
+//$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
+//$result = $mysql_connection->query($sql);
+
 $result = $mysql_connection->query($sql);
 
 // $sql = "SELECT fixationduration, mappedfixationpointx, mappedfixationpointy, timestamp, user FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture'";
