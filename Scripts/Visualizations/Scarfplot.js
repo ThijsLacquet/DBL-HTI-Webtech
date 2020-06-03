@@ -98,6 +98,9 @@ class Scarfplot extends Visualization {
 		}
 
 		this.numofusers = j;
+
+		this.aoi = d.getAOIs();
+		this.createColors(aoi.length);
 	}
 
 	/*
@@ -107,7 +110,6 @@ class Scarfplot extends Visualization {
         super.drawIfLoaded();
 
         this.drawAoi();
-        this.formatData();
 
         var offSetX = 200 * this.widthScale;
 		var userHeight = 100 * this.heightScale;
@@ -120,19 +122,24 @@ class Scarfplot extends Visualization {
 
 		for (var k = 0; k < this.numofusers; k++) {
 			//Pixels per unit of timestamp
+
 			var deltaPixel = (this.width - offSetX) /
 				this.userData[k].maxTime; 
 
 			for (var i = 0; i < this.userData[k].amount - 1; i++) { //Loop over all transitions
+				if(this.userData[k].AOI[i] == 0){
+					continue;
+				}
+
 				this.scarfCtx.beginPath();
                 //Draw part of scarfplot
 				var timestamp = (this.userData[k].time[i]);
-				var timestampNext = (this.userData[k].time[i]);
+				var timestampNext = (this.userData[k].time[i+1]);
 
-                this.scarfCtx.rect(deltaPixel * timestampZerod + offSetX, userHeight * k,
-					deltaPixel * (timestampZerodNext - timestampZerod), userHeight * (k + 1));
+                this.scarfCtx.rect(deltaPixel * timestamp + offSetX, userHeight * k,
+					deltaPixel * (timestampNext - timestamp), userHeight * (k + 1));
                     
-                this.scarfCtx.fillStyle = this.colors[this.userData[i].AOI];
+                this.scarfCtx.fillStyle = this.colors[this.userData[k].AOI[i] - 1];
                 this.scarfCtx.fill();
 			}
 
