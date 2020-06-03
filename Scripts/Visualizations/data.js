@@ -9,6 +9,8 @@ class data {
 		var superThis = this;
 		this.users = [];
 
+		this.callback = callback;
+
 		this.AOIs = [];
 
 		this.totalEntries = 0;
@@ -27,7 +29,10 @@ class data {
 			callback(superThis);
 			
 		});
+	}
 
+	update(){
+		this.callback(this);
 	}
 
 	//a function that is called to interpret the data from the server and add it to this data structure

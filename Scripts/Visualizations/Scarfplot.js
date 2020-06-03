@@ -72,6 +72,34 @@ class Scarfplot extends Visualization {
 		this.userData = userData;
 	}
 
+	setData(d){
+		this.AOI = d.getAOI();
+
+		this.nUsers = d.numofActiveUsers;
+
+		this.numofAOIs = d.getAOIs().length;
+
+		this.userData = Array(d.numofActiveUsers);
+
+		var j = 0;
+
+		for(var i=0;i<d.numofUsers;i++){
+			if(!d.users[i].enabled){
+				continue;
+			}
+
+			this.userData[j++] = {
+				AOI: d.users[i].getAOI(),
+				time: d.users[i].getTime(),
+				maxTime: d.users[i].maxtime,
+				amount: d.users[i].numofEntries,
+				user: d.users[i].name
+			};
+		}
+
+		this.numofusers = j;
+	}
+
 	/*
 	* Draws the visualization.
 	*/
@@ -86,35 +114,26 @@ class Scarfplot extends Visualization {
 
 		var totalTime = 0;
 		
-		var nUsers = 0;
-		while (this.userData[nUsers] != null) {
-			nUsers++;
-		}
+		var nUsers = this.numofusers;
 
 		this.scarfCanvas.height = userHeight * nUsers;
 
-		for (var k = 0; this.userData[k] != null; k++) {
+		for (var k = 0; k < this.numofusers; k++) {
 			//Pixels per unit of timestamp
 			var deltaPixel = (this.width - offSetX) /
-				(this.userData[k].maxTime - this.userData[k].minTime); 
+				this.userData[k].maxTime; 
 
 			for (var i = 0; i < this.userData[k].amount - 1; i++) { //Loop over all transitions
-				for (var j = 0; j < this.aoi.length; j++) { //Loop over all AOI's
-					if (this.isInAoi(aoi[j], this.userData[k].data[i].pX, this.userData[k].data[i].pY)) {
-						this.scarfCtx.beginPath();
-                        //Draw part of scarfplot
-						var timestampZerod = (this.userData[k].data[i].timestamp - this.userData[k].minTime);
-						var timestampZerodNext = (this.userData[k].data[i + 1].timestamp
-							- this.userData[k].minTime);
+				this.scarfCtx.beginPath();
+                //Draw part of scarfplot
+				var timestamp = (this.userData[k].time[i]);
+				var timestampNext = (this.userData[k].time[i]);
 
-                        this.scarfCtx.rect(deltaPixel * timestampZerod + offSetX, userHeight * k,
-							deltaPixel * (timestampZerodNext - timestampZerod), userHeight * (k + 1));
-                            
-                        this.scarfCtx.fillStyle = this.colors[j];
-                        this.scarfCtx.fill();
-						break;
-					}
-				}
+                this.scarfCtx.rect(deltaPixel * timestampZerod + offSetX, userHeight * k,
+					deltaPixel * (timestampZerodNext - timestampZerod), userHeight * (k + 1));
+                    
+                this.scarfCtx.fillStyle = this.colors[this.userData[i].AOI];
+                this.scarfCtx.fill();
 			}
 
 			//Add elements for one single user

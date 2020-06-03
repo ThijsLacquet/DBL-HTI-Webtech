@@ -162,11 +162,14 @@ class Visualization {
     }
 
     setData(d) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
-        this.duration = duration;
-        this.timestamp = timestamp;
-        this.user = user;
+        this.mappedFixationPointX = d.getX();
+        this.mappedFixationPointY = d.getY();
+        this.duration = d.getDuration();
+        this.timestamp = d.getTime();
+        this.user = d.getUser();
+
+        this.aoi = d.getAOIs();
+        this.createColors(aoi.length);
     }
 
     /*
