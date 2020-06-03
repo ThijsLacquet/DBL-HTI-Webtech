@@ -210,8 +210,8 @@
 			myScarfplot.setDownloadButton(download_button, scarfCanvas);
 			myScarfplot.setImage(imagePath);
 
-			<!--Drawing the scanpath-->
-			var size = 0.06;
+			<!--Drawing the scanpath-->;
+			var size = 0.01;
 
 			var img = document.getElementById('myImageSC');
 			var canvas = document.getElementById('myCanvasSC');
@@ -223,7 +223,6 @@
 
 			myScanpath = new Scanpath(canvas, img);
 			myScanpath.setImage(imagePath);
-			myScanpath.start(size);
 
 	<!--setting up the parallel scanpath-->
 
@@ -233,19 +232,22 @@
 
 		myParallelScanpath = new ParallelScanpath(canvas);
 
-		function setData(d){
-			console.log(d);
 
+	<!--data & drawing -->;
+
+		function setData(d){
 			d.setAOIs(aoi);
 			d.divideInAOIs();
 
 			myParallelScanpath.setData(d);
 			myScarfplot.setData(d);
+			myScanpath.setData(d, size);
 		}
 
 		function draw(){
 			myParallelScanpath.draw();
 			myScarfplot.draw();
+			myScanpath.draw();
 		}
 
 		function init(d){

@@ -50,8 +50,6 @@ class ParallelScanpath extends Visualization{
 
 		var x = linesAOIdist/2;
 
-		console.log(linesAOIdist, linesuserdist);
-
 		this.createColors(numofusers);
 
 		while(x < this.width){
@@ -66,12 +64,12 @@ class ParallelScanpath extends Visualization{
 
 		this.ctx.stroke();
 
-		this.ctx.lineWidth = linesuserdist/4;
+		var lineWidth = this.ctx.lineWidth = 3;
 
 		for(var user = 0; user < this.numofusers; user++){
 			var AOIs = this.switchtimes[user][0];
 			var times = this.switchtimes[user][1];
-			
+
 			var prev = (AOIs[0] + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
 			this.ctx.beginPath();
@@ -84,8 +82,12 @@ class ParallelScanpath extends Visualization{
 
 				var pos = (AOI + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
-				this.ctx.lineTo(prev,(t/maxt) * this.height);
-				this.ctx.lineTo(pos, (t/maxt) * this.height);
+				if(pos == prev){
+					this.ctx.lineTo(pos, (t/maxt) * this.height);
+				}else{
+					this.ctx.lineTo(prev,(t/maxt) * this.height - lineWidth);
+					this.ctx.lineTo(pos, (t/maxt) * this.height + lineWidth);
+				}
 
 				prev = pos;
 			}

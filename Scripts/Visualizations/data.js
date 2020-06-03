@@ -32,7 +32,7 @@ class data {
 	}
 
 	update(){
-		this.callback(this);
+		return this.callback(this);
 	}
 
 	//a function that is called to interpret the data from the server and add it to this data structure
