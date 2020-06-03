@@ -13,18 +13,21 @@ class data {
 
 		this.totalEntries = 0;
 		this.numofUsers = 0;
+		this.numofActiveUsers = 0;
 
 		$.post( "/Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
-			
-			console.log(data);
-
 			array = JSON.parse(data);
-			superThis.totalEntries = array.length;
 
+			superThis.totalEntries = array.length;
+			
 			superThis.interpret(array);
 
+			superThis.numofActiveUsers = superThis.numofUsers;
+
 			callback(superThis);
+			
 		});
+
 	}
 
 	//a function that is called to interpret the data from the server and add it to this data structure
@@ -347,6 +350,11 @@ class data {
 	//	users: either a name of a user (string) or a array of names
 	//	append: a bool, that determinds if the users will be append to the current selection, or if the selection will be reset
 	selectUsers(users, append){
+		if(!append){
+			this.numofActiveUsers = 0;
+		}
+
+
 		if(typeof(users) == "object"){
 			for(var i=0;i<this.numofUsers;i++){
 
@@ -356,6 +364,10 @@ class data {
 
 				for(var j=0;j<users.length;j++){
 					if(this.users[i].name == users[j]){
+						if(!this.users[i].enabled){
+							this.numofActiveUsers++;
+						}
+
 						this.users[i].enabled = true;
 						break;
 					}
@@ -371,6 +383,8 @@ class data {
 					}
 				}
 			}
+
+			this.numofActiveUsers++;
 		}
 	}
 	//this filters the data base on the function parameter
@@ -394,6 +408,8 @@ class data {
 
 	//this resets the filter
 	resetfilter(){
+		this.numofActiveUsers = this.numofUsers;
+
 		for(var i=0;i<this.numofUsers;i++){
 			this.users[i].enabled = true;
 			for(var j=0;j<this.users[i].numofEntries;j++){

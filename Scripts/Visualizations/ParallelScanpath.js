@@ -18,10 +18,10 @@ class ParallelScanpath extends Visualization{
 
 		var numofAOIs = d.getAOIs().length;
 
-		var numofusers = AOIs.length;
-
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
+
+		var numofusers = d.numofActiveUsers;
 
 		this.ctx.clearRect(0, 0, this.width, this.height);
 
@@ -29,7 +29,7 @@ class ParallelScanpath extends Visualization{
 
 		var x = linesAOIdist/2;
 
-		var colors = this.createColors(numofusers);
+		this.createColors(numofusers);
 
 		while(x < this.width){
 			for(var i = -numofusers/2;i < numofusers/2; i++){
@@ -42,8 +42,12 @@ class ParallelScanpath extends Visualization{
 
 		this.ctx.lineWidth = linesuserdist/4;
 
-		for(var user = 0; user < numofusers; user++){
+		for(var user = 0; user < d.numofusers; user++){
 			var currentUser = d.users[i];
+
+			if(!currentUser.enabled){
+				continue;
+			}
 
 			var AOIs = currentUser.getAOI();
 			var times = currentUser.getTime();
@@ -66,7 +70,7 @@ class ParallelScanpath extends Visualization{
 				prev = pos;
 			}
 
-			this.ctx.strokeStyle = colors[user];
+			this.ctx.strokeStyle = this.colors[user];
 			this.ctx.stroke();
 		}
 	}
