@@ -240,13 +240,24 @@
 	</script>
 
 
-	<script>;
-		var d = new data(imageName, init)
+	<script>
+		function setData(d){
+			d.setAOIs(aoi);
+			d.divideInAOIs();
 
-		function init(d){
 			myParallelScanpath.setData(d);
+		}
+
+		function draw(){
 			myParallelScanpath.draw();
 		}
+
+		function init(d){
+			setData(d);
+			draw();
+		}
+
+		var d = new data(imageName, init);
 
 	</script>
 	<script src="Scripts/Visualizations/AOIselection.js"></script>
