@@ -44,38 +44,11 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             }
         }
     }
+    $countImg = count(glob("../../data/" . $user . "/*.jpg"));
+    $countCsv = count(glob("../../data/" . $user . "/*.csv"));
     
-    $dataLocation = array();
-    $images = glob($dir . $user . "/*.jpg");
-    foreach ($images as $image) {
-        $dataLocation[] = $image;
-    }
-    print_r($dataLocation);
-    
-    $dataNames = array();
-    $files = [];
-    $images = preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
-    
-    if ($handle = opendir($dir . $user)) {
-        
-        while (false !== ($entry = readdir($handle))) {
-            $files[] = $entry;
-        }
-        $imagesName = preg_grep('/\.jpg$/i', $files);
-        
-        foreach($imagesName as $imageName)
-        {
-            $dataNames[] = $imageName.'<br/>';
-        }
-        closedir($handle);
-    }
-    print_r($dataNames);
-    
-    $imagesData['location'] = $dataLocation;
-    $imagesData['name'] = $dataNames;
-    $dataImages = json_encode($imagesData);
-    
-    echo $dataImages;
+    echo "You have $countImg images in total";
+    echo "You have $countCsv files in total";
 }
 
 
