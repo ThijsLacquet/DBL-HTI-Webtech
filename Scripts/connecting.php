@@ -10,6 +10,7 @@ if(isset($_POST['stimuliPicture'])){
 }else{
 	$stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
 }
+
 $mysql_connection = connectsql();
 
 //Establish user
