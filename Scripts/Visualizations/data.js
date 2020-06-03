@@ -65,6 +65,10 @@ class data {
 		this.AOIs = AOIs;
 	}
 
+	addAOI(AOI){
+		this.AOIs = AOI;
+	}
+
 	getAOIs(){
 		return this.AOIs;
 	}
@@ -113,6 +117,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	getX(filtered = true){
@@ -159,6 +165,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	getY(filtered = true){
@@ -205,6 +213,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	getDuration(filtered = true){
@@ -251,6 +261,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	getUser(filtered = true){
@@ -297,6 +309,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	getAOI(filtered = true){
@@ -343,6 +357,8 @@ class data {
 				}
 			}
 		}
+
+		return array;
 	}
 
 	//this function selects the users that you want to be selected
@@ -446,7 +462,9 @@ class data {
 		});
 	}
 
-	divideInAOIs(AOIs){
+	divideInAOIs(){
+		var AOIs = this.getAOIs();
+
 		for(var i=0;i<this.numofUsers;i++){
 			this.users[i].divideInAOIs(AOIs);
 		}
@@ -653,11 +671,6 @@ class dataEntry {
 	}
 
 	isInAOI(AOI) {
-		//By Thijs
-
-	    if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
-	        throw("IllegalArgumentException");
-	    }
 
 	    return (AOI.x1 < this.x &&
 	        AOI.x2 > this.x &&
