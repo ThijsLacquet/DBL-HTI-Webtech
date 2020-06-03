@@ -17,6 +17,13 @@ class data {
 		this.numofUsers = 0;
 		this.numofActiveUsers = 0;
 
+		this.editedTime = true;
+		this.editedX	= true;
+		this.editedY	= true;
+		this.editedDuration	= true;
+		this.editedUser	= true;
+		this.editedAOI	= true;
+
 		$.post( "/Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
 			array = JSON.parse(data);
 
@@ -27,7 +34,7 @@ class data {
 			superThis.numofActiveUsers = superThis.numofUsers;
 
 			callback(superThis);
-			
+
 		});
 	}
 
@@ -82,6 +89,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.edited){
+				return this.Time;
+			}
 			array = [];
 
 			var currentUser;
@@ -104,6 +114,9 @@ class data {
 					array.push(currentEntry.time);
 				}
 			}
+
+			this.Time = array;
+			this.editedTime = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -123,6 +136,7 @@ class data {
 			}
 		}
 
+
 		return array;
 	}
 
@@ -130,6 +144,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.editedX){
+				return this.X;
+			}
 			array = [];
 
 			var currentUser;
@@ -152,6 +169,9 @@ class data {
 					array.push(currentEntry.x);
 				}
 			}
+
+			this.X = array;
+			this.editedX = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -178,6 +198,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.editedY){
+				return this.Y;
+			}
 			array = [];
 
 			var currentUser;
@@ -200,6 +223,9 @@ class data {
 					array.push(currentEntry.y);
 				}
 			}
+
+			this.Y = array;
+			this.editedY = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -226,6 +252,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.editedDuration){
+				return this.duration;
+			}
 			array = [];
 
 			var currentUser;
@@ -248,6 +277,9 @@ class data {
 					array.push(currentEntry.duration);
 				}
 			}
+
+			this.duration = array;
+			this.editedDuration = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -274,6 +306,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.editedUser){
+				return this.user;
+			}
 			array = [];
 
 			var currentUser;
@@ -296,6 +331,9 @@ class data {
 					array.push(currentEntry.user.name);
 				}
 			}
+
+			this.user = array;
+			this.editedUser = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -322,6 +360,9 @@ class data {
 		var array;
 
 		if(filtered){
+			if(!this.editedAOI){
+				return this.AOI;
+			}
 			array = [];
 
 			var currentUser;
@@ -344,6 +385,9 @@ class data {
 					array.push(currentEntry.AOI);
 				}
 			}
+
+			this.AOI = array;
+			this.editedAOI = false;
 		}else{
 			array = Array(this.totalEntries);
 
@@ -371,6 +415,13 @@ class data {
 	//	users: either a name of a user (string) or a array of names
 	//	append: a bool, that determinds if the users will be append to the current selection, or if the selection will be reset
 	selectUsers(users, append){
+		this.editedTime = true;
+		this.editedX	= true;
+		this.editedY 	= true;
+		this.editedDuration	= true;
+		this.editedUser	= true;
+		this.editedAOI	= true;
+
 		if(!append){
 			this.numofActiveUsers = 0;
 		}
@@ -416,6 +467,13 @@ class data {
 	//		Return value:
 	//			bool: weither it is filtered out or not (true => it stays in the data, false => it is removed from the data)
 	filter(func){
+		this.editedTime = true;
+		this.editedX	= true;
+		this.editedY 	= true;
+		this.editedDuration	= true;
+		this.editedUser	= true;
+		this.editedAOI	= true;
+
 		for(var i=0;i<this.numofUsers;i++){
 			for(var j=0;j<this.users[i].numofEntries;j++){
 				if(func(this.users[i].entries[j])){
@@ -468,10 +526,14 @@ class data {
 	}
 
 	divideInAOIs(){
+		this.editedAOI = true;
+
 		var AOIs = this.getAOIs();
 
 		for(var i=0;i<this.numofUsers;i++){
-			this.users[i].divideInAOIs(AOIs);
+			if(this.users[i].enabled){
+				this.users[i].divideInAOIs(AOIs);
+			}
 		}
 	}
 }
