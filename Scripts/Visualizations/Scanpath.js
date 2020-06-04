@@ -18,38 +18,62 @@ class Scanpath extends Visualization {
 	}
 	
 	//amount is the number of colours needed, needs to be implemented
-	
-	drawOld(data, size) {
-		console.log(data);
-		console.log("correct one");
-		super.drawOld(data, size);
+
+	setData(d, size){
+		this.size = size;
+
+		this.data = Array(d.numofActiveUsers);
+
 		var j = 0;
+
+		for(var i=0;i<d.numofUsers;i++){
+			if(!d.users[i].enabled){
+				continue;
+			}
+
+			this.data[j++] = {X: d.users[i].getX(), Y: d.users[i].getY(), duration: d.users[i].getDuration()};
+		}
+
+		this.numofusers = j;
+
+		this.createColors(j);
+	}
+	
+	drawIfLoaded() {
+		super.drawIfLoaded();
+		
+		var size = this.size;
+
+		var j;
 		this.ctx.lineWidth = 3;
 		
-		for(j = 0; j < this.data.length ; j++) {
-			if (j == 0 || this.data[j]['user'] != this.data[j - 1]['user']) {
-				//still need to implement the nice color way from Thijs
-				var r = Math.floor(Math.random() * 255); 
-				var g = Math.floor(Math.random() * 255);
-				var b = Math.floor(Math.random() * 255); 
-				this.ctx.fillStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
-				this.ctx.strokeStyle = 'rgb('+ r + ', ' + g + ', ' + b + ')';
-				
+		for(var user = 0; user < this.numofusers; user++) {
+		
+			var currentUser = this.data[user];
+
+			if(currentUser.X.length == 0){
+				continue;
 			}
-			
 			this.ctx.beginPath();
-			this.ctx.arc(this.data[j]['mappedfixationpointx'], this.data[j]['mappedfixationpointy'], (this.data[j]['fixationduration']*this.size), 0, 2 * Math.PI);
+
+			this.ctx.strokeStyle = this.colors[user];
+			this.ctx.fillStyle = this.colors[user];
+
+			this.ctx.arc(this.data[user].X[0], this.data[user].Y[0] * this.widthScale, (this.data[user].duration[0]*this.size) * this.heightScale, 0, 2 * Math.PI);
 			this.ctx.fill();
-			this.ctx.moveTo(this.data[j]['mappedfixationpointx'], this.data[j]['mappedfixationpointy']);
-			
-			
-			if (!(j == this.data.length - 1)) {
-				if (this.data[j]['user'] == this.data[j + 1]['user']) {
-					this.ctx.lineTo(this.data[j + 1]['mappedfixationpointx'], this.data[j + 1]['mappedfixationpointy'])
-					this.ctx.stroke();
-				}
+
+			for(var i = 0;i < currentUser.X.length;i++){
+				this.ctx.beginPath();
+				
+				this.ctx.strokeStyle = this.colors[user];
+				this.ctx.fillStyle = this.colors[user];
+
+				this.ctx.arc(this.data[user].X[i] * this.widthScale, this.data[user].Y[i]  * this.heightScale, (this.data[user].duration[i]*this.size), 0, 2 * Math.PI);
+				this.ctx.fill();
+				this.ctx.moveTo(this.data[user].X[i -1] * this.widthScale, this.data[user].Y[i - 1] * this.heightScale);
+				this.ctx.lineTo(this.data[user].X[i] * this.widthScale, this.data[user].Y[i] * this.heightScale);
+				this.ctx.stroke();
 			}
-			
 		}
 	}
 }

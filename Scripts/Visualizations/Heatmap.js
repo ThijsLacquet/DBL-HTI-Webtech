@@ -47,6 +47,12 @@ class Heatmap extends Visualization {
         this.data = data;
     }
 
+    setData(d) {
+        this.mappedFixationPointX = d.getX();
+        this.mappedFixationPointY = d.getY();
+        this.duration = d.getDuration();
+    }
+
     /*
     * Creates an array of amount colors, gradually going from red to yellow to green.
     */

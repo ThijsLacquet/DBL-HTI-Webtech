@@ -4,7 +4,7 @@
 */
 require 'sql.php';
 
-define('LINESPERQUERY', '5000');
+define('LINESPERQUERY', '10000');
 
 class Readdata {
 	private $mysql_connection;

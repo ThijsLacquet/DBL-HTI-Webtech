@@ -28,23 +28,28 @@ class Visualization {
     * @throws {IllegalArgumentException} If the canvas or img are undefined
     */
     constructor(canvas, img) {
-        if (canvas == undefined || img == undefined) {
+        if (canvas == undefined) {
             throw("IllegalArgumentException");
         }
 
         this.canvas = canvas;
         this.img = img;
         this.ctx = canvas.getContext("2d");
-        this.width = this.img.width;
-        this.height = this.img.height;
+
+        if(img == null){
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+        }else{
+            this.width = this.img.width;
+            this.height = this.img.height;
+            this.img.style.marginLeft = "0px";
+            this.img.style.marginTop = "0px";
+            this.img.style.width = this.width;
+            this.img.style.height = this.height;
+        }
 
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-
-        this.img.style.marginLeft = "0px";
-        this.img.style.marginTop = "0px";
-        this.img.style.width = this.width;
-        this.img.style.height = this.height;
 
         this.canvas.style.marginLeft = "0px";
         this.canvas.style.marginTop = "0px";
@@ -58,8 +63,12 @@ class Visualization {
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
 
-        this.width = this.img.width;
+        if(img != null){
+            this.width = this.img.width;
+        }    
     }
+
+
 
     /*
     * Creates amount colors on the HSL scale with an equal seperation in hue
@@ -152,12 +161,12 @@ class Visualization {
         this.img.src = src;
     }
 
-    setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
-        this.duration = duration;
-        this.timestamp = timestamp;
-        this.user = user;
+    setData(d) {
+        this.mappedFixationPointX = d.getX();
+        this.mappedFixationPointY = d.getY();
+        this.duration = d.getDuration();
+        this.timestamp = d.getTime();
+        this.user = d.getUser();
     }
 
     /*
@@ -191,8 +200,13 @@ class Visualization {
             throw("NaturalWidth <= 0");
         }
 
-        this.widthScale = this.width / this.img.naturalWidth;
-        this.heightScale = this.height / this.img.naturalHeight;
+        if(this.img == null){
+            this.widthScale = this.width / this.canvas.naturalWidth;
+            this.heightScale = this.height / this.canvas.naturalHeight;
+        }else{
+            this.widthScale = this.width / this.img.naturalWidth;
+            this.heightScale = this.height / this.img.naturalHeight;
+        }
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
@@ -300,5 +314,41 @@ class Visualization {
             this.posX = event.clientX;
             this.posY = event.clientY;
         }
+    }
+
+    /*
+    * Downloads an image of the canvas when the download button is pressed
+    * @param download_button ElementId of the html downloadbutton
+    * @param canvas Canvas of the image which should be downloaded
+     */
+    setDownloadButton(download_button, canvas) {
+        if (download_button == undefined) {
+            throw("Download button is undefined in setDownloadButton");
+        }
+        if (canvas == undefined) {
+            throw("Canvas is undefined in setDownloadButton");
+        }
+
+        var superThis = this; //Transfers this to new scope
+
+        download_button.addEventListener("click", function() {
+            //Add background image
+            superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height); //Lowers quality of image
+
+            var filename = 'visualization.png';
+            var imgurl = canvas.toDataURL(); //Save graphics as png
+
+            var element = document.createElement('a');
+            element.setAttribute('href', imgurl);
+            element.setAttribute('download', filename);
+
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+
+            superThis.draw();
+        }.bind(superThis), false);
     }
 }

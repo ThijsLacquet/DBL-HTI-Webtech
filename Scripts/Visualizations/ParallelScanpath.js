@@ -1,10 +1,29 @@
-class ParallelScanpath extends visualization{
+class ParallelScanpath extends Visualization{
 
 	//This will be called to initialize the visualizations
 	//Parameters:
 	//	canvas: this is a DOM object of the canvas that the visualization is displayed on
-	constructor(canvas, img, width, height){
-		super(canvas, img, width, height);
+	constructor(canvas){
+		super(canvas, null);
+	}
+
+	setData(d){
+		this.maxtime = d.maxtime;
+		this.numofAOIs = d.getAOIs().length;
+
+		this.switchtimes = Array(d.numofActiveUsers);
+
+		var j = 0;
+
+		for(var i=0;i<d.numofUsers;i++){
+			if(!d.users[i].enabled){
+				continue;
+			}
+
+			this.switchtimes[j++] = [d.users[i].getAOI(), d.users[i].getTime()];
+		}
+
+		this.numofusers = j;
 	}
 
 
@@ -13,19 +32,12 @@ class ParallelScanpath extends visualization{
 	//	data:		the data that will be displayed (we moeten nog wel ff afspreken hoe die er precies uit gaat zien)
 	//	AOIs:		an array of AOIs, which are 4-element arrays that represent the coordinates of the areas of interest
 	//	selection: 	a boolean array with the same lenght as the data, which represents which indices of the data are selected 
-	draw(data){
+	draw(){
+		var maxt = this.maxtime;
 
-		
-		
-		console.log(data);
+		var numofAOIs = this.numofAOIs;
 
-		var maxt = data.maxt;
-
-		var numofAOIs = data.numofAOIs;
-
-		var swdata = data.switchtimes;
-
-		var numofusers = 7//swdata.length;
+		var numofusers = this.numofusers;
 
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
@@ -36,7 +48,7 @@ class ParallelScanpath extends visualization{
 
 		var x = linesAOIdist/2;
 
-		var colors = this.createColors(numofusers);
+		this.createColors(numofusers);
 
 		while(x < this.width){
 			for(var i = -numofusers/2;i < numofusers/2; i++){
@@ -45,34 +57,41 @@ class ParallelScanpath extends visualization{
 			}
 			x += linesAOIdist;
 		}
+
+		this.ctx.strokeStyle = '#d3d3d3';
+
 		this.ctx.stroke();
 
-		console.log(linesAOIdist);
-
-		this.ctx.lineWidth = linesuserdist/4;
+		var lineWidth = this.ctx.lineWidth = 3;
 
 		for(var user = 0; user < numofusers; user++){
-			var switchtimes = swdata[user];
+			var AOIs = this.switchtimes[user][0];
+			var times = this.switchtimes[user][1];
 
-			var prev = (Number(switchtimes[0][1]) + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
+			var prev = (AOIs[0] + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
 			this.ctx.beginPath();
+			this.ctx.strokeStyle = this.colors[user];
 			this.ctx.moveTo(prev,0);
 
 
-			for(var i = 1; i < switchtimes.length; i++){
-				var t = Number(switchtimes[i][0]);
-				var AOI = Number(switchtimes[i][1]);
+			for(var i = 1; i < AOIs.length; i++){
+				var t = times[i]
+				var AOI = AOIs[i];
 
 				var pos = (AOI + 0.5)*linesAOIdist + (user - numofusers/2) * linesuserdist;
 
-				this.ctx.lineTo(prev,(t/maxt) * this.height - 5);
-				this.ctx.lineTo(pos, (t/maxt) * this.height + 5);
+				if(pos == prev){
+					this.ctx.lineTo(pos, (t/maxt) * this.height);
+				}else{
+					this.ctx.lineTo(prev,(t/maxt) * this.height - lineWidth);
+					this.ctx.lineTo(pos, (t/maxt) * this.height + lineWidth);
+				}
 
 				prev = pos;
 			}
 
-			this.ctx.strokeStyle = colors[user];
+
 			this.ctx.stroke();
 		}
 	}
