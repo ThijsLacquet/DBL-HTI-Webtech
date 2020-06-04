@@ -567,9 +567,12 @@ class dataUser {
 		for(var i=0;i<this.numofEntries;i++){
 			currentEntry = this.entries[i];
 
+			currentEntry.AOI = 0;
+
 			for(var j=0;j<AOIs.length;j++){
 				if(currentEntry.isInAOI(AOIs[j])){
-					currentEntry.AOI = j;
+					currentEntry.AOI = j + 1;
+					break;
 				}
 			}
 		}

@@ -9,7 +9,7 @@ class ParallelScanpath extends Visualization{
 
 	setData(d){
 		this.maxtime = d.maxtime;
-		this.numofAOIs = d.getAOIs().length;
+		this.numofAOIs = d.getAOIs().length + 1;
 
 		this.switchtimes = Array(d.numofActiveUsers);
 

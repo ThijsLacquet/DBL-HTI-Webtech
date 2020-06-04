@@ -10,6 +10,7 @@
 	<script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/ParallelScanpath.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/data.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/AOIselection.js" type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
@@ -169,9 +170,8 @@
 		<div id="AOISelection" style="width: 800px;font-size: 0">
 			<img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" style="width: 100%;z-index: 1" id="image">
 		</div>
-		<button>set</button>
+		<button onclick="updateAOIs();">set</button>
 	</div>
-
 
 	<!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
 	<input type="button" id="download_heatmap" value="Download heatmap"/>
@@ -180,6 +180,10 @@
 	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
 	<script>
+			var d = null;
+
+			var myAOIselection = new AOIselection();
+
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
 
@@ -234,7 +238,6 @@
 	<!--data & drawing -->;
 
 			function setData(d){
-				d.setAOIs(aoi);
 				d.divideInAOIs();
 
 				myParallelScanpath.setData(d);
@@ -250,15 +253,25 @@
 				myHeatmap.draw();
 			}
 
-			function init(d){
+			function update(d){
 				setData(d);
 				draw();
 			}
 
-			var d = new data(imageName, init);
+			var d = new data(imageName, update);
+			d.setAOIs(aoi);
+
+
+
+
+			function updateAOIs(){
+				var AOIs = myAOIselection.getcoords();
+				d.setAOIs(AOIs);
+				d.update();
+				console.log(AOIs);
+			}
 
 	</script>
-	<script src="Scripts/Visualizations/AOIselection.js"></script>
 
 </body>
 </html>
