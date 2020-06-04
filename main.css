@@ -299,7 +299,7 @@
 /* END GRID FOR LINKING VISUALIZATIONS */
 
 /* GRID FOR DISPLAY */
-.grid_display{
+/*.grid_display{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -333,7 +333,7 @@
 
 .grid_display div:nth-child(odd) {
   background-color: pink;
-}
+}*/
 
 /*END OF GRID FOR DISPLAY*/
 
@@ -395,7 +395,7 @@
 }
 /* END OF GRID FOR TOOLS */
 
-/* Author: Ezra Gerris */
+/* Author: Ezra Gerris and Tanja Markink*/
 /* MAKING THE VISUALIZATIONS WORK */
 img {
     display: block;
@@ -419,6 +419,12 @@ img {
 	width: 550px;
 	height: 400px;
 }
+
+/*#visContainerPSP {
+	position: relative;
+	width: 550px;
+	height: 400px;
+}*/
 
 #visImgContainerHM {
 	width: 100%;
@@ -449,10 +455,10 @@ img {
 	height: 100%;
 }
 
-#visImgContainerSP img {
+/*#visImgContainerSP img {
 	width: 100%;
 	height: 100%;
-}
+}*/
 
 #visImgContainerSC img {
 	width: 100%;
@@ -483,6 +489,14 @@ img {
 	overflow: hidden;
 }
 
+/*#visCanvasContainerPSP {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	overflow: hidden;
+}*/
+
 #visCanvasContainerHM canvas {
 	width: 100%;
 	height: 100%;
@@ -494,6 +508,11 @@ img {
 }
 
 #visCanvasContainerSC canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#visCanvasContainerPSP canvas {
 	width: 100%;
 	height: 100%;
 }
