@@ -10,6 +10,7 @@ if(isset($_POST['stimuliPicture'])){
 }else{
 	$stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
 }
+
 $mysql_connection = connectsql();
 
 //Establish user
@@ -23,8 +24,8 @@ if ($mysql_connection->connect_error) {
 }
 
 #the variable stimuliPicture needs to be altered such that the participant can select the stimuli picture
+
 $sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' AND user_id = '$user' ORDER BY user, timestamp";
-=======
 //$sql = "SELECT user, timestamp, mappedfixationpointx, mappedfixationpointy, fixationduration FROM fixationdata.fixationdata WHERE stimuliname = '$stimuliPicture' ORDER BY user";
 //$result = $mysql_connection->query($sql);
 

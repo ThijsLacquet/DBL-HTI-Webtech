@@ -28,7 +28,7 @@ class Visualization {
     * @throws {IllegalArgumentException} If the canvas or img are undefined
     */
     constructor(canvas, img) {
-        if (canvas == undefined || img == undefined) {
+        if (canvas == undefined) {
             throw("IllegalArgumentException");
         }
 
@@ -161,12 +161,12 @@ class Visualization {
         this.img.src = src;
     }
 
-    setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user) {
-        this.mappedFixationPointX = mappedFixationPointX;
-        this.mappedFixationPointY = mappedFixationPointY;
-        this.duration = duration;
-        this.timestamp = timestamp;
-        this.user = user;
+    setData(d) {
+        this.mappedFixationPointX = d.getX();
+        this.mappedFixationPointY = d.getY();
+        this.duration = d.getDuration();
+        this.timestamp = d.getTime();
+        this.user = d.getUser();
     }
 
     /*
@@ -200,8 +200,13 @@ class Visualization {
             throw("NaturalWidth <= 0");
         }
 
-        this.widthScale = this.width / this.img.naturalWidth;
-        this.heightScale = this.height / this.img.naturalHeight;
+        if(this.img == null){
+            this.widthScale = this.width / this.canvas.naturalWidth;
+            this.heightScale = this.height / this.canvas.naturalHeight;
+        }else{
+            this.widthScale = this.width / this.img.naturalWidth;
+            this.heightScale = this.height / this.img.naturalHeight;
+        }
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
