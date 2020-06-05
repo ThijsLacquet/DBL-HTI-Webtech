@@ -1,4 +1,4 @@
-<!--Author: Ezra Gerris, Thijs Lacquet and Tanja Markink-->
+<!--Author: Ezra Gerris, Thijs Lacquet, Marleen van Gent and Tanja Markink-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,15 +75,35 @@
             var imageFile = "Provided_data/stimuli/02_Berlin_S1.jpg";
         </script>-->
       </a>
-      <a href="#image3">Image 3</a>
-      <a href="#image4">Image 4</a>
-      <a href="#image5">Image 5</a>
-      <a href="#image6">Image 6</a>
-      <a href="#image7">Image 7</a>
     </div>
-  </div>
+  </div> 
+ <script>
+function addImages(data) {
+	while (var i = 0; i < data.lenght; i++) {
+		dropdown.append(data[i]);
+	}
+}
 
-  <!--Dit stukje javascript moet nog ergens anders gezet worden denk ik-->
+</script>
+ 
+  
+<script>
+function load() {
+	var array = null;
+	var superThis = this;
+	$.post( "/Scripts/imageNames.php", function( data ) {
+		array = JSON.parse(data);
+		superThis.addImages(array);
+	});	
+}
+load();
+</script>
+
+<script>
+var ingewikkeld = "img"
+dropdown.append(ingewikkeld)
+</script>
+  
   <script>
   function hideOrShow() {
     document.getElementById("dropdown").classList.toggle("show");
