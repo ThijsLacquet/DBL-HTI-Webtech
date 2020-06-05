@@ -181,15 +181,25 @@
 
 	<script>
 			var d = null;
-
-			var myAOIselection = new AOIselection();
-
+			
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
 
 			<!--Aoi image selector -->
-			var img = document.getElementById('aoiImage');
-			img.src = imagePath;
+			var aoiImg = document.getElementById('aoiImage');
+			aoiImg.src = imagePath;
+			var myAOIselection;
+
+			//Initialize aoiselection if image is loaded
+			if (aoiImg.naturalWidth != 0) {
+				myAOIselection = new AOIselection();
+			} else {
+				aoiImg.onload = function () {
+					myAOIselection = new AOIselection();
+					aoiImg.onload = function () {} //Rest onload function
+				}
+			}
+
 
 			<!--Drawing the heatmap-->
 			var img = document.getElementById('myImageHM');
