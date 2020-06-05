@@ -100,7 +100,7 @@ class Scarfplot extends Visualization {
 		this.numofusers = j;
 
 		this.aoi = d.getAOIs();
-		this.createColors(aoi.length);
+		this.createColors(this.numofAOIs);
 	}
 
 	/*
