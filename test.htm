@@ -155,6 +155,7 @@
 	<input type="button" id="download_scarfplot" value="Download scarfplot"/>
 	<input type="button" id="download_scanpath" value="Download scanpath"/>
 	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
+	<input type="button" id="download_aoi" value="Download AOIs"/>
 
 	<script>
 			var d = null;
@@ -198,9 +199,11 @@
 			var scarfCanvas = document.getElementById('scarfCanvas');
 			var scarfPlotContainer = document.getElementById('scarfPlotContainer');
 			var download_button = document.getElementById("download_scarfplot");
+			var download_aoi = document.getElementById("download_aoi");
 
 			myScarfplot = new Scarfplot(canvas, scarfCanvas, img);
 			myScarfplot.setDownloadButton(download_button, scarfCanvas);
+			myScarfplot.setDownloadButton(download_aoi, canvas);
 			myScarfplot.setImage(imagePath);
 
 			<!--Drawing the scanpath-->;
