@@ -44,23 +44,31 @@ class ParallelScanpath extends Visualization{
 
 		this.ctx.clearRect(0, 0, this.width, this.height);
 
-		this.ctx.beginPath();
 
 		var x = linesAOIdist/2;
 
-		this.createColors(numofusers);
+		this.createColors(numofAOIs - 1);
+
+		this.ctx.lineWidth = 1;
+
+		var p = 0;
+		this.ctx.strokeStyle = '#d3d3d3';
 
 		while(x < this.width){
+			this.ctx.beginPath();
 			for(var i = -numofusers/2;i < numofusers/2; i++){
 				this.ctx.moveTo(x + i * linesuserdist, 0);
 				this.ctx.lineTo(x + i * linesuserdist, this.height);
 			}
 			x += linesAOIdist;
+			this.ctx.stroke();
+			this.ctx.strokeStyle = this.colors[p];
+			p++;
 		}
 
-		this.ctx.strokeStyle = '#d3d3d3';
+		this.createColors(numofusers);
 
-		this.ctx.stroke();
+
 
 		var lineWidth = this.ctx.lineWidth = 3;
 

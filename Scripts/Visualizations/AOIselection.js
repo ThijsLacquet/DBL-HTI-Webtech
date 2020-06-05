@@ -55,9 +55,7 @@ class AOIselection {
 	addAOI(){
 
 		this.numofAOIs++;
-
-		this.colors = this.createColors(this.numofAOIs);
-		this.currcolor = this.colors[this.numofAOIs - 1];
+		this.Created = true;
 
 		var superThis = this;
 
@@ -67,27 +65,34 @@ class AOIselection {
 			.attr("y", this.starty)
 			.attr("font-size", "3rem");
 		this.currAOI = g.append("polygon")
-			.style("stroke", "hsl("+this.currColor+", 100%, 50%)")
-			.style("fill", "hsla("+this.currColor+", 100%, 50%, 0.3)");
+			.style("stroke",	"hsl(0, 0%, 50%)")
+			.style("fill",		"hsla(0, 0%, 50%, 0.3)");
 
 		this.currAOI.on("click", function(){
 			this.parentNode.remove();
+			superThis.numofAOIs--;
 			superThis.index();
-		})
+		});
 
-		this.Created = true;
+
 	}
 
 	index(){
+		if(this.numofAOIs == 0){
+			return;
+		}
+
+		this.createColors(this.numofAOIs);
+
 		var superThis = this;
 
 
 		this.SVG.selectAll("g").select("polygon")
 			.style("stroke", function(d, i){
-				"hsl("+superThis.color[i]+", 100%, 50%)"
+				return superThis.colors[i]
 			})
 			.style("fill", function(d, i){
-				"hsl("+superThis.color[i]+", 100%, 50%)"
+				return "hsla"+superThis.colors[i].slice(3, -1) + ", 0.3)";
 			})
 	}
 
