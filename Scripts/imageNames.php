@@ -15,13 +15,13 @@ if ($handle = opendir($dir . $user)) {
     }
     $imagesName = preg_grep('/\.jpg$/i', $files);
     
-    foreach($imagesName as $imageName)
+    foreach($imagesName as $image)
     {
-        $dataNames[] = $imageName.'<br/>';
+        $dataNames[] = $image;
+        //.'<br/>'
     }
     closedir($handle);
 }
-
 $dataImages = json_encode($dataNames);
 
 echo $dataImages;
