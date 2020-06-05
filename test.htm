@@ -71,8 +71,13 @@
 
 	<script>
 	function MyFunction(image) {
+		var imagePath = "Scripts/getImage.php?img=" + image;
+		myHeatmap.setImage(imagePath);
+		myScanpath.setImage(imagePath);
+		myScarfplot.setImage(imagePath);
+		//To do make sure aoi picture also changes
+			
 		var d = new data(image, update);
-		d.setAOIs(aoi);
 	}
 	</script>
 
