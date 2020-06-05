@@ -29,6 +29,10 @@ class data {
 
 			superThis.totalEntries = array.length;
 			
+			if(array.length == 0){
+				throw("No data");
+			}
+
 			superThis.interpret(array);
 
 			superThis.numofActiveUsers = superThis.numofUsers;
