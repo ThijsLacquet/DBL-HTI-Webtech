@@ -420,11 +420,11 @@ img {
 	height: 400px;
 }
 
-/*#visContainerPSP {
+#visContainerPSP {
 	position: relative;
 	width: 550px;
 	height: 400px;
-}*/
+}
 
 #visImgContainerHM {
 	width: 100%;
@@ -489,13 +489,13 @@ img {
 	overflow: hidden;
 }
 
-/*#visCanvasContainerPSP {
+#visCanvasContainerPSP {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	z-index: 2;
 	overflow: hidden;
-}*/
+}
 
 #visCanvasContainerHM canvas {
 	width: 100%;
@@ -512,15 +512,15 @@ img {
 	height: 100%;
 }
 
-/*#visCanvasContainerPSP canvas {
+#visCanvasContainerPSP canvas {
 	width: 100%;
 	height: 100%;
-}*/
+}
 
 #scarfPlotContainer {
 	position: relative;
 	width: 550px;
-	height: 66.666px;
+	height: 150px;
   overflow-y: auto;
   overflow-x: hidden;
 }
