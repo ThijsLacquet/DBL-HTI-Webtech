@@ -1,7 +1,12 @@
 <?php
-$dataNames = array();
-$files = [];
-$images = preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
+//Author: Marleen van Gent
+include_once 'user.php';
+
+$dir = dirname(__FILE__)."/../../data/"; //Directory with uploaded data
+
+$myUser = new User($dir);
+$user = $myUser->addUser();
+
 
 if ($handle = opendir($dir . $user)) {
     
@@ -16,7 +21,6 @@ if ($handle = opendir($dir . $user)) {
     }
     closedir($handle);
 }
-print_r($dataNames);
 
 $dataImages = json_encode($dataNames);
 
