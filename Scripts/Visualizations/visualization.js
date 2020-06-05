@@ -59,6 +59,8 @@ class Visualization {
         this.posX = 0;
         this.posY = 0;
 
+        this.zoom = 1;
+
         this.canvas.addEventListener("mousedown", function(){this.onMouseDown();}.bind(this), false);
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
@@ -221,6 +223,44 @@ class Visualization {
     }
 
     /*
+    * Sets the size of the canvas and image (if the image is not null)
+     */
+    setSize(width, height, offsetX, offsetY) {
+        if (offsetX > 0) {
+            offsetX = 0;
+        }
+        if (offsetY > 0) {
+            offsetY = 0;
+        }
+
+        if (width != null) {
+            if (this.img != null) this.img.style.width = width + "px";
+            this.canvas.style.width = width + "px";
+        }
+        if (height != null) {
+            if (this.img != null) this.img.style.height = height + "px";
+            this.canvas.style.height = height + "px";
+        }
+
+        if (offsetX < -this.canvas.clientWidth + this.canvas.width) {
+            offsetX = -this.canvas.clientWidth + this.canvas.width;
+        }
+
+        if (offsetY < -this.canvas.clientHeight + this.canvas.height) {
+            offsetY = -this.canvas.clientHeight + this.canvas.height;
+        }
+
+        if (offsetX != null) {
+            if (this.img != null) this.img.style.marginLeft = offsetX + "px";
+            this.canvas.style.marginLeft = offsetX + "px";
+        }
+        if (offsetY != null) {
+            if (this.img != null) this.img.style.marginTop = offsetY + "px";
+            this.canvas.style.marginTop = offsetY + "px";
+        }
+    }
+
+    /*
     * Is executed when the wheel event fires. Handles zooming in and out.
     * @throws {NullPointerException} if event is undefined
     */
@@ -231,52 +271,25 @@ class Visualization {
         
         event.preventDefault();
 
-        var newWidth;
-        var newHeight;
-        var zoomFactor = 1.5;
-        var zoom;
-
         if (event.deltaY < 0) { //Scrolling up
-            zoom = zoomFactor;
+            var zoomFactor = 1.5;
         } else { //Scrolling down
-            zoom = 1 / zoomFactor;
+            var zoomFactor = 1 / 1.5;
         }
 
-        newWidth = (this.img.width * zoom);
-        newHeight = (this.img.height * zoom);
+        this.zoom = this.zoom * zoomFactor;
 
-        var currentZoom = parseFloat(this.img.style.width) / this.width;
-        if (isNaN(currentZoom)) {
-            currentZoom = 1;
+        if (this.zoom < 1) {
+            this.zoom = 1;
         }
 
-        var currentPortionWidth = this.width / currentZoom;
-        var newPortionWidth = this.width / currentZoom / zoom;
-        var currentPortionHeight = this.height / currentZoom;
-        var newPortionHeight = this.height / currentZoom / zoom;
+        var newWidth = this.width * this.zoom;
+        var newHeight = this.height * this.zoom;
 
-        var currOffSetX = parseFloat(this.img.style.marginLeft);
-        var offSetX = (currOffSetX - (currentPortionWidth - newPortionWidth) / 2) * zoom;
+        var offsetX = parseFloat(this.canvas.style.marginLeft) * zoomFactor;
+        var offsetY = parseFloat(this.canvas.style.marginTop) * zoomFactor;
 
-        var currOffSetY = parseFloat(this.img.style.marginTop);
-        var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
-
-        if (newWidth < this.width || newHeight < this.height) {
-            newWidth = this.width;
-            newHeight = this.height;
-            offSetX = 0;
-            offSetY = 0;
-        }
-        
-        this.img.style.width = newWidth + "px";
-        this.img.style.height = newHeight + "px";
-        this.img.style.marginLeft = offSetX + "px";
-        this.img.style.marginTop = offSetY + "px";
-
-        this.canvas.style.width = newWidth + "px";
-        this.canvas.style.height = newHeight + "px";
-        this.canvas.style.marginLeft = offSetX + "px";
-        this.canvas.style.marginTop = offSetY + "px";
+        this.setSize(newWidth, newHeight, offsetX, offsetY);
 
         return false;
     }
@@ -292,16 +305,13 @@ class Visualization {
         }
         if (event.buttons == 1) {
             if (event.clientX != this.posX || event.clientY != this.posY) {
-                var offSetX = parseInt(this.img.style.marginLeft) + event.clientX - this.posX;
-                var offSetY = parseInt(this.img.style.marginTop) + event.clientY - this.posY;
+                var offsetX = parseInt(this.canvas.style.marginLeft) + event.clientX - this.posX;
+                var offsetY = parseInt(this.canvas.style.marginTop) + event.clientY - this.posY;
 
                 this.posX = event.clientX;
                 this.posY = event.clientY;
 
-                this.img.style.marginLeft = offSetX + "px";
-                this.img.style.marginTop = offSetY + "px";
-                this.canvas.style.marginLeft = offSetX + "px";
-                this.canvas.style.marginTop = offSetY + "px";
+                this.setSize(null, null, offsetX, offsetY);
             }
         }
     }
