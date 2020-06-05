@@ -1,4 +1,4 @@
-<!--Author: Ezra Gerris, Thijs Lacquet, Marleen van Gent and Tanja Markink-->
+<a id="myLink" href="#" onclick="MyFunction();">link text</a>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +40,7 @@
   		'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3'];
     var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1872, y1:20, y2:580},
 		  {x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1872, y1:620, y2:1180}];
-    var imageName = "08_Riga_S1.jpg";
+    var imageName;
   </script>
 
 </head>
@@ -63,45 +63,43 @@
     <button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
     <div id="dropdown" class="content">
       <input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-      <a href="#image1">
-        Image 1
-        <!--<script>
-            var imageFile = "Provided_data/stimuli/01_Antwerpen_S1.jpg";
-        </script>-->
-      </a>
-      <a href="#image2">
-        Image 2
-        <!--<script>
-            var imageFile = "Provided_data/stimuli/02_Berlin_S1.jpg";
-        </script>-->
-      </a>
+      <div id="imageNameContainer">
+      </div>
     </div>
   </div> 
- <script>
-function addImages(data) {
-	while (var i = 0; i < data.lenght; i++) {
-		dropdown.append(data[i]);
-	}
-}
-
-</script>
- 
-  
+    
 <script>
 function load() {
 	var array = null;
 	var superThis = this;
 	$.post( "/Scripts/imageNames.php", function( data ) {
 		array = JSON.parse(data);
-		superThis.addImages(array);
+		console.log(array.toString());
+		superThis.loading(array);
 	});	
 }
-load();
+
+function loading(data) {
+	var i = 0;
+	var imageNameContainer = document.getElementById("imageNameContainer")
+	console.log(imageNameContainer)
+	var tempHtml = ""
+	while (i < data.length) {
+		//<a id="myLink" href="#" onclick="MyFunction();">link text</a>
+		tempHtml = tempHtml + '<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>'
+		console.log('<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>')
+		i = i + 1;
+	}
+	imageNameContainer.innerHTML = tempHtml
+}
+load()
 </script>
 
 <script>
-var ingewikkeld = "img"
-dropdown.append(ingewikkeld)
+function MyFunction(image) {
+	imageName = image;
+	runVis(image);
+}
 </script>
   
   <script>
@@ -190,6 +188,7 @@ dropdown.append(ingewikkeld)
   <input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
   <script>
+  function runVis(image) {
       //Execute php script to access image outside of webserver root directory
       var imagePath = "Scripts/getImage.php?img=" + imageName;
 
@@ -235,9 +234,10 @@ dropdown.append(ingewikkeld)
       var width = visImgContainerSC.clientWidth;
       var height = visImgContainerSC.clientHeight;
 
-      myScanpath = new Scanpath(canvas, img);
+      myScanpath = new Scanpath(canvas, image);
       myScanpath.setImage(imagePath);
       myScanpath.start(size);
+  }
   </script>
 
   <script src="Scripts/Visualizations/AOIselection.js"></script>
