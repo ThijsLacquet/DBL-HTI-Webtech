@@ -77,7 +77,7 @@ class Visualization {
     */
     createColors(amount) {
         if (!(amount > 0)) {
-            throw("IllegalArgumentException");
+            this.colors = undefined;
         }
 
         var colors = new Array(amount);
@@ -117,30 +117,6 @@ class Visualization {
             this.ctx.globalAlpha = 0.1;
             this.ctx.fillStyle = this.colors[i];
             this.ctx.fill();
-        }
-    }
-
-    /*
-    * Checks if a given coordinate is in the given area of interest
-    *
-    * @param {x1, x2, y1, y2} currentAoi - Area of interest
-    * @param {number} currentPointX - X coordinate
-    * @param {number} currentPointY - Y coordinate
-    * @throws {IllegalArgumentException} if currentPointX or currentPointY are not a number
-    * @returns true if the given coordinate is in the area of interest
-    */
-    isInAoi(currentAoi, currentPointX, currentPointY) {
-        if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
-            throw("IllegalArgumentException");
-        }
-
-        if ((currentAoi.x1 < currentPointX &&
-            currentAoi.x2 > currentPointX) &&
-            (currentAoi.y1 < currentPointY &&
-            currentAoi.y2 > currentPointY)) {
-            return true;
-        } else {
-            return false;
         }
     }
 
