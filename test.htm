@@ -160,7 +160,7 @@
 		<div class="parallelSP">
 			<div id="visContainerPSP">
 				<div id="visCanvasContainerPSP">
-					<canvas id="myCanvasPSP" width="550" height="400"></canvas>
+					<canvas id="myCanvasPSP"></canvas>
 				</div>
 			</div>
 		</div>
@@ -168,7 +168,7 @@
 
 	<div>
 		<div id="AOISelection" style="width: 800px;font-size: 0">
-			<img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" style="width: 100%;z-index: 1" id="image">
+			<img id="aoiImage" style="width: 100%;z-index: 1">
 		</div>
 		<button onclick="updateAOIs();">set</button>
 	</div>
@@ -181,11 +181,25 @@
 
 	<script>
 			var d = null;
-
-			var myAOIselection = new AOIselection();
-
+			
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
+
+			<!--Aoi image selector -->
+			var aoiImg = document.getElementById('aoiImage');
+			aoiImg.src = imagePath;
+			var myAOIselection;
+
+			//Initialize aoiselection if image is loaded
+			if (aoiImg.naturalWidth != 0) {
+				myAOIselection = new AOIselection();
+			} else {
+				aoiImg.onload = function () {
+					myAOIselection = new AOIselection();
+					aoiImg.onload = function () {} //Rest onload function
+				}
+			}
+
 
 			<!--Drawing the heatmap-->
 			var img = document.getElementById('myImageHM');
@@ -219,23 +233,25 @@
 			var canvas = document.getElementById('myCanvasSC');
 			var visContainerSC = document.getElementById('visContainerSC');
 			var visImgContainerSC = document.getElementById('visImgContainerSC');
+			var download_button = document.getElementById("download_scanpath");
 
 			var width = visImgContainerSC.clientWidth;
 			var height = visImgContainerSC.clientHeight;
 
 			myScanpath = new Scanpath(canvas, img);
+			myScanpath.setDownloadButton(download_button, canvas);
 			myScanpath.setImage(imagePath);
 
 	<!--setting up the parallel scanpath-->
 
 			var canvas = document.getElementById('myCanvasPSP');
 			var visContainerPSP = document.getElementById('visContainerPSP');
-
+			var download_button = document.getElementById("download_parallelscanpath");
 
 			myParallelScanpath = new ParallelScanpath(canvas);
+			myParallelScanpath.setDownloadButton(download_button, canvas);
 
 	<!--data & drawing -->;
-
 			function setData(d){
 				d.divideInAOIs();
 
@@ -246,6 +262,10 @@
 			}
 
 			function draw(){
+				myParallelScanpath.clearVisualization();
+				myScarfplot.clearVisualization();
+				myScanpath.clearVisualization();
+				myHeatmap.clearVisualization();
 				myParallelScanpath.draw();
 				myScarfplot.draw();
 				myScanpath.draw();

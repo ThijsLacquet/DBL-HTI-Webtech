@@ -4,8 +4,8 @@ class AOIselection {
 
 		this.numofAOIs = 0;
 
-		this.Xfactor = document.getElementById("image").naturalWidth / document.getElementById("image").clientWidth;
-		this.Yfactor = document.getElementById("image").naturalHeight / document.getElementById("image").clientHeight;
+		this.Xfactor = document.getElementById("aoiImage").naturalWidth / document.getElementById("aoiImage").clientWidth;
+		this.Yfactor = document.getElementById("aoiImage").naturalHeight / document.getElementById("aoiImage").clientHeight;
 
 		this.SVG = d3.select("#AOISelection").style("position","relative").append("svg")
 			.style("width", "100%").style("height", "100%")
