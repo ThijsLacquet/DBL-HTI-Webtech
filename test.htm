@@ -1,4 +1,4 @@
-<a id="myLink" href="#" onclick="MyFunction();">link text</a>
+<!--  Written by Tanja Markink, Ezra Gerris, Marleen van Gent & Thijs Lacquet -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,7 +188,7 @@ function MyFunction(image) {
   <input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
   <script>
-  function runVis(image) {
+  function runVis(imageName) {
       //Execute php script to access image outside of webserver root directory
       var imagePath = "Scripts/getImage.php?img=" + imageName;
 
@@ -234,7 +234,7 @@ function MyFunction(image) {
       var width = visImgContainerSC.clientWidth;
       var height = visImgContainerSC.clientHeight;
 
-      myScanpath = new Scanpath(canvas, image);
+      myScanpath = new Scanpath(canvas, imageName);
       myScanpath.setImage(imagePath);
       myScanpath.start(size);
   }
