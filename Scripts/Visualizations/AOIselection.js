@@ -1,6 +1,8 @@
-class AOIselection extends Visualization {
+class AOIselection {
 
-	constructor() {
+	constructor(){
+
+		this.numofAOIs = 0;
 
 		this.Xfactor = document.getElementById("image").naturalWidth / document.getElementById("image").clientWidth;
 		this.Yfactor = document.getElementById("image").naturalHeight / document.getElementById("image").clientHeight;
@@ -120,5 +122,23 @@ class AOIselection extends Visualization {
 		}
 
 		return frac;
+	}
+
+	createColors(amount) {
+	    if (!(amount > 0)) {
+	        throw("IllegalArgumentException");
+	    }
+
+	    var colors = new Array(amount);
+	    var deltaColor = 360 / amount;
+	    var saturation = 100;
+	    var lightness = 50;
+
+	    for (var i = 0; i < amount; i++) {
+	        var hue = i * deltaColor;
+	        colors[i] = `hsl(${hue},${saturation}%,${lightness}%)`;
+	    }
+
+	    this.colors = colors;
 	}
 }
