@@ -24,7 +24,7 @@ class data {
 		this.editedUser	= true;
 		this.editedAOI	= true;
 
-		$.post( "/Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
+		$.post( "../Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
 			array = JSON.parse(data);
 
 			superThis.totalEntries = array.length;
@@ -70,7 +70,10 @@ class data {
 			currentUser.addEntry(new dataEntry(array[i], currentUser));
 		}
 
-		currentUser.fill();
+		maxt = currentUser.fill();
+		if(maxt > this.maxtime){
+			this.maxtime = maxt;
+		}
 	}
 
 	setAOIs(AOIs){
