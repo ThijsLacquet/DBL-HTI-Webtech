@@ -93,7 +93,7 @@ class ParallelScanpath extends Visualization{
 					this.ctx.lineTo(pos, (t/maxt) * this.height);
 				}else{
 					this.ctx.lineTo(prev,(t/maxt) * this.height - lineWidth);
-					this.ctx.lineTo(pos, (t/maxt) * this.height + lineWidth);
+					this.ctx.lineTo(pos, (t/maxt) * this.height);
 				}
 
 				prev = pos;
