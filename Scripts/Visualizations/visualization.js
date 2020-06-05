@@ -11,6 +11,7 @@ class Visualization {
     var aoi;
     var width;
     var height;
+    var zoom;
 
     var mappedFixationPointX
     var mappedFixationPointY
@@ -36,10 +37,10 @@ class Visualization {
         this.img = img;
         this.ctx = canvas.getContext("2d");
 
-        if(img == null){
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-        }else{
+        this.width = this.canvas.clientWidth;
+        this.height = this.canvas.clientWidth;
+
+        if(img != null) {
             this.width = this.img.width;
             this.height = this.img.height;
             this.img.style.marginLeft = "0px";
@@ -64,10 +65,6 @@ class Visualization {
         this.canvas.addEventListener("mousedown", function(){this.onMouseDown();}.bind(this), false);
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
-
-        if(img != null){
-            this.width = this.img.width;
-        }    
     }
 
 
@@ -190,6 +187,10 @@ class Visualization {
         }
     }
 
+    clearVisualization() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
     /*
     * Draws the visualization. Assumes that the image has already been loaded.
     */
@@ -209,8 +210,6 @@ class Visualization {
             this.widthScale = this.width / this.img.naturalWidth;
             this.heightScale = this.height / this.img.naturalHeight;
         }
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     /*
@@ -223,7 +222,7 @@ class Visualization {
     }
 
     /*
-    * Sets the size of the canvas and image (if the image is not null)
+    * Sets the size of the canvas and image for non null parameters. If the image is null, it's size is not set.
      */
     setSize(width, height, offsetX, offsetY) {
         if (offsetX > 0) {
@@ -266,7 +265,7 @@ class Visualization {
     */
     onScroll() {
         if (event == undefined) {
-            throw(NullPointerException);
+            throw("NullPointerException");
         }
         
         event.preventDefault();
@@ -342,9 +341,17 @@ class Visualization {
         var superThis = this; //Transfers this to new scope
 
         download_button.addEventListener("click", function() {
-            //Add background image
-            superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height); //Lowers quality of image
+            //Clear context, add background, draw visualization
+            superThis.clearVisualization();
+            superThis.ctx.globalAlpha = 1;
 
+            if (superThis.img != null) {
+                superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height);
+            }
+
+            superThis.draw();
+
+            //Setup download
             var filename = 'visualization.png';
             var imgurl = canvas.toDataURL(); //Save graphics as png
 
@@ -358,6 +365,8 @@ class Visualization {
 
             document.body.removeChild(element);
 
+            //Clear context and draw visualization again (to remove image)
+            superThis.clearVisualization();
             superThis.draw();
         }.bind(superThis), false);
     }

@@ -42,7 +42,7 @@ class ParallelScanpath extends Visualization{
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
 
-		this.ctx.clearRect(0, 0, this.width, this.height);
+		//this.ctx.clearRect(0, 0, this.width, this.height); //Removed because clearing is done seperately
 
 		this.ctx.beginPath();
 

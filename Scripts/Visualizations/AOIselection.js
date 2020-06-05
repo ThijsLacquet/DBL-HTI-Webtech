@@ -5,8 +5,8 @@ function addAOI() {
 
 	form.innerHTML += '<input type="number" name="xmin'+numofAOIs+'" min="0"><input type="number" name="xmax'+numofAOIs+'" min="0"><input type="number" name="ymin'+numofAOIs+'" min="0"><input type="number" name="ymax'+numofAOIs+'" min="0"><br>'
 }
-var Xfactor = document.getElementById("image").naturalWidth / document.getElementById("image").clientWidth;
-var Yfactor = document.getElementById("image").naturalHeight / document.getElementById("image").clientHeight;
+var Xfactor = document.getElementById("aoiImage").naturalWidth / document.getElementById("aoiImage").clientWidth;
+var Yfactor = document.getElementById("aoiImage").naturalHeight / document.getElementById("aoiImage").clientHeight;
 
 var SVG = d3.select("#AOISelection").style("position","relative").append("svg")
 	.style("width", "100%").style("height", "100%")
