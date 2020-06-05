@@ -41,25 +41,40 @@
 		<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
 		<div id="dropdown" class="content">
 			<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-			<a href="#image1">
-				Image 1
-				<!--<script>
-						var imageFile = "Provided_data/stimuli/01_Antwerpen_S1.jpg";
-				</script>-->
-			</a>
-			<a href="#image2">
-				Image 2
-				<!--<script>
-						var imageFile = "Provided_data/stimuli/02_Berlin_S1.jpg";
-				</script>-->
-			</a>
-			<a href="#image3">Image 3</a>
-			<a href="#image4">Image 4</a>
-			<a href="#image5">Image 5</a>
-			<a href="#image6">Image 6</a>
-			<a href="#image7">Image 7</a>
+			<div id="imageNameContainer">
+			</div>
 		</div>
 	</div>
+	
+	<script>
+	function load() {
+		var array = null;
+		var superThis = this;
+		$.post( "/Scripts/imageNames.php", function( data ) {
+			array = JSON.parse(data);
+			superThis.loading(array);
+		});	
+	}
+
+	function loading(data) {
+		var i = 0;
+		var imageNameContainer = document.getElementById("imageNameContainer")
+		var tempHtml = ""
+		while (i < data.length) {
+			tempHtml = tempHtml + '<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>'
+			i = i + 1;
+		}
+		imageNameContainer.innerHTML = tempHtml
+	}
+	load()
+	</script>
+
+	<script>
+	function MyFunction(image) {
+		var d = new data(image, update);
+		d.setAOIs(aoi);
+	}
+	</script>
 
 	<!--Dit stukje javascript moet nog ergens anders gezet worden denk ik-->
 	<script>
