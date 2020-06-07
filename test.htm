@@ -77,7 +77,7 @@
 		myScarfplot.setImage(imagePath);
 		aoiImg.src = imagePath;
 			
-		var d = new data(image, update);
+		window.d = new data(image, update);
 	}
 	</script>
 
@@ -178,7 +178,9 @@
 	<input type="button" id="download_aoi" value="Download AOIs"/>
 
 	<script>
-			var d = null;
+			window.d = null;
+
+			var d = window.d;
 			
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
@@ -277,7 +279,7 @@
 				draw();
 			}
 
-			var d = new data(imageName, update);
+			window.d = new data(imageName, update);
 			//d.setAOIs(aoi);
 
 			function updateAOIs(){
