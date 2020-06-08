@@ -110,10 +110,30 @@
 		<div class="tool2">tool2</div>
 		<div class="tool3">tool3</div>
 		<div class="tool4">tool4</div>
-		<div class="tool5">tool5</div>
+		<div class="tool5">Alter the size
+		<div class="slidecontainer">
+  		<input type="range" min="1" max="20" value="10" class="slider" id="myRange">
+  		<p>Value: <span id="value"></span></p>
+  		</div>
+		</div>
 		<div class="tool6">tool6</div>
 		<div class="tool7">tool7</div>
 	</div>
+	
+	<script>
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("value");
+	output.innerHTML = slider.value; // Display the default slider value
+
+	// Update the current slider value (each time you drag the slider handle)
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	  size = (this.value/1000);
+	  myScanpath.clearVisualization();
+	  myScanpath.setData(d, size);
+	  myScanpath.draw();
+	}
+	</script>
 
 	<div class="grid_linking">
 		<div class="tools">tools</div>
