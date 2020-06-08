@@ -11,6 +11,8 @@
 	<script src="Scripts/Visualizations/ParallelScanpath.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/data.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/AOIselection.js" type="text/javascript"></script>
+	<script src="Scripts/DraggableUser.js" type="text/javascript"></script>
+	<script src="Scripts/UserContainer.js" type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
@@ -57,6 +59,7 @@
 	}
 
 	function loading(data) {
+		//Select background image
 		var i = 0;
 		var imageNameContainer = document.getElementById("imageNameContainer")
 		var tempHtml = ""
@@ -78,6 +81,7 @@
 		aoiImg.src = imagePath;
 			
 		window.d = new data(image, update);
+		userContainer.draw(data);
 	}
 	</script>
 
@@ -104,14 +108,18 @@
 	}
 	</script>
 
-
 	<div class="grid_tools">
 		<div class="tool1">tool1</div>
 		<div class="tool2">
 			<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
 			
 		</div>
-		<div class="tool3">tool3</div>
+		<div id = "tool3" class="tool3">
+			<div id="userDropdown" class="contentUsers">
+				<div id="userContainer">
+				</div>
+			</div>
+		</div>
 		<div class="tool4">tool4</div>
 		<div class="tool5">Alter the size
 		<div class="slidecontainer">
@@ -124,6 +132,9 @@
 	</div>
 	
 	<script>
+		var userContainerID = document.getElementById("userContainer");
+		userContainer = new UserContainer(userContainerID);
+
 	var slider = document.getElementById("myRange");
 	var output = document.getElementById("value");
 	output.innerHTML = slider.value; // Display the default slider value
@@ -295,6 +306,8 @@
 				myScarfplot.draw();
 				myScanpath.draw();
 				myHeatmap.draw();
+
+				userContainer.draw(d);
 			}
 
 			function update(d){
