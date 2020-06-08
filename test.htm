@@ -36,16 +36,6 @@
 		<p>By group 39</p>
 	</div>
 
-	<!--Drop down menu-->
-	<div class="dropdown">
-		<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
-		<div id="dropdown" class="content">
-			<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-			<div id="imageNameContainer">
-			</div>
-		</div>
-	</div>
-	
 	<script>
 	function load() {
 		var array = null;
@@ -53,7 +43,7 @@
 		$.post( "/Scripts/imageNames.php", function( data ) {
 			array = JSON.parse(data);
 			superThis.loading(array);
-		});	
+		});
 	}
 
 	function loading(data) {
@@ -76,12 +66,12 @@
 		myScanpath.setImage(imagePath);
 		myScarfplot.setImage(imagePath);
 		aoiImg.src = imagePath;
-			
+
 		window.d = new data(image, update);
 	}
 	</script>
 
-	<!--Dit stukje javascript moet nog ergens anders gezet worden denk ik-->
+	<!--JS dropdown menu-->
 	<script>
 	function hideOrShow() {
 		document.getElementById("dropdown").classList.toggle("show");
@@ -106,8 +96,22 @@
 
 
 	<div class="grid_tools">
-		<div class="tool1">tool1</div>
-		<div class="tool2">tool2</div>
+		<!--Drop down menu-->
+		<div class="dropdown">
+			<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
+			<div id="dropdown" class="content">
+				<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
+				<div id="imageNameContainer">
+				</div>
+			</div>
+		</div>
+		<div class="download">
+			<input type="button" class="button" id="download_heatmap" value="Download heatmap"/>
+			<input type="button" class="button" id="download_scarfplot" value="Download scarfplot"/>
+			<input type="button" class="button" id="download_scanpath" value="Download scanpath"/>
+			<input type="button" class="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
+			<input type="button" class="button" id="download_aoi" value="Download AOIs"/>
+		</div>
 		<div class="tool3">tool3</div>
 		<div class="tool4">tool4</div>
 		<div class="tool5">tool5</div>
@@ -116,7 +120,6 @@
 	</div>
 
 	<div class="grid_linking">
-		<div class="tools">tools</div>
 		<div class="heatmapE">
 
 			<div id="visContainerHM">
@@ -170,18 +173,12 @@
 		<button onclick="updateAOIs();">set</button>
 	</div>
 
-	<!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
-	<input type="button" id="download_heatmap" value="Download heatmap"/>
-	<input type="button" id="download_scarfplot" value="Download scarfplot"/>
-	<input type="button" id="download_scanpath" value="Download scanpath"/>
-	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
-	<input type="button" id="download_aoi" value="Download AOIs"/>
 
 	<script>
 			window.d = null;
 
 			var d = window.d;
-			
+
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
 

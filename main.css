@@ -82,7 +82,7 @@
   cursor: pointer;
 }
 
-.dropbutton:hover, .dropbutton:focus {
+.dropbutton:hover {
   background-color: #18857f;
 }
 
@@ -95,8 +95,8 @@
   display: none;
   position: absolute;
   background-color: #f6f6f6;
-  min-width: 230px;
-  max-height: 140px; /* grid_tools-padding-top - 10 */
+  max-width: 99%;
+  max-height: 200px;
   overflow: auto;
   border: 1px solid #dddddd;
   z-index: 1;
@@ -272,22 +272,22 @@
 
 .heatmapE {
   grid-area: heatmapE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .scarfplotE {
   grid-area: scarfplotE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .scanpathE {
   grid-area: scanpathE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .parallelSP {
   grid-area: parallelSP;
-}
-
-.tools {
-  grid-area: tools;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .grid_linking div:nth-child(even) {
@@ -298,45 +298,6 @@
 
 /* END GRID FOR LINKING VISUALIZATIONS */
 
-/* GRID FOR DISPLAY */
-/*.grid_display{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas:
-  "heatmap scanpath parallelscan scarfplot";
-}
-
-.heatmap{
-  grid-area: heatmap;
-  height: 350px;
-}
-
-.scanpath{
-  grid-area: scanpath;
-  height: 350px;
-}
-
-.parallelscan{
-  grid-area: parallelscan;
-  height: 350px;
-}
-
-.scarfplot{
-  grid-area: scarfplot;
-  height: 350px;
-}
-
-.grid_display div:nth-child(even) {
-  background-color: #20B2AA;
-}
-
-.grid_display div:nth-child(odd) {
-  background-color: pink;
-}*/
-
-/*END OF GRID FOR DISPLAY*/
-
 
 /* GRID FOR TOOLS */
 
@@ -345,53 +306,67 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-  "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
-  padding-top: 150px;
-  padding-bottom: 30px;
-
+  "dropdown download tool3 tool4 tool5 tool6 tool7";
+  padding-top: 10px;
+  padding-bottom: 10px;
+  grid-gap: 10px;
+  text-align: center;
 }
 
-.tool1{
-  grid-area: tool1;
-  height: 80px;
+.dropdown{
+  grid-area: dropdown;
 }
 
-.tool2{
-  grid-area: tool2;
-  height: 80px;
+.download{
+  grid-area: download;
+  height: 140px;
+}
+
+.button {
+  background-color: #20B2AA;
+  border: none;
+  color: white;
+  padding: 4px 20px;
+  text-align: center;
+  margin: 3px;
+}
+
+.button:hover {
+  background-color: #18857f;
 }
 
 .tool3{
   grid-area: tool3;
-  height: 80px;
+  height: 140px;
 }
 
 .tool4{
   grid-area: tool4;
-  height: 80px;
+  height: 140px;
 }
 
 .tool5{
   grid-area: tool5;
-  height: 80px;
+  height: 140px;
 }
 
 .tool6{
   grid-area: tool6;
-  height: 80px;
+  height: 140px;
 }
 
 .tool7{
   grid-area: tool7;
+  height: 140px;
 
 }
 
 .grid_tools div:nth-child(even) {
-  background-color: pink;
+  background-color: pink;   /* moet achteraf nog weg */
 }
 
 .grid_tools div:nth-child(odd) {
-  background-color: #20B2AA;
+  background-color: #20B2AA;  /* moet achteraf nog weg */
 }
 /* END OF GRID FOR TOOLS */
 
