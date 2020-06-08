@@ -5,6 +5,8 @@ class data {
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
 	constructor(stimuliname, callback){
+		this.imagename = stimuliname;
+
 		var array = null;
 		var superThis = this;
 		this.users = [];
