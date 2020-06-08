@@ -5,6 +5,8 @@ class data {
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
 	constructor(stimuliname, callback){
+		this.imagename = stimuliname;
+
 		var array = null;
 		var superThis = this;
 		this.users = [];
@@ -39,6 +41,22 @@ class data {
 	}
 
 	update(){
+
+		var currentUser;
+		var maxt;
+		this.maxtime = 0;
+
+		for(var i=0;i<this.numofUsers;i++){
+			currentUser = this.users[i];
+			if(!currentUser.enabled){
+				continue;
+			}
+			maxt = currentUser.fill();
+			if(maxt > this.maxtime){
+				this.maxtime = maxt;
+			}
+		}
+
 		return this.callback(this);
 	}
 
@@ -556,11 +574,21 @@ class dataUser {
 
 	fill(){
 		var offset = this.entries[0].time;
+		var LastEntry = null;
+
 		for(var i=0;i<this.numofEntries;i++){
-			this.entries[i].time -= offset;
+			if(this.entries[i].enabled){
+				LastEntry = this.entries[i];
+				LastEntry.time -= offset;
+			}
 		}
 
-		return this.maxtime = this.entries[this.numofEntries - 1].time;
+		if(LastEntry == null){
+			this.maxtime = 0;
+			return 0;
+		}
+
+		return this.maxtime = LastEntry.time;
 	}
 
 	divideInAOIs(AOIs){
@@ -569,10 +597,14 @@ class dataUser {
 
 		for(var i=0;i<this.numofEntries;i++){
 			currentEntry = this.entries[i];
+			if(currentEntry.enabled){
+				currentEntry.AOI = 0;
 
-			for(var j=0;j<AOIs.length;j++){
-				if(currentEntry.isInAOI(AOIs[j])){
-					currentEntry.AOI = j;
+				for(var j=0;j<AOIs.length;j++){
+					if(currentEntry.isInAOI(AOIs[j])){
+						currentEntry.AOI = j + 1;
+						break;
+					}
 				}
 			}
 		}
@@ -741,11 +773,8 @@ class dataEntry {
 	}
 
 	isInAOI(AOI) {
-
-	    return (AOI.x1 < this.x &&
-	        AOI.x2 > this.x &&
-	        AOI.y1 < this.y &&
-	        AOI.y2 > this.y)
+	    return ((AOI.x1 < this.x && AOI.x2 > this.x) || (AOI.x2 < this.x && AOI.x1 > this.x))
+	    	&& ((AOI.y1 < this.y && AOI.y2 > this.y) || (AOI.y2 < this.y && AOI.y1 > this.y));
 	}
 }
 
