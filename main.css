@@ -339,6 +339,28 @@
 .tool3{
   grid-area: tool3;
   height: 140px;
+  overflow: auto;
+}
+
+.userDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.contentUsers {
+
+}
+
+.contentUsers a {
+    color: black;
+    padding: 2px 5px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.contentUsers a:hover {
+    background-color: #ddd;
 }
 
 .tool4{
