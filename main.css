@@ -1,7 +1,8 @@
-/* Author: Tanja Markink */
+/* Author: Tanja Markink and Ezra Gerris */
 .nav {
   background-color: black;
   overflow: hidden;
+  font-family: serif;
 }
 
 .nav a {
@@ -11,6 +12,7 @@
   padding: 15px 20px;
   text-decoration: none;
   font-size: 17px;
+  font-family: serif;
 }
 
 .nav a:hover {
@@ -28,6 +30,7 @@
 	text-align: center;
 	background: #20B2AA;
 	color: white;
+  font-family: serif;
 }
 
 .header h1{
@@ -74,10 +77,11 @@
 /* Author: Ezra Gerris */
 /* DROPDOWN MENU FOR CHOOSING IMAGE*/
 .dropbutton {
+  font-family : inherit;
   background-color: #20B2AA;
   color: white;
-  padding: 16px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 }
@@ -113,8 +117,8 @@
 
 #input {
   box-sizing: border-box;
-  font-size: 16px;
-  padding: 10px 10px;
+  font-size: 12px;
+  padding: 7px 7px;
   border: none;
   border-bottom: 1px solid #ddd;
 }
@@ -309,9 +313,11 @@
   grid-template-areas:
   "dropdown download tool3 tool4 tool5 tool6 tool7";
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   grid-gap: 10px;
   text-align: center;
+  font-size: 14px;
+  color: #20B2AA;
 }
 
 .dropdown{
@@ -324,6 +330,7 @@
 }
 
 .button {
+  font-family : inherit;
   background-color: #20B2AA;
   border: none;
   color: white;
@@ -384,12 +391,25 @@
 
 }
 
+.setButton {
+  font-family : inherit;
+  background-color: #20B2AA;
+  border: none;
+  color: white;
+  padding: 4px 20px;
+  text-align: center;
+  margin: 3px;
+  font-size: 18px;
+}
+
+.setButton:hover {
+  background-color: #18857f;
+}
+
 .grid_tools div:nth-child(even) {
-  background-color: pink;   /* moet achteraf nog weg */
 }
 
 .grid_tools div:nth-child(odd) {
-  background-color: #20B2AA;  /* moet achteraf nog weg */
 }
 /* END OF GRID FOR TOOLS */
 

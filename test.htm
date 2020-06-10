@@ -24,7 +24,7 @@
 	</script>
 
 </head>
-<body>
+<body style="font-family: sans-serif;">
 
 	<div class="nav">
 		<a href="index.htm">Home</a>
@@ -122,9 +122,11 @@
 			</div>
 		</div>
 		<div class="tool4">
+			Alter the radius in the heatmap
 			<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
 		</div>
-		<div class="tool5">Alter the size
+		<div class="tool5">
+			Alter the radius in the gaze plot
 		<div class="slidecontainer">
   		<input type="range" min="1" max="30" value="15" class="slider" id="myRange">
   		<p>Value: <span id="value"></span></p>
@@ -154,7 +156,6 @@
 
 	<div class="grid_linking">
 		<div class="heatmapE">
-
 			<div id="visContainerHM">
 				<div id="visImgContainerHM">
 						<img id="myImageHM">
@@ -163,10 +164,9 @@
 					<canvas id="myCanvasHM"></canvas>
 				</div>
 			</div>
-
 		</div>
-		<div class="scarfplotE">
 
+		<div class="scarfplotE">
 			<div id="visContainerSP">
 				<div id="visImgContainerSP">
 						<img id="myImageSP">
@@ -178,8 +178,8 @@
 			<div id="scarfPlotContainer">
 				<canvas id="scarfCanvas"></canvas>
 			</div>
-
 		</div>
+
 		<div class="scanpathE">
 			<div id="visContainerSC">
 				<div id="visImgContainerSC">
@@ -190,6 +190,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="parallelSP">
 			<div id="visContainerPSP">
 				<div id="visCanvasContainerPSP">
@@ -203,7 +204,7 @@
 		<div id="AOISelection" style="width: 800px;font-size: 0">
 			<img id="aoiImage" style="width: 100%;z-index: 1">
 		</div>
-		<button onclick="updateAOIs();">set</button>
+		<button class="setButton" onclick="updateAOIs();">set AOIs</button>
 	</div>
 
 
