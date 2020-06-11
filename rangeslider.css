@@ -11,12 +11,12 @@
 
 .range-slider .handle{
     position: absolute;
-    color:white;
-    width: 0px; 
-    height: 0px; 
+    color: blue;
+    width: 0px;
+    height: 0px;
     border-left: 15px solid transparent;
-    border-right: 15px solid transparent;    
-    border-bottom: 20px solid orange;
+    border-right: 15px solid transparent;
+    border-bottom: 20px solid #20B2AA;
     transform: translateX(-15px);
     cursor: pointer;
 }
