@@ -338,11 +338,27 @@
 			var timeslider;
 			var durationslider;
 
+			timeslider = new RangeSlider({
+			    id:"timeslider",
+			    range: {min:0, max:1},
+			    handles:[0, 1],
+			    width:300,
+			    displayValue:true
+			});
+
+			durationslider = new RangeSlider({
+			    id:"durationslider",
+			    range: {min:0, max:1},
+			    handles:[0, 1],
+			    width:300,
+			    displayValue:true
+			});
+
 			function makesliders(d){
 				var maxt = d.maxtime;
 				var maxdt = d.getmaxduration();
 
-				timeslider = new RangeSlider({
+				timeslider.reset({
 				    id:"timeslider",
 				    range: {min:0, max:maxt},
 				    handles:[0, maxt],
@@ -350,7 +366,7 @@
 				    displayValue:true
 				});
 
-				durationslider = new RangeSlider({
+				durationslider.reset({
 				    id:"durationslider",
 				    range: {min:0, max:maxdt},
 				    handles:[0, maxdt],

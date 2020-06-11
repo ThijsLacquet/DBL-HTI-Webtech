@@ -43,6 +43,25 @@ class RangeSlider{
 
    }
 
+   reset(options){
+
+   	   // Set the default values
+   	   this.range          = (options.range) ? options.range : {min:0, max:100};
+   	   this.width          = (options.width) ? options.width : 150;
+   	   this.handles        = (options.handles) ? options.handles : [0];
+   	   this.displayValue   = (options.displayValue) ? options.displayValue : false;
+
+
+   	   // pixels per unit
+   	   this.pixelsPerUnit = this.width / (this.range.max - this.range.min);
+   	
+   	   for(var i=0; i<this.handleDOMs.length; i++){
+   	   		this.handleDOMs[i].position = this.handles[i];
+   	   		this.handleDOMs[i].printvalue();
+   	   }
+
+    }
+
    getInterval(){
    		var res = [];
 
@@ -126,6 +145,11 @@ class Handle{
 			this.handle.style.left = e.movementX + currentPos + "px";
 		}
 
+		this.printvalue();
+
+	}
+
+	printvalue(){
 		var value = parseInt(this.handle.style.left) / this.slider.pixelsPerUnit;
 
 		if(this.slider.displayValue){
@@ -140,7 +164,7 @@ class Handle{
 
 			this.valueContainer.innerHTML = parseInt(value);
 		}
-
+		
 		this.position = value;
 	}
 
