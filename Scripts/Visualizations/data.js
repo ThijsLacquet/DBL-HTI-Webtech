@@ -4,14 +4,13 @@ class data {
 	//the constuctor makes a new instance of this data object
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
-	constructor(stimuliname, callback){
+	constructor(stimuliname, update, init){
 		this.imagename = stimuliname;
-
 		var array = null;
 		var superThis = this;
 		this.users = [];
 
-		this.callback = callback;
+		this.callback = update;
 
 		this.AOIs = [];
 
@@ -31,11 +30,16 @@ class data {
 
 			superThis.totalEntries = array.length;
 			
+			if(array.length == 0){
+				throw("No data");
+			}
+
 			superThis.interpret(array);
 
 			superThis.numofActiveUsers = superThis.numofUsers;
 
-			callback(superThis);
+			init(superThis);
+			update(superThis);
 
 		});
 	}
@@ -93,6 +97,32 @@ class data {
 		}
 	}
 
+	getmaxduration(){
+		var currentUser;
+		var currentEntry;
+
+
+		var maxdt = 0;
+
+		for(var i=0;i<this.numofUsers;i++){
+			currentUser = this.users[i];
+			if(!currentUser.enabled){
+				continue;
+			}
+
+			for(var j=0;j<currentUser.numofEntries;j++){
+				currentEntry = currentUser.entries[j];
+				if(currentEntry.enabled){
+					if(currentEntry.duration > maxdt){
+						maxdt = currentEntry.duration;
+					}
+				}
+			}
+		}
+
+		return maxdt;
+	}
+
 	setAOIs(AOIs){
 		this.AOIs = AOIs;
 	}
@@ -109,7 +139,7 @@ class data {
 		var array;
 
 		if(filtered){
-			if(!this.edited){
+			if(!this.editedTime){
 				return this.Time;
 			}
 			array = [];
@@ -500,7 +530,7 @@ class data {
 	//			class dataEntry: the entry that can either by filtered out or not 
 	//		Return value:
 	//			bool: weither it is filtered out or not (true => it stays in the data, false => it is removed from the data)
-	filter(func){
+	filter(func, append){
 		this.editedTime = true;
 		this.editedX	= true;
 		this.editedY 	= true;
@@ -511,7 +541,9 @@ class data {
 		for(var i=0;i<this.numofUsers;i++){
 			for(var j=0;j<this.users[i].numofEntries;j++){
 				if(func(this.users[i].entries[j])){
-					this.users[i].entries[j].enabled = true;
+					if(!append){
+						this.users[i].entries[j].enabled = true;
+					}
 				}else{
 					this.users[i].entries[j].enabled = false;
 				}
@@ -531,6 +563,16 @@ class data {
 		}
 	}
 
+	resetentryfilter(){
+		this.numofActiveUsers = this.numofUsers;
+
+		for(var i=0;i<this.numofUsers;i++){
+			for(var j=0;j<this.users[i].numofEntries;j++){
+				this.users[i].entries[j].enabled = true;
+			}
+		}
+	}
+
 	//filters the data on the time
 	//Parameters:
 	//	min: the minimal time
@@ -542,7 +584,7 @@ class data {
 			}else{
 				return false;
 			}
-		});
+		}, true);
 	}
 
 	//filters the data on the duration
@@ -556,7 +598,7 @@ class data {
 			}else{
 				return false;
 			}
-		});
+		}, true);
 	}
 
 	divideInAOIs(){
