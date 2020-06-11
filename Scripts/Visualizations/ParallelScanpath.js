@@ -83,7 +83,7 @@ class ParallelScanpath extends Visualization{
 			this.ctx.moveTo(prev,0);
 
 
-			for(var i = 0; i < AOIs.length; i++){
+			for(var i = 1; i < AOIs.length; i++){
 				var t = times[i]
 				var AOI = AOIs[i];
 
