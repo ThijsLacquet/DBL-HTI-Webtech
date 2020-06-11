@@ -5,6 +5,7 @@ class data {
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
 	constructor(stimuliname, update, init){
+		this.imagename = stimuliname;
 		var array = null;
 		var superThis = this;
 		this.users = [];
@@ -59,7 +60,6 @@ class data {
 				this.maxtime = maxt;
 			}
 		}
-
 		return this.callback(this);
 	}
 
@@ -509,6 +509,20 @@ class data {
 			this.numofActiveUsers++;
 		}
 	}
+
+	/*
+	* Switches the order of two users
+	* Author: Thijs Lacquet
+	 */
+	switchUsers(user1, user2) {
+		var temp = this.users[user2];
+		this.users[user2] = this.users[user1];
+		this.users[user1] = temp;
+	}
+
+	/*
+	* Author: Nathan
+	 */
 	//this filters the data base on the function parameter
 	//Parameters:
 	//	func: a function with the follow requirements:

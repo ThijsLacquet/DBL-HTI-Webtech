@@ -11,6 +11,7 @@ class Visualization {
     var aoi;
     var width;
     var height;
+    var zoom;
 
     var mappedFixationPointX
     var mappedFixationPointY
@@ -36,10 +37,10 @@ class Visualization {
         this.img = img;
         this.ctx = canvas.getContext("2d");
 
-        if(img == null){
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-        }else{
+        this.width = this.canvas.clientWidth;
+        this.height = this.canvas.clientWidth;
+
+        if(img != null) {
             this.width = this.img.width;
             this.height = this.img.height;
             this.img.style.marginLeft = "0px";
@@ -59,13 +60,11 @@ class Visualization {
         this.posX = 0;
         this.posY = 0;
 
+        this.zoom = 1;
+
         this.canvas.addEventListener("mousedown", function(){this.onMouseDown();}.bind(this), false);
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
-
-        if(img != null){
-            this.width = this.img.width;
-        }    
     }
 
 
@@ -78,7 +77,7 @@ class Visualization {
     */
     createColors(amount) {
         if (!(amount > 0)) {
-            throw("IllegalArgumentException");
+            this.colors = undefined;
         }
 
         var colors = new Array(amount);
@@ -118,30 +117,6 @@ class Visualization {
             this.ctx.globalAlpha = 0.1;
             this.ctx.fillStyle = this.colors[i];
             this.ctx.fill();
-        }
-    }
-
-    /*
-    * Checks if a given coordinate is in the given area of interest
-    *
-    * @param {x1, x2, y1, y2} currentAoi - Area of interest
-    * @param {number} currentPointX - X coordinate
-    * @param {number} currentPointY - Y coordinate
-    * @throws {IllegalArgumentException} if currentPointX or currentPointY are not a number
-    * @returns true if the given coordinate is in the area of interest
-    */
-    isInAoi(currentAoi, currentPointX, currentPointY) {
-        if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
-            throw("IllegalArgumentException");
-        }
-
-        if ((currentAoi.x1 < currentPointX &&
-            currentAoi.x2 > currentPointX) &&
-            (currentAoi.y1 < currentPointY &&
-            currentAoi.y2 > currentPointY)) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -188,6 +163,10 @@ class Visualization {
         }
     }
 
+    clearVisualization() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
     /*
     * Draws the visualization. Assumes that the image has already been loaded.
     */
@@ -207,8 +186,6 @@ class Visualization {
             this.widthScale = this.width / this.img.naturalWidth;
             this.heightScale = this.height / this.img.naturalHeight;
         }
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     /*
@@ -221,62 +198,73 @@ class Visualization {
     }
 
     /*
+    * Sets the size of the canvas and image for non null parameters. If the image is null, it's size is not set.
+     */
+    setSize(width, height, offsetX, offsetY) {
+        if (offsetX > 0) {
+            offsetX = 0;
+        }
+        if (offsetY > 0) {
+            offsetY = 0;
+        }
+
+        if (width != null) {
+            if (this.img != null) this.img.style.width = width + "px";
+            this.canvas.style.width = width + "px";
+        }
+        if (height != null) {
+            if (this.img != null) this.img.style.height = height + "px";
+            this.canvas.style.height = height + "px";
+        }
+
+        if (offsetX < -this.canvas.clientWidth + this.canvas.width) {
+            offsetX = -this.canvas.clientWidth + this.canvas.width;
+        }
+
+        if (offsetY < -this.canvas.clientHeight + this.canvas.height) {
+            offsetY = -this.canvas.clientHeight + this.canvas.height;
+        }
+
+        if (offsetX != null) {
+            if (this.img != null) this.img.style.marginLeft = offsetX + "px";
+            this.canvas.style.marginLeft = offsetX + "px";
+        }
+        if (offsetY != null) {
+            if (this.img != null) this.img.style.marginTop = offsetY + "px";
+            this.canvas.style.marginTop = offsetY + "px";
+        }
+    }
+
+    /*
     * Is executed when the wheel event fires. Handles zooming in and out.
     * @throws {NullPointerException} if event is undefined
     */
     onScroll() {
         if (event == undefined) {
-            throw(NullPointerException);
+            throw("NullPointerException");
         }
         
         event.preventDefault();
 
-        var newWidth;
-        var newHeight;
-        var zoomFactor = 1.5;
-        var zoom;
-
         if (event.deltaY < 0) { //Scrolling up
-            zoom = zoomFactor;
+            var zoomFactor = 1.5;
         } else { //Scrolling down
-            zoom = 1 / zoomFactor;
+            var zoomFactor = 1 / 1.5;
         }
 
-        newWidth = (this.img.width * zoom);
-        newHeight = (this.img.height * zoom);
+        this.zoom = this.zoom * zoomFactor;
 
-        var currentZoom = parseFloat(this.img.style.width) / this.width;
-        if (isNaN(currentZoom)) {
-            currentZoom = 1;
+        if (this.zoom < 1) {
+            this.zoom = 1;
         }
 
-        var currentPortionWidth = this.width / currentZoom;
-        var newPortionWidth = this.width / currentZoom / zoom;
-        var currentPortionHeight = this.height / currentZoom;
-        var newPortionHeight = this.height / currentZoom / zoom;
+        var newWidth = this.width * this.zoom;
+        var newHeight = this.height * this.zoom;
 
-        var currOffSetX = parseFloat(this.img.style.marginLeft);
-        var offSetX = (currOffSetX - (currentPortionWidth - newPortionWidth) / 2) * zoom;
+        var offsetX = parseFloat(this.canvas.style.marginLeft) * zoomFactor;
+        var offsetY = parseFloat(this.canvas.style.marginTop) * zoomFactor;
 
-        var currOffSetY = parseFloat(this.img.style.marginTop);
-        var offSetY = (currOffSetY - (currentPortionHeight - newPortionHeight) / 2) * zoom;
-
-        if (newWidth < this.width || newHeight < this.height) {
-            newWidth = this.width;
-            newHeight = this.height;
-            offSetX = 0;
-            offSetY = 0;
-        }
-        
-        this.img.style.width = newWidth + "px";
-        this.img.style.height = newHeight + "px";
-        this.img.style.marginLeft = offSetX + "px";
-        this.img.style.marginTop = offSetY + "px";
-
-        this.canvas.style.width = newWidth + "px";
-        this.canvas.style.height = newHeight + "px";
-        this.canvas.style.marginLeft = offSetX + "px";
-        this.canvas.style.marginTop = offSetY + "px";
+        this.setSize(newWidth, newHeight, offsetX, offsetY);
 
         return false;
     }
@@ -292,16 +280,13 @@ class Visualization {
         }
         if (event.buttons == 1) {
             if (event.clientX != this.posX || event.clientY != this.posY) {
-                var offSetX = parseInt(this.img.style.marginLeft) + event.clientX - this.posX;
-                var offSetY = parseInt(this.img.style.marginTop) + event.clientY - this.posY;
+                var offsetX = parseInt(this.canvas.style.marginLeft) + event.clientX - this.posX;
+                var offsetY = parseInt(this.canvas.style.marginTop) + event.clientY - this.posY;
 
                 this.posX = event.clientX;
                 this.posY = event.clientY;
 
-                this.img.style.marginLeft = offSetX + "px";
-                this.img.style.marginTop = offSetY + "px";
-                this.canvas.style.marginLeft = offSetX + "px";
-                this.canvas.style.marginTop = offSetY + "px";
+                this.setSize(null, null, offsetX, offsetY);
             }
         }
     }
@@ -332,9 +317,17 @@ class Visualization {
         var superThis = this; //Transfers this to new scope
 
         download_button.addEventListener("click", function() {
-            //Add background image
-            superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height); //Lowers quality of image
+            //Clear context, add background, draw visualization
+            superThis.clearVisualization();
+            superThis.ctx.globalAlpha = 1;
 
+            if (superThis.img != null) {
+                superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height);
+            }
+
+            superThis.draw();
+
+            //Setup download
             var filename = 'visualization.png';
             var imgurl = canvas.toDataURL(); //Save graphics as png
 
@@ -348,6 +341,8 @@ class Visualization {
 
             document.body.removeChild(element);
 
+            //Clear context and draw visualization again (to remove image)
+            superThis.clearVisualization();
             superThis.draw();
         }.bind(superThis), false);
     }
