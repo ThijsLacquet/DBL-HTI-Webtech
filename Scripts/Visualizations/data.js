@@ -4,13 +4,14 @@ class data {
 	//the constuctor makes a new instance of this data object
 	//Parameters:
 	//	stimuliname: the name of the picture and the corresponding fixationdata
-	constructor(stimuliname, update, init){
+	constructor(stimuliname, callback, init){
 		this.imagename = stimuliname;
 		var array = null;
 		var superThis = this;
 		this.users = [];
 
-		this.callback = update;
+		this.callback = callback;
+		this.firstinit = init;
 
 		this.AOIs = [];
 
@@ -34,13 +35,13 @@ class data {
 				throw("No data");
 			}
 
+
 			superThis.interpret(array);
 
 			superThis.numofActiveUsers = superThis.numofUsers;
 
+			callback(superThis);
 			init(superThis);
-			update(superThis);
-
 		});
 	}
 
