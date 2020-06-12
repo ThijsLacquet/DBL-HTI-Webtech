@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="rangeslider.css">
 	<script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/Heatmap.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
@@ -11,8 +12,10 @@
 	<script src="Scripts/Visualizations/ParallelScanpath.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/data.js" type="text/javascript"></script>
 	<script src="Scripts/Visualizations/AOIselection.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/rangeslider.js" type="text/javascript"></script>
 	<script src="Scripts/DraggableUser.js" type="text/javascript"></script>
 	<script src="Scripts/UserContainer.js" type="text/javascript"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
@@ -20,8 +23,9 @@
 
 	<script>
 		//Input data
-		var imageName = "01_Antwerpen_S1.jpg";
+		var imageName = document.getElementById("imageNameContainer").selectIndex = 0;
 	</script>
+
 
 </head>
 <body style="font-family: sans-serif;">
@@ -208,9 +212,22 @@
 	</div>
 
 
-	<script>
-			window.d = null;
+	<div>
+		<div id="timeslider" style="height: 100px"></div>
+		<div id="durationslider" style="height: 100px"></div>
+		<button onclick="updateFilter()">set</button>
+	</div>
 
+	<!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
+	<input type="button" id="download_heatmap" value="Download heatmap"/>
+	<input type="button" id="download_scarfplot" value="Download scarfplot"/>
+	<input type="button" id="download_scanpath" value="Download scanpath"/>
+	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
+
+	<script>
+			var myAOIselection = new AOIselection();
+
+			window.d = null;
 			var d = window.d;
 
 			//Execute php script to access image outside of webserver root directory
@@ -307,13 +324,41 @@
 				userContainer.draw(d);
 			}
 
+			function datainit(d){
+				makesliders(d);
+			}
+
 			function update(d){
 				setData(d);
 				draw();
 			}
 
-			window.d = new data(imageName, update);
-			//d.setAOIs(aoi);
+			var d = new data(imageName, update, datainit);
+      window.d = d;
+
+			var timeslider;
+			var durationslider;
+
+			function makesliders(d){
+				var maxt = d.maxtime;
+				var maxdt = d.getmaxduration();
+
+				timeslider = new RangeSlider({
+				    id:"timeslider",
+				    range: {min:0, max:maxt},
+				    handles:[0, maxt],
+				    width:300,
+				    displayValue:true
+				});
+
+				durationslider = new RangeSlider({
+				    id:"durationslider",
+				    range: {min:0, max:maxdt},
+				    handles:[0, maxdt],
+				    width:300,
+				    displayValue:true
+				});
+			}
 
 			function updateAOIs(){
 				var AOIs = myAOIselection.getcoords();
@@ -321,6 +366,16 @@
 				d.update();
 			}
 
+			function updateFilter(){
+				var timeinterval = timeslider.getInterval();
+				var durationinterval = durationslider.getInterval();
+
+				d.resetentryfilter();
+				d.timeRange(timeinterval[0], timeinterval[1]);
+				d.durationRange(durationinterval[0], durationinterval[1]);
+
+				d.update();
+			}
 	</script>
 
 </body>
