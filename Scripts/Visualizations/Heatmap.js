@@ -7,11 +7,9 @@ class Heatmap extends Visualization {
         super(canvas, img);
         this.radius = 40;
 
-        var superThis = this;
-
         slider.addEventListener('change', function() {
-            superThis.setRadius(slider.value);
-        }.bind(superThis), false);
+            this.setRadius(parseInt(slider.value, 10));
+        }.bind(this), false);
     }
 
     /*
@@ -44,6 +42,7 @@ class Heatmap extends Visualization {
 
                     if (distance < this.radius && x >= 0 && y >= 0) {
                         data[x][y] = data[x][y] + ((1 - distance / this.radius) * this.duration[i]);
+
                         if (data[x][y] > this.maxHeat) {
                             this.maxHeat = data[x][y];
                         }
