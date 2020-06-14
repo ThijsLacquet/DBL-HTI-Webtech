@@ -354,12 +354,15 @@
     display: inline-block;
 }
 
-.contentUsers {
+.userEnabled {
+    color: inherit;
+}
 
+.userDisabled {
+    color: red;
 }
 
 .contentUsers a {
-    color: black;
     padding: 2px 5px;
     text-decoration: none;
     display: block;
@@ -572,4 +575,3 @@ img {
     text-align: center;
     color: black;
 }
-

@@ -55,11 +55,16 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
     $statusMessage = $statusMessage . "You have $countCsv csv files in total <br>";
     $statusMessage = $statusMessage . "$errors files could not be uploaded";
 
-    //If at least one image and csv is uploaded, and no errors occurred, direct the user to the visualization page, otherwise stay on the upload page
-    if ($countImg > 0 && $countCsv > 0 && $errors == 0) {
-        header("Location: /../test.htm");
+    //If at least one image and csv is uploaded, and no errors occurred, direct the user to the visualization page,
+    //otherwise stay on the upload page and give an error
+    if ($errors > 0) {
+        header("Location: /../upload.htm#error");
+    } else  if ($countImg == 0) {
+        header("Location: /../upload.htm#noimage");
+    } else if ($countCsv == 0) {
+        header("Location: /../upload.htm#nocsv");
     } else {
-        header("Location: /../upload.htm");
+        header("Location: /../test.htm");
     }
 }
 ?>

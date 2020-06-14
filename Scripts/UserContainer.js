@@ -28,9 +28,9 @@ class UserContainer {
             this.DraggableUsers[i] = new DraggableUser(draggableUserElement, data, i);
 
             if (data.users[i].enabled) {
-                draggableUserElement.style.color = "black";
+                draggableUserElement.className = "userEnabled";
             } else {
-                draggableUserElement.style.color = "red";
+                draggableUserElement.className = "userDisabled";
             }
 
         }

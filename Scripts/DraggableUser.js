@@ -54,6 +54,6 @@ class DraggableUser{
     }
 
     draw() {
-        this.draggableElement.innerHTML = this.data.users[this.index].name + '<br>';
+        this.draggableElement.innerHTML = this.data.users[this.index].name;
     }
 }
