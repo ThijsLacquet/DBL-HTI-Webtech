@@ -9,7 +9,6 @@ class DraggableUser{
         this.draggableElement = draggableElement;
 
         this.draw();
-        var superThis = this;
 
         draggableElement.getDraggableUser = function() {
             return this;
@@ -44,11 +43,10 @@ class DraggableUser{
 
     onclickEvent() {
         var user = this.data.users[this.index];
-
-        if (user.enabled) {
-            user.enabled = false;
+        if (user.getEnabled()) {
+            user.setEnabled(false);
         } else {
-            user.enabled = true;
+            user.setEnabled(true);
         }
         this.data.update();
     }

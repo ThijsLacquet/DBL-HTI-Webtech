@@ -140,9 +140,9 @@ class data {
 		var array;
 
 		if(filtered){
-			if(!this.editedTime){
+			/*if(!this.editedTime){
 				return this.Time;
-			}
+			}*/
 			array = [];
 
 			var currentUser;
@@ -195,9 +195,9 @@ class data {
 		var array;
 
 		if(filtered){
-			if(!this.editedX){
+			/*if(!this.editedX){
 				return this.X;
-			}
+			}*/
 			array = [];
 
 			var currentUser;
@@ -249,9 +249,9 @@ class data {
 		var array;
 
 		if(filtered){
-			if(!this.editedY){
+			/*if(!this.editedY){
 				return this.Y;
-			}
+			}*/
 			array = [];
 
 			var currentUser;
@@ -303,9 +303,9 @@ class data {
 		var array;
 
 		if(filtered){
-			if(!this.editedDuration){
+			/*if(!this.editedDuration){
 				return this.duration;
-			}
+			}*/
 			array = [];
 
 			var currentUser;
@@ -514,11 +514,27 @@ class data {
 	/*
 	* Switches the order of two users
 	* Author: Thijs Lacquet
-	 */
+	*/
 	switchUsers(user1, user2) {
 		var temp = this.users[user2];
 		this.users[user2] = this.users[user1];
 		this.users[user1] = temp;
+
+		this.editedX = true;
+		this.editedY = true;
+		this.editedDuration = true;
+		this.editedTime = true;
+		this.editedUser = true;
+	}
+
+	/*
+	* Enabled or disables all users
+	* Author: Thijs Lacquet
+	*/
+	enableAllUsers(enabled) {
+		for(var user of this.users) {
+			user.setEnabled(enabled);
+		}
 	}
 
 	/*
@@ -626,6 +642,22 @@ class dataUser {
 	addEntry(entry){
 		this.numofEntries++;
 		this.entries.push(entry);
+	}
+
+	/*
+	* Enables or disables a single user
+	* Author: Thijs Lacquet
+ 	*/
+	setEnabled(enabled) {
+		this.enabled = enabled;
+	}
+
+	/*
+	* Checks whether this user is enabled
+	* Author: Thijs Lacquet
+	 */
+	getEnabled() {
+		return this.enabled;
 	}
 
 	fill(){

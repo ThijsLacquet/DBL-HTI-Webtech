@@ -326,7 +326,7 @@
 
 .download{
   grid-area: download;
-  height: 140px;
+  height: 180px;
 }
 
 .button {
@@ -345,8 +345,8 @@
 
 .tool3{
   grid-area: tool3;
-  height: 140px;
-  overflow: auto;
+  height: 180px;
+    overflow: hidden;
 }
 
 .userDropdown {
@@ -354,12 +354,24 @@
     display: inline-block;
 }
 
+.userContainer {
+    overflow: auto;
+    height: 145px;
+}
+
+.userAll {
+    color: black;
+    /*background-color: #f6f6f6;*/
+}
+
 .userEnabled {
-    color: inherit;
+    color: black;
+    /*background-color: #f6f6f6;*/
 }
 
 .userDisabled {
     color: red;
+    /*background-color: #f6f6f6;*/
 }
 
 .contentUsers a {
@@ -375,22 +387,22 @@
 
 .tool4{
   grid-area: tool4;
-  height: 140px;
+  height: 180px;
 }
 
 .tool5{
   grid-area: tool5;
-  height: 140px;
+  height: 180px;
 }
 
 .tool6{
   grid-area: tool6;
-  height: 140px;
+  height: 180px;
 }
 
 .tool7{
   grid-area: tool7;
-  height: 140px;
+  height: 180px;
 
 }
 
