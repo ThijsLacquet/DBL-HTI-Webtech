@@ -20,6 +20,7 @@ class Scanpath extends Visualization {
 	//amount is the number of colours needed, needs to be implemented
 
 	setData(d, size){
+		super.setData(d);
 		this.size = size;
 
 		this.data = Array(d.numofActiveUsers);

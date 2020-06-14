@@ -54,6 +54,7 @@ class Heatmap extends Visualization {
     }
 
     setData(d) {
+        super.setData(d);
         this.aoi = d.getAOIs();
         this.mappedFixationPointX = d.getX();
         this.mappedFixationPointY = d.getY();

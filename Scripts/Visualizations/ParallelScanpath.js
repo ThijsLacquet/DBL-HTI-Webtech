@@ -8,6 +8,7 @@ class ParallelScanpath extends Visualization{
 	}
 
 	setData(d){
+		super.setData(d);
 		this.maxtime = d.maxtime;
 		this.numofAOIs = d.getAOIs().length + 1;
 

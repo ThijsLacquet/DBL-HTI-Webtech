@@ -217,12 +217,6 @@
 		<button onclick="updateFilter()">set</button>
 	</div>
 
-	<!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
-	<input type="button" id="download_heatmap" value="Download heatmap"/>
-	<input type="button" id="download_scarfplot" value="Download scarfplot"/>
-	<input type="button" id="download_scanpath" value="Download scanpath"/>
-	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
-
 	<script>
 			var myAOIselection = new AOIselection();
 
@@ -257,7 +251,7 @@
 			var slider = document.getElementById("heatmapRadius");
 
 			myHeatmap = new Heatmap(canvas, img, slider);
-			myHeatmap.setDownloadButton(download_button, canvas);
+			myHeatmap.setDownloadButton(download_button, canvas, "Heatmap");
 			myHeatmap.setImage(imagePath);
 
 			<!--Drawing the scarfplot-->
@@ -271,8 +265,8 @@
 			var download_aoi = document.getElementById("download_aoi");
 
 			myScarfplot = new Scarfplot(canvas, scarfCanvas, img);
-			myScarfplot.setDownloadButton(download_button, scarfCanvas);
-			myScarfplot.setDownloadButton(download_aoi, canvas);
+			myScarfplot.setDownloadButton(download_button, scarfCanvas, "Scarfplot");
+			myScarfplot.setDownloadButton(download_aoi, canvas, "AOI");
 			myScarfplot.setImage(imagePath);
 
 			<!--Drawing the scanpath-->;
@@ -288,7 +282,7 @@
 			var height = visImgContainerSC.clientHeight;
 
 			myScanpath = new Scanpath(canvas, img);
-			myScanpath.setDownloadButton(download_button, canvas);
+			myScanpath.setDownloadButton(download_button, canvas, "Scanpath");
 			myScanpath.setImage(imagePath);
 
 	<!--setting up the parallel scanpath-->
@@ -298,7 +292,7 @@
 			var download_button = document.getElementById("download_parallelscanpath");
 
 			myParallelScanpath = new ParallelScanpath(canvas);
-			myParallelScanpath.setDownloadButton(download_button, canvas);
+			myParallelScanpath.setDownloadButton(download_button, canvas, "Parallelscanpath");
 
 	<!--data & drawing -->
 			function setData(d){

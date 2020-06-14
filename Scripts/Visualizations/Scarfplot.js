@@ -73,6 +73,7 @@ class Scarfplot extends Visualization {
 	}
 
 	setData(d){
+		super.setData(d);
 		this.AOI = d.getAOI();
 
 		this.nUsers = d.numofActiveUsers;

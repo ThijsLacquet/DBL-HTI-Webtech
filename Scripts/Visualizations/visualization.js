@@ -137,11 +137,7 @@ class Visualization {
     }
 
     setData(d) {
-        this.mappedFixationPointX = d.getX();
-        this.mappedFixationPointY = d.getY();
-        this.duration = d.getDuration();
-        this.timestamp = d.getTime();
-        this.user = d.getUser();
+        this.d = d;
     }
 
     /*
@@ -301,12 +297,31 @@ class Visualization {
         }
     }
 
+    getDownloadName() {
+        var aoiString = "aoi[";
+        for (var aoi of this.d.AOIs) {
+            aoiString += "{" + Math.round(aoi['x1']) + "," + Math.round(aoi['x2']) + "," + Math.round(aoi['y1'])
+                + "," + Math.round(aoi['y2']) + "}";
+        }
+        aoiString += "]";
+
+        var userString = "users[";
+        for (var user of this.d.users) {
+            if (user.getEnabled()) {
+                userString += "{" + user.name + "}";
+            }
+        }
+        userString += "]";
+
+        return "_" + userString + "_" + aoiString;
+    }
+
     /*
     * Downloads an image of the canvas when the download button is pressed
     * @param download_button ElementId of the html downloadbutton
     * @param canvas Canvas of the image which should be downloaded
      */
-    setDownloadButton(download_button, canvas) {
+    setDownloadButton(download_button, canvas, visualizationName) {
         if (download_button == undefined) {
             throw("Download button is undefined in setDownloadButton");
         }
@@ -328,7 +343,7 @@ class Visualization {
             superThis.draw();
 
             //Setup download
-            var filename = 'visualization.png';
+            var filename = visualizationName + this.getDownloadName();
             var imgurl = canvas.toDataURL(); //Save graphics as png
 
             var element = document.createElement('a');
