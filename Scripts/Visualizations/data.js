@@ -595,6 +595,9 @@ class data {
 	//	min: the minimal time
 	//	max: the maximal time
 	timeRange(min, max){
+		this.minTime = min;
+		this.maxTime = max;
+
 		this.filter(function(x){
 			if((min < x.time) && (x.time < max)){
 				return true;
@@ -609,6 +612,9 @@ class data {
 	//	min: the minimal duration
 	//	max: the maximal duration
 	durationRange(min, max){
+		this.minDuration = min;
+		this.maxDuration = max;
+
 		this.filter(function(x){
 			if((min < x.duration) && (x.duration < max)){
 				return true;

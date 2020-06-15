@@ -111,4 +111,10 @@ class Heatmap extends Visualization {
         this.clearVisualization();
         this.draw();
     }
+
+    getDownloadName() {
+        var radiusString = "range[" + this.radius + "]";
+
+        return (super.getDownloadName() + "_" + radiusString);
+    }
 }
