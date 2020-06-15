@@ -135,8 +135,12 @@
   		<p>Value: <span id="value"></span></p>
   	</div>
 		</div>
-		<div class="tool6">tool6</div>
-		<div class="tool7">tool7</div>
+		<div class="tool6">
+			Filter on time and duration
+			<div id="timeslider" style="height: 50px; margin: 20px 0px;"></div>
+			<div id="durationslider" style="height: 50px; margin: 20px 0px 0px 0px;"></div>
+			<button class="setButton" onclick="updateFilter()">set filters</button>
+		</div>
 	</div>
 
 	<script>
@@ -158,7 +162,7 @@
 	</script>
 
 	<div class="grid_linking">
-		<div class="heatmapE">
+		<div class="heatmapE">1
 			<div id="visContainerHM">
 				<div id="visImgContainerHM">
 						<img id="myImageHM">
@@ -169,7 +173,7 @@
 			</div>
 		</div>
 
-		<div class="scarfplotE">
+		<div class="scarfplotE">2
 			<div id="visContainerSP">
 				<div id="visImgContainerSP">
 						<img id="myImageSP">
@@ -183,7 +187,7 @@
 			</div>
 		</div>
 
-		<div class="scanpathE">
+		<div class="scanpathE">3
 			<div id="visContainerSC">
 				<div id="visImgContainerSC">
 					<img id= "myImageSC">
@@ -194,28 +198,23 @@
 			</div>
 		</div>
 
-		<div class="parallelSP">
+		<div class="parallelSP">4
 			<div id="visContainerPSP">
 				<div id="visCanvasContainerPSP">
 					<canvas id="myCanvasPSP"></canvas>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div>
-		<div id="AOISelection" style="width: 800px;font-size: 0">
-			<img id="aoiImage" style="width: 100%;z-index: 1">
+		<div class="AOIselection">
+			<div id="AOISelection" style="width: 800px;font-size: 0">
+				<img id="aoiImage" style="width: 100%;z-index: 1">
+			</div>
+			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
 		</div>
-		<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+
 	</div>
 
-
-	<div>
-		<div id="timeslider" style="height: 100px"></div>
-		<div id="durationslider" style="height: 100px"></div>
-		<button onclick="updateFilter()">set</button>
-	</div>
 
 	<script>
 			var myAOIselection = new AOIselection();
@@ -337,7 +336,7 @@
 			    id:"timeslider",
 			    range: {min:0, max:1},
 			    handles:[0, 1],
-			    width:300,
+			    width:200,
 			    displayValue:true
 			});
 
@@ -345,7 +344,7 @@
 			    id:"durationslider",
 			    range: {min:0, max:1},
 			    handles:[0, 1],
-			    width:300,
+			    width:200,
 			    displayValue:true
 			});
 
@@ -357,7 +356,7 @@
 				    id:"timeslider",
 				    range: {min:0, max:maxt},
 				    handles:[0, maxt],
-				    width:300,
+				    width:200,
 				    displayValue:true
 				});
 
@@ -365,7 +364,7 @@
 				    id:"durationslider",
 				    range: {min:0, max:maxdt},
 				    handles:[0, maxdt],
-				    width:300,
+				    width:200,
 				    displayValue:true
 				});
 			}
