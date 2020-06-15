@@ -34,7 +34,7 @@
 }
 
 .header h1{
-  font-size:60px;
+  font-size: 50px;
 }
 
 .header p{
@@ -46,31 +46,14 @@
 }
 
 .text h1{
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .text p{
-  font-size: 25px;
+  font-size: 22px;
 }
 
-.us h1{
-  text-align: center;
-  font-size: 50px;
-}
-
-.upload_text{
-  text-align: center;
-}
-
-.upload_text h1{
-  font-size:60px;
-}
-
-.upload_text p{
-  font-size: 25px;
-}
-
-.upload_text a{
+.text a{
   color: #20B2AA;
 }
 
@@ -100,7 +83,7 @@
   position: absolute;
   background-color: #f6f6f6;
   max-width: 99%;
-  max-height: 200px;
+  max-height: 150px;
   overflow: auto;
   border: 1px solid #dddddd;
   z-index: 1;
@@ -266,10 +249,11 @@
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
   "heatmapE scanpathE"
+  "AOIselection AOIselection"
   "scarfplotE parallelSP";
   grid-gap: 30px;
 }
@@ -294,6 +278,14 @@
   /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
+.AOIselection {
+  grid-area: AOIselection;
+}
+
+.tool6 {
+  grid-area: tool6;
+}
+
 .grid_linking div:nth-child(even) {
 }
 
@@ -311,12 +303,13 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-  "dropdown download tool3 tool4 tool5 tool6 tool7";
+  "dropdown download tool3 tool4 tool5 tool6 tool6";
   padding-top: 10px;
   padding-bottom: 30px;
   grid-gap: 10px;
   text-align: center;
   font-size: 14px;
+  font-weight: 600;
   color: #20B2AA;
 }
 
@@ -326,7 +319,7 @@
 
 .download{
   grid-area: download;
-  height: 140px;
+  height: 190px;
 }
 
 .button {
@@ -334,9 +327,9 @@
   background-color: #20B2AA;
   border: none;
   color: white;
-  padding: 4px 20px;
-  text-align: center;
-  margin: 3px;
+  padding: 6px 20px;
+  margin: 5px;
+  font-size: 12px;
 }
 
 .button:hover {
@@ -345,7 +338,7 @@
 
 .tool3{
   grid-area: tool3;
-  height: 140px;
+  height: 190px;
   overflow: auto;
 }
 
@@ -372,23 +365,18 @@
 
 .tool4{
   grid-area: tool4;
-  height: 140px;
+  height: 190px;
 }
 
 .tool5{
   grid-area: tool5;
-  height: 140px;
+  height: 190px;
 }
 
 .tool6{
   grid-area: tool6;
-  height: 140px;
-}
-
-.tool7{
-  grid-area: tool7;
-  height: 140px;
-
+  height: 190px;
+  margin:0 auto;
 }
 
 .setButton {
@@ -399,7 +387,7 @@
   padding: 4px 20px;
   text-align: center;
   margin: 3px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .setButton:hover {
@@ -572,4 +560,3 @@ img {
     text-align: center;
     color: black;
 }
-
