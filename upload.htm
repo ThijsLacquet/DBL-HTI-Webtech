@@ -1,4 +1,4 @@
-<!--Author: Tanja Markink and Nathan Overschie-->
+<!--Author: Tanja Markink, Nathan Overschie and Ezra Gerris-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +32,9 @@
   <form action="Scripts/upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:
 	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
-	    <input type="submit" value="Upload files" name="submit">
+      <label for="Upload_file">Choose files</label>
+	    <input type="submit" id="submit" value="Upload files" name="submit">
+      <label for="submit">Upload files</label>
   </form>
   <div class="upload_text">
     <p id="upload_msg"></p>
