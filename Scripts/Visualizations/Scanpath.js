@@ -77,4 +77,10 @@ class Scanpath extends Visualization {
 			}
 		}
 	}
+
+	getDownloadName() {
+		var radiusString = "range[" + this.size * 1000 + "]";
+
+		return (super.getDownloadName() + "_" + radiusString);
+	}
 }

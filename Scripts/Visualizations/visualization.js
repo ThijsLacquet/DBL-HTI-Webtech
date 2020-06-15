@@ -313,7 +313,22 @@ class Visualization {
         }
         userString += "]";
 
-        return "_" + userString + "_" + aoiString;
+        var timeString = "time[" + Math.round(this.d.minTime) + "-" + Math.round(this.d.maxTime) + "]";
+        var durationString = "duration[" + Math.round(this.d.minDuration) + "-" + Math.round(this.d.maxDuration) + "]";
+
+        var name = "_";
+
+        if (d.minTime != undefined) {
+            name += timeString + "_";
+        }
+
+        if (d.minDuration != undefined) {
+            name += durationString + "_";
+        }
+
+        name += aoiString + "_" + userString;
+
+        return name;
     }
 
     /*
@@ -343,7 +358,7 @@ class Visualization {
             superThis.draw();
 
             //Setup download
-            var filename = visualizationName + this.getDownloadName();
+            var filename = visualizationName + superThis.getDownloadName();
             var imgurl = canvas.toDataURL(); //Save graphics as png
 
             var element = document.createElement('a');
