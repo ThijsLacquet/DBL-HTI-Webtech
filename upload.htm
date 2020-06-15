@@ -34,9 +34,6 @@
 	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
 	    <input type="submit" value="Upload files" name="submit">
   </form>
-  <div class="upload_text">
-    <p id="upload_msg"></p>
-  </div>
 </body>
 </html>
 
@@ -45,10 +42,10 @@
   var uploadMsg = document.getElementById("upload_msg");
 
   if (hash == "error") {
-    uploadMsg.innerHTML = "An error occurred while uploading the data. Some files may not have been uploaded.";
+    alert("An error occurred while uploading the data. Some files may not have been uploaded.");
   } else if (hash == "nocsv") {
-    uploadMsg.innerHTML = "Please also upload a csv file.";
-  } else if (hash == "noimg") {
-    uploadMsg.innerHTML = "Please also upload atleast one image.";
+    alert("Please upload a csv file.");
+  } else if (hash == "noimage") {
+    alert("Please upload at least one image.");
   }
 </script>
