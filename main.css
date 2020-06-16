@@ -1,7 +1,8 @@
-/* Author: Tanja Markink */
+/* Author: Tanja Markink and Ezra Gerris */
 .nav {
   background-color: black;
   overflow: hidden;
+  font-family: serif;
 }
 
 .nav a {
@@ -11,6 +12,7 @@
   padding: 15px 20px;
   text-decoration: none;
   font-size: 17px;
+  font-family: serif;
 }
 
 .nav a:hover {
@@ -28,10 +30,11 @@
 	text-align: center;
 	background: #20B2AA;
 	color: white;
+  font-family: serif;
 }
 
 .header h1{
-  font-size:60px;
+  font-size: 50px;
 }
 
 .header p{
@@ -43,46 +46,30 @@
 }
 
 .text h1{
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .text p{
-  font-size: 25px;
+  font-size: 22px;
 }
 
-.us h1{
-  text-align: center;
-  font-size: 50px;
-}
-
-.upload_text{
-  text-align: center;
-}
-
-.upload_text h1{
-  font-size:60px;
-}
-
-.upload_text p{
-  font-size: 25px;
-}
-
-.upload_text a{
+.text a{
   color: #20B2AA;
 }
 
 /* Author: Ezra Gerris */
 /* DROPDOWN MENU FOR CHOOSING IMAGE*/
 .dropbutton {
+  font-family : inherit;
   background-color: #20B2AA;
   color: white;
-  padding: 16px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 }
 
-.dropbutton:hover, .dropbutton:focus {
+.dropbutton:hover {
   background-color: #18857f;
 }
 
@@ -95,8 +82,8 @@
   display: none;
   position: absolute;
   background-color: #f6f6f6;
-  min-width: 230px;
-  max-height: 140px; /* grid_tools-padding-top - 10 */
+  max-width: 99%;
+  max-height: 150px;
   overflow: auto;
   border: 1px solid #dddddd;
   z-index: 1;
@@ -113,8 +100,8 @@
 
 #input {
   box-sizing: border-box;
-  font-size: 16px;
-  padding: 10px 10px;
+  font-size: 12px;
+  padding: 7px 7px;
   border: none;
   border-bottom: 1px solid #ddd;
 }
@@ -262,32 +249,41 @@
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
   "heatmapE scanpathE"
+  "AOIselection AOIselection"
   "scarfplotE parallelSP";
   grid-gap: 30px;
 }
 
 .heatmapE {
   grid-area: heatmapE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .scarfplotE {
   grid-area: scarfplotE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .scanpathE {
   grid-area: scanpathE;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .parallelSP {
   grid-area: parallelSP;
+  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
-.tools {
-  grid-area: tools;
+.AOIselection {
+  grid-area: AOIselection;
+}
+
+.tool6 {
+  grid-area: tool6;
 }
 
 .grid_linking div:nth-child(even) {
@@ -298,46 +294,8 @@
 
 /* END GRID FOR LINKING VISUALIZATIONS */
 
-/* GRID FOR DISPLAY */
-/*.grid_display{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas:
-  "heatmap scanpath parallelscan scarfplot";
-}
 
-.heatmap{
-  grid-area: heatmap;
-  height: 350px;
-}
-
-.scanpath{
-  grid-area: scanpath;
-  height: 350px;
-}
-
-.parallelscan{
-  grid-area: parallelscan;
-  height: 350px;
-}
-
-.scarfplot{
-  grid-area: scarfplot;
-  height: 350px;
-}
-
-.grid_display div:nth-child(even) {
-  background-color: #20B2AA;
-}
-
-.grid_display div:nth-child(odd) {
-  background-color: pink;
-}*/
-
-/*END OF GRID FOR DISPLAY*/
-
-
+/* Author: Ezra Gerris */
 /* GRID FOR TOOLS */
 
 .grid_tools{
@@ -345,53 +303,116 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-  "tool1 tool2 tool3 tool4 tool5 tool6 tool7";
-  padding-top: 150px;
+  "dropdown download tool3 tool4 tool5 tool6 tool6";
+  padding-top: 10px;
   padding-bottom: 30px;
-
+  grid-gap: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #20B2AA;
 }
 
-.tool1{
-  grid-area: tool1;
-  height: 80px;
+.dropdown{
+  grid-area: dropdown;
 }
 
-.tool2{
-  grid-area: tool2;
-  height: 80px;
+.download{
+  grid-area: download;
+  height: 190px;
+}
+
+.button {
+  font-family : inherit;
+  background-color: #20B2AA;
+  border: none;
+  color: white;
+  padding: 6px 20px;
+  margin: 5px;
+  font-size: 12px;
+}
+
+.button:hover {
+  background-color: #18857f;
 }
 
 .tool3{
   grid-area: tool3;
-  height: 80px;
+  height: 190px;
+  overflow: hidden;
+}
+
+.userDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.userContainer {
+    overflow: auto;
+    height: 145px;
+}
+
+.userAll {
+    color: black;
+    /*background-color: #f6f6f6;*/
+}
+
+.userEnabled {
+    color: black;
+    /*background-color: #f6f6f6;*/
+}
+
+.userDisabled {
+    color: red;
+    /*background-color: #f6f6f6;*/
+}
+
+.contentUsers a {
+    padding: 2px 5px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.contentUsers a:hover {
+    background-color: #ddd;
 }
 
 .tool4{
   grid-area: tool4;
-  height: 80px;
+  height: 190px;
 }
 
 .tool5{
   grid-area: tool5;
-  height: 80px;
+  height: 190px;
 }
 
 .tool6{
   grid-area: tool6;
-  height: 80px;
+  height: 190px;
+  margin: 0 auto;
 }
 
-.tool7{
-  grid-area: tool7;
+.setButton {
+  font-family : inherit;
+  background-color: #20B2AA;
+  border: none;
+  color: white;
+  padding: 4px 20px;
+  text-align: center;
+  margin: 3px;
+  font-size: 16px;
+}
 
+.setButton:hover {
+  background-color: #18857f;
 }
 
 .grid_tools div:nth-child(even) {
-  background-color: pink;
 }
 
 .grid_tools div:nth-child(odd) {
-  background-color: #20B2AA;
 }
 /* END OF GRID FOR TOOLS */
 
@@ -525,3 +546,32 @@ img {
   overflow-x: hidden;
 }
 /* END OF MAKING THE VISUALIZATIONS WORK */
+
+.range-slider{
+    position: relative;
+    height: 20px;
+}
+
+.range-slider .bar{
+    width:100%;
+    height: 10px;;
+    background-color: black;
+}
+
+.range-slider .handle{
+    position: absolute;
+    color: blue;
+    width: 0px;
+    height: 0px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 20px solid #20B2AA;
+    transform: translateX(-15px);
+    cursor: pointer;
+}
+
+.range-slider .handle .value{
+    transform: translateY(-30px);
+    text-align: center;
+    color: black;
+}

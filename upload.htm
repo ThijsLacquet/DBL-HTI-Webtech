@@ -23,17 +23,9 @@
     <p>By group 39</p>
   </div>
 
-  <div class="upload_text">
+  <div class="text">
     <h1>How to upload the data?</h1>
-    <p>With usage of the upload button you can make a visualization. You can choose
-      between four different visualization for your eye-tracking data. In the upload
-      button you need to give your eye-tracking data. If you inserted your data
-       in the upload button, you need to make a choice
-      which visualization you want your data in. If you go to the
-      <a href="visualization.htm">visualization page</a>
-      you can find the description of the different kinds of visualizations.
-      If you made your choice in visualization you need to press the button "visualize"
-      and you can find your visualization bellow. </p>
+    <p>With usage of the upload button you can make a visualization. You can choose between four different visualizations for your eye-tracking data. You can find the description of the different kinds of visualizations on the <a href="visualization.htm">information</a> page. With the upload button you can sync your eye-tracking data. Once, you succesfully uploaded the data, you will automatically be redirected to the visualization page. Uploading may take some time, so please be patient.</p>
   </div>
 
 <!--Making the upload button work-->
@@ -41,9 +33,19 @@
 	    Select image to upload:
 	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
 	    <input type="submit" value="Upload files" name="submit">
-	</form>
-
-
-
+  </form>
 </body>
 </html>
+
+<script>
+  var hash = location.hash.substring(1);
+  var uploadMsg = document.getElementById("upload_msg");
+
+  if (hash == "error") {
+    alert("An error occurred while uploading the data. Some files may not have been uploaded.");
+  } else if (hash == "nocsv") {
+    alert("Please upload a csv file.");
+  } else if (hash == "noimage") {
+    alert("Please upload at least one image.");
+  }
+</script>

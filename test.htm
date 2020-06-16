@@ -1,246 +1,391 @@
-<!--  Written by Tanja Markink, Ezra Gerris, Marleen van Gent & Thijs Lacquet -->
+<!--Author: Ezra Gerris, Thijs Lacquet and Tanja Markink-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="main.css">
-  <script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
-  <script src="Scripts/Visualizations/Heatmap.js" type="text/javascript"></script>
-  <script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
-  <script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
-  <title>Test page for linking visualizations</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="rangeslider.css">
+	<script src="Scripts/Visualizations/visualization.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/Heatmap.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/Scarfplot.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/Scanpath.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/ParallelScanpath.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/data.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/AOIselection.js" type="text/javascript"></script>
+	<script src="Scripts/Visualizations/rangeslider.js" type="text/javascript"></script>
+	<script src="Scripts/DraggableUser.js" type="text/javascript"></script>
+	<script src="Scripts/UserContainer.js" type="text/javascript"></script>
 
-  <script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
+	<title>Test page for linking visualizations</title>
 
-  
-  	//Input data
-      var timestamp = [28719,28802,29268,29568,29801,30118,30368,30551,30717,30884,31084,31217,31500,32116,
-  		32316,32616,32866,33116,33366,33565,33765,33982,34315,34831,35064,35248,35631,35981, 36948, 37123,
-          37205, 37500, 37952, 38123, 38220, 38500, 38700, 38900, 39000, 39200, 39300, 40000, 40200, 40500];
-      var duration = new Array(44);
-      for (var i = 0; i < 43; i++) {
-          duration[i] = timestamp[i + 1] - timestamp[i];
-      }
-      duration[43] = 500;
-      var fixationIndex = [84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,
-          108,109,110,111];
-      var fixationDuration = [83,466,300,233,316,250,183,167,166,200,133,283,616,200,300,250,250,150,200,200,
-          216,333,516,233,183,383,166,166];
-      var mappedFixationPointX = [596,480,449,549,927,1108,506,538,645,768,711,735,634,813,691,1061,1108,
-  		1140,1162,1080,779,708,925,779,830,881,1044,918, 600, 458, 682, 681, 1025, 1006, 586, 145,
-  		795, 695, 458, 962, 45, 10, 205, 1206];
-      var mappedFixationPointY = [362,265,219,351,435,544,300,325,516,1058,998,626,395,396,407,532,574,607,
-          643,705,774,972,706,798,767,736,702,717,437,686,860,941,737,720,743,736,768,811,841,905,914,859,
-  		921,962];
-  	var user = ['p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1', 'p1',
-  		'p1', 'p1', 'p1', 'p1', 'p1', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p2', 'p3', 'p3', 'p3',
-  		'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3', 'p3'];
-    var aoi = [{x1:20, x2:805, y1:20, y2:580},{x1:845, x2:1872, y1:20, y2:580},
-		  {x1:20, x2:805, y1:620, y2:1180}, {x1:845, x2:1872, y1:620, y2:1180}];
-    var imageName;
-  </script>
+	<script>
+		//Input data
+		var imageName = "01_Antwerpen_S1.jpg";
+	</script>
 
 </head>
-<body>
+<body style="font-family: sans-serif;">
 
-  <div class="nav">
-    <a href="index.htm">Home</a>
-    <a href="visualization.htm">Visualization</a>
-    <a href="upload.htm">Upload</a>
-    <a class="active" href="#test">Test</a>
-  </div>
+	<div class="nav">
+		<a href="index.htm">Home</a>
+		<a href="visualization.htm">Visualization</a>
+		<a href="upload.htm">Upload</a>
+		<a class="active" href="#test">Test</a>
+	</div>
 
-  <div class="header">
-    <h1>Test page</h1>
-    <p>By group 39</p>
-  </div>
+	<div class="header">
+		<h1>Test page</h1>
+		<p>By group 39</p>
+	</div>
 
-  <!--Drop down menu-->
-  <div class="dropdown">
-    <button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
-    <div id="dropdown" class="content">
-      <input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-      <div id="imageNameContainer">
-      </div>
-    </div>
-  </div> 
-    
-<script>
-function load() {
-	var array = null;
-	var superThis = this;
-	$.post( "/Scripts/imageNames.php", function( data ) {
-		array = JSON.parse(data);
-		console.log(array.toString());
-		superThis.loading(array);
-	});	
-}
-
-function loading(data) {
-	var i = 0;
-	var imageNameContainer = document.getElementById("imageNameContainer")
-	console.log(imageNameContainer)
-	var tempHtml = ""
-	while (i < data.length) {
-		//<a id="myLink" href="#" onclick="MyFunction();">link text</a>
-		tempHtml = tempHtml + '<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>'
-		console.log('<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>')
-		i = i + 1;
+	<script>
+	function load() {
+		var array = null;
+		var superThis = this;
+		$.post( "/Scripts/imageNames.php", function( data ) {
+			array = JSON.parse(data);
+			superThis.loading(array);
+		});
 	}
-	imageNameContainer.innerHTML = tempHtml
-}
-load()
-</script>
 
-<script>
-function MyFunction(image) {
-	imageName = image;
-	runVis(image);
-}
-</script>
-  
-  <script>
-  function hideOrShow() {
-    document.getElementById("dropdown").classList.toggle("show");
-  }
+	function loading(data) {
+		//Select background image
+		var i = 0;
+		var imageNameContainer = document.getElementById("imageNameContainer")
+		var tempHtml = ""
+		while (i < data.length) {
+			tempHtml = tempHtml + '<a id="myLink" onclick="MyFunction(' + "'" + data[i] + "'" + ');">' + data[i] + '</a>'
+			i = i + 1;
+		}
+		imageNameContainer.innerHTML = tempHtml
+	}
+	load()
+	</script>
 
-  function filterFunction() {
-    var input, filter, b, c;
-    input = document.getElementById("input");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("dropdown");
-    b = div.getElementsByTagName("a");
-    for (c = 0; c < b.length; c++) {
-      txtValue = b[c].textContent || b[c].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        b[c].style.display = "";
-      } else {
-        b[c].style.display = "none";
-      }
-    }
-  }
-  </script>
+	<script>
+	function MyFunction(image) {
+		var imagePath = "Scripts/getImage.php?img=" + image;
+		myHeatmap.setImage(imagePath);
+		myScanpath.setImage(imagePath);
+		myScarfplot.setImage(imagePath);
+		aoiImg.src = imagePath;
+
+		window.d = new data(image, update, init);
+		userContainer.draw(data);
+	}
+	</script>
+
+	<!--JS dropdown menu-->
+	<script>
+	function hideOrShow() {
+		document.getElementById("dropdown").classList.toggle("show");
+	}
+
+	function filterFunction() {
+		var input, filter, b, c;
+		input = document.getElementById("input");
+		filter = input.value.toUpperCase();
+		div = document.getElementById("dropdown");
+		b = div.getElementsByTagName("a");
+		for (c = 0; c < b.length; c++) {
+			txtValue = b[c].textContent || b[c].innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				b[c].style.display = "";
+			} else {
+				b[c].style.display = "none";
+			}
+		}
+	}
+	</script>
+
+	<div class="grid_tools">
+		<div class="dropdown">
+			<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
+			<div id="dropdown" class="content">
+				<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
+				<div id="imageNameContainer">
+				</div>
+			</div>
+		</div>
+		<div class="download">
+			<input type="button" class="button" id="download_heatmap" value="Download heatmap"/>
+			<input type="button" class="button" id="download_scarfplot" value="Download scarfplot"/>
+			<input type="button" class="button" id="download_scanpath" value="Download gaze plot"/>
+			<input type="button" class="button" id="download_parallelscanpath" value="Download parallel scanpath"/>
+			<input type="button" class="button" id="download_aoi" value="Download AOIs"/>
+		</div>
+		<div class="tool3">
+			<div id="userDropdown" class="contentUsers">
+				<a class="userHeader">Enable/disable or swap users</a>
+				<div class="userContainer" id="userContainer">
+				</div>
+			</div>
+		</div>
+		<div class="tool4">
+			Alter the radius in the heatmap
+			<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
+		</div>
+		<div class="tool5">
+			Alter the radius in the gaze plot
+		<div class="slidecontainer">
+  		<input type="range" min="1" max="30" value="15" class="slider" id="myRange">
+  		<p>Value: <span id="value"></span></p>
+  	</div>
+		</div>
+		<div class="tool6">
+			Filter on time and duration
+			<div id="timeslider" style="height: 50px; margin: 20px 0px;"></div>
+			<div id="durationslider" style="height: 50px; margin: 20px 0px 0px 0px;"></div>
+			<button class="setButton" onclick="updateFilter()">set filters</button>
+		</div>
+	</div>
+
+	<script>
+		var userContainerID = document.getElementById("userContainer");
+		userContainer = new UserContainer(userContainerID);
+
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("value");
+	output.innerHTML = slider.value; // Display the default slider value
+
+	// Update the current slider value (each time you drag the slider handle)
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	  size = (this.value/1000);
+	  myScanpath.clearVisualization();
+	  myScanpath.setData(d, size);
+	  myScanpath.draw();
+	}
+	</script>
+
+	<div class="grid_linking">
+		<div class="heatmapE">1
+			<div id="visContainerHM">
+				<div id="visImgContainerHM">
+						<img id="myImageHM">
+				</div>
+				<div id="visCanvasContainerHM">
+					<canvas id="myCanvasHM"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="scarfplotE">2
+			<div id="visContainerSP">
+				<div id="visImgContainerSP">
+						<img id="myImageSP">
+				</div>
+				<div id="visCanvasContainerSP">
+					<canvas id="myCanvasSP"></canvas>
+				</div>
+			</div>
+			<div id="scarfPlotContainer">
+				<canvas id="scarfCanvas"></canvas>
+			</div>
+		</div>
+
+		<div class="scanpathE">3
+			<div id="visContainerSC">
+				<div id="visImgContainerSC">
+					<img id= "myImageSC">
+				</div>
+				<div id="visCanvasContainerSC">
+					<canvas id="myCanvasSC"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="parallelSP">4
+			<div id="visContainerPSP">
+				<div id="visCanvasContainerPSP">
+					<canvas id="myCanvasPSP"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="AOIselection">
+			<div id="AOISelection" style="width: 800px;font-size: 0">
+				<img id="aoiImage" style="width: 100%;z-index: 1">
+			</div>
+			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+		</div>
+
+	</div>
 
 
-  <div class="grid_tools">
-    <div class="tool1">tool1</div>
-    <div class="tool2">tool2</div>
-    <div class="tool3">tool3</div>
-    <div class="tool4">tool4</div>
-    <div class="tool5">tool5</div>
-    <div class="tool6">tool6</div>
-    <div class="tool7">tool7</div>
-  </div>
+	<script>
+			var myAOIselection = new AOIselection();
 
-  <div class="grid_linking">
-    <div class="tools">tools</div>
-    <div class="heatmapE">
+			window.d = null;
+			var d = window.d;
 
-      <div id="visContainerHM">
-        <div id="visImgContainerHM">
-            <img id="myImageHM">
-        </div>
-        <div id="visCanvasContainerHM">
-          <canvas id="myCanvasHM"></canvas>
-        </div>
-      </div>
+			//Execute php script to access image outside of webserver root directory
+			var imagePath = "Scripts/getImage.php?img=" + imageName;
 
-    </div>
-    <div class="scarfplotE">
+			<!--Aoi image selector -->
+			var aoiImg = document.getElementById('aoiImage');
+			aoiImg.src = imagePath;
+			var myAOIselection;
 
-      <div id="visContainerSP">
-      	<div id="visImgContainerSP">
-      			<img id="myImageSP">
-      	</div>
-      	<div id="visCanvasContainerSP">
-      		<canvas id="myCanvasSP"></canvas>
-      	</div>
-      </div>
-      <div id="scarfPlotContainer">
-      	<canvas id="scarfCanvas"></canvas>
-      </div>
-
-    </div>
-    <div class="scanpathE">
-      <div id="visContainerSC">
-        <div id="visImgContainerSC">
-          <img id= "myImageSC">
-        </div>
-        <div id="visCanvasContainerSC">
-          <canvas id="myCanvasSC" width="1650" height="1200"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="parallelSP">parallelSP</div>
-  </div>
-
-  <div id="AOISelection" style="width: 800px;font-size: 0">
-    <img src="Provided_data/stimuli/01_Antwerpen_S1.jpg" style="width: 100%;z-index: 1" id="image">
-  </div>
-
-  <!--Temporary download buttons for the visualizations, please move them to a nicer spot and make them look better -->
-  <input type="button" id="download_heatmap" value="Download heatmap"/>
-  <input type="button" id="download_scarfplot" value="Download scarfplot"/>
-  <input type="button" id="download_scanpath" value="Download scanpath"/>
-  <input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
-
-  <script>
-  function runVis(imageName) {
-      //Execute php script to access image outside of webserver root directory
-      var imagePath = "Scripts/getImage.php?img=" + imageName;
-
-      <!--Drawing the heatmap-->
-      var img = document.getElementById('myImageHM');
-  	  var canvas = document.getElementById('myCanvasHM');
-  	  var visContainerHM = document.getElementById('visContainerHM');
-  	  var visImgContainerHM = document.getElementById('visImgContainerHM');
-      var download_button = document.getElementById("download_heatmap");
-
-      myHeatmap = new Heatmap(canvas, img);
-      myHeatmap.setDownloadButton(download_button, canvas);
-      myHeatmap.setData(mappedFixationPointX, mappedFixationPointY, duration, timestamp, user);
-      myHeatmap.setImage(imagePath);
-      myHeatmap.draw();
+			//Initialize aoiselection if image is loaded
+			if (aoiImg.naturalWidth != 0) {
+				myAOIselection = new AOIselection();
+			} else {
+				aoiImg.onload = function () {
+					myAOIselection = new AOIselection();
+					aoiImg.onload = function () {} //Rest onload function
+				}
+			}
 
 
-      <!--Drawing the scarfplot-->
-      var img = document.getElementById('myImageSP');
-  	  var canvas = document.getElementById('myCanvasSP');
-  	  var visContainerSP = document.getElementById('visContainerSP');
-  	  var visImgContainerSP = document.getElementById('visImgContainerSP');
-      var scarfCanvas = document.getElementById('scarfCanvas');
-      var scarfPlotContainer = document.getElementById('scarfPlotContainer');
-      var download_button = document.getElementById("download_scarfplot");
+			<!--Drawing the heatmap-->
+			var img = document.getElementById('myImageHM');
+			var canvas = document.getElementById('myCanvasHM');
+			var visContainerHM = document.getElementById('visContainerHM');
+			var visImgContainerHM = document.getElementById('visImgContainerHM');
+			var download_button = document.getElementById("download_heatmap");
+			var slider = document.getElementById("heatmapRadius");
 
-      myScarfplot = new Scarfplot(canvas, scarfCanvas, img);
-      myHeatmap.setDownloadButton(download_button, scarfCanvas)
-      myScarfplot.setAoi(aoi);
-      myScarfplot.setData(mappedFixationPointX, mappedFixationPointY, null, timestamp, user);
-      //myScarfplot.setImage(imageFile);
-      myScarfplot.setImage(imagePath);
-      myScarfplot.draw();
+			myHeatmap = new Heatmap(canvas, img, slider);
+			myHeatmap.setDownloadButton(download_button, canvas, "Heatmap");
+			myHeatmap.setImage(imagePath);
 
-      <!--Drawing the scanpath-->
-      var size = 0.06;
+			<!--Drawing the scarfplot-->
+			var img = document.getElementById('myImageSP');
+			var canvas = document.getElementById('myCanvasSP');
+			var visContainerSP = document.getElementById('visContainerSP');
+			var visImgContainerSP = document.getElementById('visImgContainerSP');
+			var scarfCanvas = document.getElementById('scarfCanvas');
+			var scarfPlotContainer = document.getElementById('scarfPlotContainer');
+			var download_button = document.getElementById("download_scarfplot");
+			var download_aoi = document.getElementById("download_aoi");
 
-      var img = document.getElementById('myImageSC');
-      var canvas = document.getElementById('myCanvasSC');
-      var visContainerSC = document.getElementById('visContainerSC');
-      var visImgContainerSC = document.getElementById('visImgContainerSC');
+			myScarfplot = new Scarfplot(canvas, scarfCanvas, img);
+			myScarfplot.setDownloadButton(download_button, scarfCanvas, "Scarfplot");
+			myScarfplot.setDownloadButton(download_aoi, canvas, "AOI");
+			myScarfplot.setImage(imagePath);
 
-      var width = visImgContainerSC.clientWidth;
-      var height = visImgContainerSC.clientHeight;
+			<!--Drawing the scanpath-->;
+			var size = 0.01;
 
-      myScanpath = new Scanpath(canvas, imageName);
-      myScanpath.setImage(imagePath);
-      myScanpath.start(size);
-  }
-  </script>
+			var img = document.getElementById('myImageSC');
+			var canvas = document.getElementById('myCanvasSC');
+			var visContainerSC = document.getElementById('visContainerSC');
+			var visImgContainerSC = document.getElementById('visImgContainerSC');
+			var download_button = document.getElementById("download_scanpath");
 
-  <script src="Scripts/Visualizations/AOIselection.js"></script>
+			var width = visImgContainerSC.clientWidth;
+			var height = visImgContainerSC.clientHeight;
+
+			myScanpath = new Scanpath(canvas, img);
+			myScanpath.setDownloadButton(download_button, canvas, "Scanpath");
+			myScanpath.setImage(imagePath);
+
+	<!--setting up the parallel scanpath-->
+
+			var canvas = document.getElementById('myCanvasPSP');
+			var visContainerPSP = document.getElementById('visContainerPSP');
+			var download_button = document.getElementById("download_parallelscanpath");
+
+			myParallelScanpath = new ParallelScanpath(canvas);
+			myParallelScanpath.setDownloadButton(download_button, canvas, "Parallelscanpath");
+
+	<!--data & drawing -->
+			function setData(d){
+				d.divideInAOIs();
+
+				myParallelScanpath.setData(d);
+				myScarfplot.setData(d);
+				myScanpath.setData(d, size);
+				myHeatmap.setData(d);
+			}
+
+			function draw(){
+				myParallelScanpath.clearVisualization();
+				myScarfplot.clearVisualization();
+				myScanpath.clearVisualization();
+				myHeatmap.clearVisualization();
+
+				myParallelScanpath.draw();
+				myScarfplot.draw();
+				myScanpath.draw();
+				myHeatmap.draw();
+
+				userContainer.draw(d);
+			}
+
+			function init(d){
+				makesliders(d);
+			}
+
+			function update(d){
+				setData(d);
+				draw();
+			}
+
+      window.d = new data(imageName, update, init);
+			var d = window.d;
+
+			var timeslider;
+			var durationslider;
+
+			timeslider = new RangeSlider({
+			    id:"timeslider",
+			    range: {min:0, max:1},
+			    handles:[0, 1],
+			    width:200,
+			    displayValue:true
+			});
+
+			durationslider = new RangeSlider({
+			    id:"durationslider",
+			    range: {min:0, max:1},
+			    handles:[0, 1],
+			    width:200,
+			    displayValue:true
+			});
+
+			function makesliders(d){
+				var maxt = d.maxtime;
+				var maxdt = d.getmaxduration();
+
+				timeslider.reset({
+				    id:"timeslider",
+				    range: {min:0, max:maxt},
+				    handles:[0, maxt],
+				    width:200,
+				    displayValue:true
+				});
+
+				durationslider.reset({
+				    id:"durationslider",
+				    range: {min:0, max:maxdt},
+				    handles:[0, maxdt],
+				    width:200,
+				    displayValue:true
+				});
+			}
+
+			function updateAOIs(){
+				var AOIs = myAOIselection.getcoords();
+				d.setAOIs(AOIs);
+				d.update();
+			}
+
+			function updateFilter(){
+				var timeinterval = timeslider.getInterval();
+				var durationinterval = durationslider.getInterval();
+
+				d.resetentryfilter();
+				d.timeRange(timeinterval[0], timeinterval[1]);
+				d.durationRange(durationinterval[0], durationinterval[1]);
+
+				d.update();
+			}
+	</script>
 
 </body>
 </html>
