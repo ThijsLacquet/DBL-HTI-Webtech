@@ -21,10 +21,7 @@
 	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
 	<title>Test page for linking visualizations</title>
 
-	<script>
-		//Input data
-		var imageName = "uploadfoto.png";
-	</script>
+
 
 
 </head>
@@ -225,6 +222,7 @@
 	<input type="button" id="download_parallelscanpath" value="Download parallelscanpath"/>
 
 	<script>
+			var imageName;
 			var myAOIselection = new AOIselection();
 
 			window.d = null;
@@ -376,6 +374,13 @@
 
 				d.update();
 			}
+	</script>
+	<script>
+		var imagePath = "Images/uploadfoto.png";
+		myHeatmap.setImage(imagePath);
+		myScanpath.setImage(imagePath);
+		myScarfplot.setImage(imagePath);
+		aoiImg.src = imagePath;
 	</script>
 
 </body>
