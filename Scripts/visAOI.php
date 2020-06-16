@@ -19,7 +19,7 @@ $conn = new mysqli('localhost:3306', 'root', '', 'fixationdata');
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 $query = "
 	SELECT *
@@ -28,10 +28,10 @@ $query = "
 	FROM
 	(SELECT user,
 	timestamp - MIN(timestamp) OVER(PARTITION BY user) AS timestamp,
-		CASE 
+		CASE
 ";
 
-for ($i=0; $i < $numofAOIs; $i++) { 	
+for ($i=0; $i < $numofAOIs; $i++) {
 	$query .= "
 			WHEN (mappedfixationpointx BETWEEN ".$AOIs[$i][0]." AND ".$AOIs[$i][1].")
 				AND (mappedfixationpointy BETWEEN ".$AOIs[$i][2]." AND ".$AOIs[$i][3].")

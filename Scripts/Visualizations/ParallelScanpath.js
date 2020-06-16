@@ -8,6 +8,7 @@ class ParallelScanpath extends Visualization{
 	}
 
 	setData(d){
+		super.setData(d);
 		this.maxtime = d.maxtime;
 		this.numofAOIs = d.getAOIs().length + 1;
 
@@ -42,7 +43,7 @@ class ParallelScanpath extends Visualization{
 		var linesAOIdist = this.width/numofAOIs;
 		var linesuserdist = 0.5*(linesAOIdist/numofusers);
 
-		this.ctx.clearRect(0, 0, this.width, this.height);
+		//this.ctx.clearRect(0, 0, this.width, this.height); //Removed because clearing is done seperately
 
 
 		var x = linesAOIdist/2;
@@ -83,7 +84,7 @@ class ParallelScanpath extends Visualization{
 			this.ctx.moveTo(prev,0);
 
 
-			for(var i = 1; i < AOIs.length; i++){
+			for(var i = 0; i < AOIs.length; i++){
 				var t = times[i]
 				var AOI = AOIs[i];
 

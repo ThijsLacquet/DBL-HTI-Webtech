@@ -11,6 +11,7 @@ class Visualization {
     var aoi;
     var width;
     var height;
+    var zoom;
 
     var mappedFixationPointX
     var mappedFixationPointY
@@ -36,10 +37,10 @@ class Visualization {
         this.img = img;
         this.ctx = canvas.getContext("2d");
 
-        if(img == null){
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-        }else{
+        this.width = this.canvas.clientWidth;
+        this.height = this.canvas.clientWidth;
+
+        if(img != null) {
             this.width = this.img.width;
             this.height = this.img.height;
             this.img.style.marginLeft = "0px";
@@ -64,10 +65,6 @@ class Visualization {
         this.canvas.addEventListener("mousedown", function(){this.onMouseDown();}.bind(this), false);
         this.canvas.addEventListener("mousemove", function(){this.onMouseMove();}.bind(this), false);
         this.canvas.addEventListener("wheel", function(){this.onScroll();}.bind(this), false);
-
-        if(img != null){
-            this.width = this.img.width;
-        }    
     }
 
 
@@ -80,7 +77,7 @@ class Visualization {
     */
     createColors(amount) {
         if (!(amount > 0)) {
-            throw("IllegalArgumentException");
+            this.colors = undefined;
         }
 
         var colors = new Array(amount);
@@ -124,30 +121,6 @@ class Visualization {
     }
 
     /*
-    * Checks if a given coordinate is in the given area of interest
-    *
-    * @param {x1, x2, y1, y2} currentAoi - Area of interest
-    * @param {number} currentPointX - X coordinate
-    * @param {number} currentPointY - Y coordinate
-    * @throws {IllegalArgumentException} if currentPointX or currentPointY are not a number
-    * @returns true if the given coordinate is in the area of interest
-    */
-    isInAoi(currentAoi, currentPointX, currentPointY) {
-        if (typeof(currentPointX) != "number" || typeof(currentPointY) != "number") {
-            throw("IllegalArgumentException");
-        }
-
-        if ((currentAoi.x1 < currentPointX &&
-            currentAoi.x2 > currentPointX) &&
-            (currentAoi.y1 < currentPointY &&
-            currentAoi.y2 > currentPointY)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /*
     * Sets the area of interests of the visualization
     * @param {Array {x1, x2, y1, y2}} aoi - Array of the area's of interest
     */
@@ -164,11 +137,7 @@ class Visualization {
     }
 
     setData(d) {
-        this.mappedFixationPointX = d.getX();
-        this.mappedFixationPointY = d.getY();
-        this.duration = d.getDuration();
-        this.timestamp = d.getTime();
-        this.user = d.getUser();
+        this.d = d;
     }
 
     /*
@@ -190,6 +159,10 @@ class Visualization {
         }
     }
 
+    clearVisualization() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
     /*
     * Draws the visualization. Assumes that the image has already been loaded.
     */
@@ -209,8 +182,6 @@ class Visualization {
             this.widthScale = this.width / this.img.naturalWidth;
             this.heightScale = this.height / this.img.naturalHeight;
         }
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     /*
@@ -223,7 +194,7 @@ class Visualization {
     }
 
     /*
-    * Sets the size of the canvas and image (if the image is not null)
+    * Sets the size of the canvas and image for non null parameters. If the image is null, it's size is not set.
      */
     setSize(width, height, offsetX, offsetY) {
         if (offsetX > 0) {
@@ -266,7 +237,7 @@ class Visualization {
     */
     onScroll() {
         if (event == undefined) {
-            throw(NullPointerException);
+            throw("NullPointerException");
         }
         
         event.preventDefault();
@@ -326,12 +297,46 @@ class Visualization {
         }
     }
 
+    getDownloadName() {
+        var aoiString = "aoi[";
+        for (var aoi of this.d.AOIs) {
+            aoiString += "{" + Math.round(aoi['x1']) + "," + Math.round(aoi['x2']) + "," + Math.round(aoi['y1'])
+                + "," + Math.round(aoi['y2']) + "}";
+        }
+        aoiString += "]";
+
+        var userString = "users[";
+        for (var user of this.d.users) {
+            if (user.getEnabled()) {
+                userString += "{" + user.name + "}";
+            }
+        }
+        userString += "]";
+
+        var timeString = "time[" + Math.round(this.d.minTime) + "-" + Math.round(this.d.maxTime) + "]";
+        var durationString = "duration[" + Math.round(this.d.minDuration) + "-" + Math.round(this.d.maxDuration) + "]";
+
+        var name = "_";
+
+        if (d.minTime != undefined) {
+            name += timeString + "_";
+        }
+
+        if (d.minDuration != undefined) {
+            name += durationString + "_";
+        }
+
+        name += aoiString + "_" + userString;
+
+        return name;
+    }
+
     /*
     * Downloads an image of the canvas when the download button is pressed
     * @param download_button ElementId of the html downloadbutton
     * @param canvas Canvas of the image which should be downloaded
      */
-    setDownloadButton(download_button, canvas) {
+    setDownloadButton(download_button, canvas, visualizationName) {
         if (download_button == undefined) {
             throw("Download button is undefined in setDownloadButton");
         }
@@ -342,10 +347,18 @@ class Visualization {
         var superThis = this; //Transfers this to new scope
 
         download_button.addEventListener("click", function() {
-            //Add background image
-            superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height); //Lowers quality of image
+            //Clear context, add background, draw visualization
+            superThis.clearVisualization();
+            superThis.ctx.globalAlpha = 1;
 
-            var filename = 'visualization.png';
+            if (superThis.img != null) {
+                superThis.ctx.drawImage(this.img, 0, 0, this.width, this.height);
+            }
+
+            superThis.draw();
+
+            //Setup download
+            var filename = visualizationName + superThis.getDownloadName();
             var imgurl = canvas.toDataURL(); //Save graphics as png
 
             var element = document.createElement('a');
@@ -358,6 +371,8 @@ class Visualization {
 
             document.body.removeChild(element);
 
+            //Clear context and draw visualization again (to remove image)
+            superThis.clearVisualization();
             superThis.draw();
         }.bind(superThis), false);
     }

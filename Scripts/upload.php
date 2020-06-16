@@ -19,6 +19,9 @@ $user = $myUser->addUser();
 //Remove expired users
 $myUser->removeExpired();
 
+$errors = 0;
+$statusMessage = "";
+
 //Upload all files
 if (count($_FILES["Upload_file"]["name"]) > 0) {
     for ($i = 0; $i < count($_FILES["Upload_file"]["name"]); $i++) {
@@ -26,14 +29,14 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
         $file = $dir . $user . '/' . $filename;
         $extension = strtoLower(pathinfo($file, PATHINFO_EXTENSION));
         if (!(in_array( $extension, array('jpg', 'jpeg', 'png', 'csv')))) {
-            echo("File '" . $file . "' is not a jpg, jpeg, png or csv file. Ignoring this file. <br>");
-            //die("Only CSV, JPG, JPEG, and PNG files are allowed");
+            $statusMessage = $statusMessage . "File '" . $filename . "' is not a jpg, jpeg, png or csv file. Ignoring this file. <br>";
+            $errors++;
         } else if (file_exists($file)) {
-            echo("File '" . $file . "' already exists. Ignoring this file. <br>");
-            //die("File already exists");
+            $statusMessage = $statusMessage . "File '" . $filename . "' already exists. Ignoring this file. <br>";
+            $errors++;
         } else if (!move_uploaded_file($_FILES["Upload_file"]["tmp_name"][$i], $file)) {
-            echo("Something went wrong while uploading '" . $filename . "'. Ignoring this file. <br>");
-            //die("Something went wrong while uploading");
+            $statusMessage = $statusMessage . "Something went wrong while uploading '" . $filename . "'. Ignoring this file. <br>";
+            $errors++;
         } else { //No problems with uploading
             //Read csv into database
             if ($extension == 'csv') {
@@ -44,12 +47,24 @@ if (count($_FILES["Upload_file"]["name"]) > 0) {
             }
         }
     }
-    $countImg = count(glob("../../data/" . $user . "/*.jpg"));
+    $countImg = count(glob("../../data/" . $user . "/*.jpg")) + count(glob("../../data/" . $user . "/*.png"))
+        + count(glob("../../data/" . $user . "/*.jpeg"));
     $countCsv = count(glob("../../data/" . $user . "/*.csv"));
     
-    echo "You have $countImg images in total";
-    echo "You have $countCsv files in total";
+    $statusMessage = $statusMessage . "You have $countImg images in total <br>";
+    $statusMessage = $statusMessage . "You have $countCsv csv files in total <br>";
+    $statusMessage = $statusMessage . "$errors files could not be uploaded";
+
+    //If at least one image and csv is uploaded, and no errors occurred, direct the user to the visualization page,
+    //otherwise stay on the upload page and give an error
+    if ($errors > 0) {
+        header("Location: /../upload.htm#error");
+    } else  if ($countImg == 0) {
+        header("Location: /../upload.htm#noimage");
+    } else if ($countCsv == 0) {
+        header("Location: /../upload.htm#nocsv");
+    } else {
+        header("Location: /../test.htm");
+    }
 }
-
-
 ?>

@@ -3,14 +3,19 @@
 */
 
 class Heatmap extends Visualization {
-    constructor(canvas, img) {
+    constructor(canvas, img, slider) {
         super(canvas, img);
+        this.radius = 40;
+
+        slider.addEventListener('change', function() {
+            this.setRadius(parseInt(slider.value, 10));
+        }.bind(this), false);
     }
 
     /*
     * Creates a matrix which contains the intensity of every pixel
     */
-    createMatrix(radius) {
+    createMatrix() {
         //Create two dimensional array for every pixel
         var data = new Array(this.width);
         this.maxHeat = 0;
@@ -31,12 +36,13 @@ class Heatmap extends Visualization {
         }
 
         for (var i = 0; i < pX.length; i++) {
-            for (var x = Math.round(pX[i] - radius); (x < pX[i] + radius) && (x < this.width); x++) {
-                for (var y = Math.round(pY[i] - radius); y < pY[i] + radius && y < this.height; y++) {
+            for (var x = Math.round(pX[i] - this.radius); (x < pX[i] + this.radius) && (x < this.width); x++) {
+                for (var y = Math.round(pY[i] - this.radius); y < pY[i] + this.radius && y < this.height; y++) {
                     var distance = Math.sqrt(Math.pow(pX[i] - x, 2) + Math.pow(pY[i] - y, 2));
 
-                    if (distance < radius && x >= 0 && y >= 0) {
-                        data[x][y] = data[x][y] + ((1 - distance / radius) * this.duration[i]);
+                    if (distance < this.radius && x >= 0 && y >= 0) {
+                        data[x][y] = data[x][y] + ((1 - distance / this.radius) * this.duration[i]);
+
                         if (data[x][y] > this.maxHeat) {
                             this.maxHeat = data[x][y];
                         }
@@ -45,6 +51,14 @@ class Heatmap extends Visualization {
             }
         }
         this.data = data;
+    }
+
+    setData(d) {
+        super.setData(d);
+        this.aoi = d.getAOIs();
+        this.mappedFixationPointX = d.getX();
+        this.mappedFixationPointY = d.getY();
+        this.duration = d.getDuration();
     }
 
     /*
@@ -72,7 +86,7 @@ class Heatmap extends Visualization {
 
         var nColors = 100;
         
-        this.createMatrix(40);
+        this.createMatrix();
         this.createColors(nColors);
 
         this.ctx.globalAlpha = 0.5;
@@ -87,5 +101,20 @@ class Heatmap extends Visualization {
                 this.ctx.fill();
             }
         }
+    }
+
+    /*
+    * Sets the radius of the visualizations and redraws the visualization.
+    */
+    setRadius(radius) {
+        this.radius = radius;
+        this.clearVisualization();
+        this.draw();
+    }
+
+    getDownloadName() {
+        var radiusString = "range[" + this.radius + "]";
+
+        return (super.getDownloadName() + "_" + radiusString);
     }
 }
