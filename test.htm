@@ -225,6 +225,37 @@
 		</div>
 
 	</div>
+	
+	<script>
+	//help button for drop down menu
+	var modalSelect = document.getElementById("modalSelectImg");
+	var buttonSelectImg = document.getElementById("helpSelectImg");
+	var helpButtons = ["helpSelectImg", "helpDownload", "helpEnable", "helpHeatmap", "helpGazeplot", "helpFilter"];
+	var helpModals = ["modalSelectImg", "modalDownload", "modalEnable", "modalHeatmap", "modalGazeplot", "modalFilter"];
+	
+	for (var i = 0; i < helpButtons.length; i++) {
+		setHelpButtons(helpButtons[i], helpModals[i], i);
+	}
+	
+	function setHelpButtons(buttonModal, modalSelect, number) {
+		var span = document.getElementsByClassName("close")[number]
+		var modal = document.getElementById(modalSelect);
+		var buttonModal = document.getElementById(buttonModal);
+		
+		buttonModal.onclick = function() {
+			modal.style.display = "block";
+		}
+		
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+		
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	}
 
 
 	<script>
