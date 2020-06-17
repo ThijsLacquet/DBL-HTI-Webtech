@@ -1,4 +1,4 @@
-<!--Author: Tanja Markink and Nathan Overschie-->
+<!--Author: Tanja Markink, Nathan Overschie and Ezra Gerris-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,14 +50,16 @@
 
   <div class="upload_text">
     <h1>How to upload the data?</h1>
-    <p>With usage of the upload button you can make a visualization. You can choose between four different visualizations for your eye-tracking data. You can find the description of the different kinds of visualizations on the <a href="visualization.htm">visualization</a> page. With the upload button you can sync your eye-tracking data. You can find the programmed visualizations and the tools on the <a href="test.htm">test</a> page.</p>
+    <p>With usage of the upload button you can make a visualization. You can choose between four different visualizations for your eye-tracking data. You can find the description of the different kinds of visualizations on the <a href="visualization.htm">information</a> page. With the upload button you can sync your eye-tracking data. Once you succesfully uploaded the data, you will automatically be redirected to the visualization page. Uploading may take some time, so please be patient.</p>
   </div>
 
 <!--Making the upload button work-->
   <form action="Scripts/upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:
 	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
-	    <input type="submit" value="Upload files" name="submit">
+      <label for="Upload_file">Choose files</label>
+	    <input type="submit" id="submit" value="Upload files" name="submit">
+      <label for="submit">Upload files</label>
   </form>
   <div class="upload_text">
     <p id="upload_msg"></p>
