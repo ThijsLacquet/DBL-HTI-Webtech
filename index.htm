@@ -22,8 +22,34 @@
     <a class="active" href="#home">Home</a>
     <a href="visualization.htm">Visualization</a>
     <a href="upload.htm">Upload</a>
-    <a href="test.htm">Test</a>
+    <a href="test.htm" id="testlink">Test</a>
   </div>
+
+  <script>
+    function getCookie(cname){
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    var testlink = document.getElementById("testlink");
+
+    if(getCookie("uploaded") == "true"){
+      testlink.style.visibility = "visible";
+    }else{
+      testlink.style.visibility = "hidden";
+    }
+  </script>
 
 <!--Information about page-->
   <div class="header">
