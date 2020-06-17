@@ -101,6 +101,7 @@
 	}
 	</script>
 
+	<!-- Grid for toolbar -->
 	<div class="grid_tools">
 		<div class="dropdown">
 			<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
@@ -161,6 +162,7 @@
 	}
 	</script>
 
+	<!-- Grid for dynamic visualizations -->
 	<div class="grid_linking">
 		<div class="heatmapE">
 			<div id="visContainerHM">
@@ -225,7 +227,7 @@
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
 
-			<!--Aoi image selector -->
+			//AOI image selector
 			var aoiImg = document.getElementById('aoiImage');
 			aoiImg.src = imagePath;
 			var myAOIselection;
@@ -241,7 +243,7 @@
 			}
 
 
-			<!--Drawing the heatmap-->
+			//Drawing the heatmap
 			var img = document.getElementById('myImageHM');
 			var canvas = document.getElementById('myCanvasHM');
 			var visContainerHM = document.getElementById('visContainerHM');
@@ -253,7 +255,7 @@
 			myHeatmap.setDownloadButton(download_button, canvas, "Heatmap");
 			myHeatmap.setImage(imagePath);
 
-			<!--Drawing the scarfplot-->
+			//Drawing the scarfplot
 			var img = document.getElementById('myImageSP');
 			var canvas = document.getElementById('myCanvasSP');
 			var visContainerSP = document.getElementById('visContainerSP');
@@ -268,7 +270,7 @@
 			myScarfplot.setDownloadButton(download_aoi, canvas, "AOI");
 			myScarfplot.setImage(imagePath);
 
-			<!--Drawing the scanpath-->;
+			//Drawing the scanpath
 			var size = 0.01;
 
 			var img = document.getElementById('myImageSC');
@@ -284,8 +286,7 @@
 			myScanpath.setDownloadButton(download_button, canvas, "Scanpath");
 			myScanpath.setImage(imagePath);
 
-	<!--setting up the parallel scanpath-->
-
+			//Setting up the parallel scanpath
 			var canvas = document.getElementById('myCanvasPSP');
 			var visContainerPSP = document.getElementById('visContainerPSP');
 			var download_button = document.getElementById("download_parallelscanpath");
@@ -293,7 +294,7 @@
 			myParallelScanpath = new ParallelScanpath(canvas);
 			myParallelScanpath.setDownloadButton(download_button, canvas, "Parallelscanpath");
 
-	<!--data & drawing -->
+			//Data & drawing
 			function setData(d){
 				d.divideInAOIs();
 
