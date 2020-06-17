@@ -113,6 +113,15 @@
 	<!-- Grid for toolbar -->
 	<div class="grid_tools">
 		<div>
+		<div>
+		<button class="helpButton" id='helpSelectImg'>?</button>
+		<div id="modalSelectImg" class="modal">
+		<div class = "modal-content">
+		<span class="close">&times;</span>
+		<p>With this menu you can select the image of which you want to display the visualizations<p>
+		</div>
+		</div>
+		</div>
 		<div class="dropdown">
 			<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
 			<div id="dropdown" class="content">
@@ -273,7 +282,7 @@
 			}
 		}
 	}
-
+	</script>
 
 	<script>
 			var myAOIselection = new AOIselection();
