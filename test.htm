@@ -119,7 +119,8 @@
 			<div id="modalSelectImg" class="modal">
 				<div class = "modal-content">
 					<span class="close">&times;</span>
-					<p>With this menu you can select the image of which you want to display the visualizations<p>
+					<p>Click on the "Select a background image" button to select the image of which you want to see the visualizations. 
+					Only uploaded images are shown in this menu.<p>
 				</div>
 			</div>
 			</div>
@@ -142,7 +143,7 @@
 				<div id="modalDownload" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Click on the download button and the visualization of your choice will be saved to your computer.<p>
+						<p>Click on the download buttons to save the visualization or AOI selection image to your computer.<p>
 					</div>
 				</div>
 			</div>
@@ -163,7 +164,13 @@
 				<div id="modalEnable" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Drag users to swap. Click on user to enable or disable. A user that is disabled is marked red.<p>
+						<p> In this menu you are able to enable, disable and swap users. 
+						When you click on "enable all users", the data of all participants is shown.
+						When you click on "disable all users", none of the data is shown.
+						When you click on a specific user you can enable or disable that user.
+						A user that is disabled is marked red.
+						You can drag users to swap in which order they are drawn. 
+						<p>
 					</div>
 				</div>
 			</div>
@@ -183,7 +190,8 @@
 				<div id="modalHeatmap" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Drag the slider to change the radius of the heat map.<p>
+						<p>By dragging the slider you can alter the radius with which the heat map visualization is drawn. 
+						The individual fixation points become clearer when the radius is decreased.<p>
 					</div>
 				</div>
 			</div>
@@ -201,7 +209,9 @@
 				<div id="modalGazeplot" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Drag the slider to change the radius of the gaze plot.<p>
+						<p>By dragging the slider you can alter the radius with which the gaze plot visualization is drawn.
+						By decreasing the radius, the visualization turns into a scan path visualization.
+						By increasing the radius, the larger individual fixation durations become more clear.<p>
 					</div>
 				</div>
 			</div>
@@ -223,7 +233,10 @@
 				<div id="modalFilter" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Drag the upper slider to filter on the total duration. Drag the lower slider to filter on the individual fixation duration.<p>
+						<p>Drag the upper slider to filter on the total duration.
+						Drag the lower slider to filter on the individual fixation duration.
+						After you have set the filters, please click on the 'set filters' button to set the filters.
+						The visualizations will then be drawn based on this filter.<p>
 					</div>
 				</div>
 			</div>
@@ -305,7 +318,18 @@
 			<div id="AOISelection" style="width: 800px;font-size: 0">
 				<img id="aoiImage" style="width: 100%;z-index: 1">
 			</div>
+			<div>
 			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+				<button class="helpButton" id='helpAOI'>?</button>
+				<div id="modalAOI" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p>You can select the AOIs in the figure above by clicking on the image and hovering your mouse over the area that interests you at the same time.
+						You can add multiple AOIs. If you want to delete an AOI you can click on it and then it erases itself. 
+						After you have set the AOIs, you can click on the 'setAOIS' button to draw the scarf plot and the parallel scan path visualizations.<p>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>
@@ -314,8 +338,8 @@
 	//help button for drop down menu
 	var modalSelect = document.getElementById("modalSelectImg");
 	var buttonSelectImg = document.getElementById("helpSelectImg");
-	var helpButtons = ["helpSelectImg", "helpDownload", "helpEnable", "helpHeatmap", "helpGazeplot", "helpFilter"];
-	var helpModals = ["modalSelectImg", "modalDownload", "modalEnable", "modalHeatmap", "modalGazeplot", "modalFilter"];
+	var helpButtons = ["helpSelectImg", "helpDownload", "helpEnable", "helpHeatmap", "helpGazeplot", "helpFilter", "helpAOI"];
+	var helpModals = ["modalSelectImg", "modalDownload", "modalEnable", "modalHeatmap", "modalGazeplot", "modalFilter", "modalAOI"];
 
 	for (var i = 0; i < helpButtons.length; i++) {
 		setHelpButtons(helpButtons[i], helpModals[i], i);
