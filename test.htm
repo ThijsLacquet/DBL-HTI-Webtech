@@ -112,17 +112,16 @@
 
 	<!-- Grid for toolbar -->
 	<div class="grid_tools">
-		<!-- Select images and help button -->
-		<div>
+			<div>
 
 			<div>
-				<button class="helpButton" id='helpSelectImg'>?</button>
-				<div id="modalSelectImg" class="modal">
-					<div class = "modal-content">
-						<span class="close">&times;</span>
-						<p>With this menu you can select the image of which you want to display the visualizations<p>
-					</div>
+			<button class="helpButton" id='helpSelectImg'>?</button>
+			<div id="modalSelectImg" class="modal">
+				<div class = "modal-content">
+					<span class="close">&times;</span>
+					<p>With this menu you can select the image of which you want to display the visualizations<p>
 				</div>
+			</div>
 			</div>
 
 			<div class="dropdown">
@@ -136,7 +135,6 @@
 
 		</div>
 
-		<!-- Download buttons and help button -->
 		<div>
 
 			<div>
@@ -159,9 +157,7 @@
 
 		</div>
 
-		<!-- Filter users and help button -->
 		<div>
-
 			<div>
 				<button class="helpButton" id='helpEnable'>?</button>
 				<div id="modalEnable" class="modal">
@@ -178,10 +174,8 @@
 					<div class="userContainer" id="userContainer"></div>
 				</div>
 			</div>
-
 		</div>
 
-		<!-- Radius slider (heat map) and help button -->
 		<div>
 
 			<div>
@@ -198,10 +192,8 @@
 				Alter the radius in the heatmap
 				<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
 			</div>
-
 		</div>
 
-		<!-- Radius slider (gaze plot) and help button -->
 		<div>
 
 			<div>
@@ -224,7 +216,6 @@
 
 		</div>
 
-		<!-- Time and duration slider and help button -->
 		<div>
 
 			<div>
@@ -232,18 +223,17 @@
 				<div id="modalFilter" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>Drag the upper slider to filter on the total duration. Drag the lower slider to filter on the individual fixation duration. Press the 'set filters' button to make the visualizations work with the filters.<p>
+						<p>Drag the upper slider to filter on the total duration. Drag the lower slider to filter on the individual fixation duration.<p>
 					</div>
 				</div>
 			</div>
 
 			<div class="tool6">
-			Filter on time and duration
+				Filter on time and duration
 				<div id="timeslider" style="height: 50px; margin: 20px 0px;"></div>
 				<div id="durationslider" style="height: 50px; margin: 20px 0px 0px 0px;"></div>
 				<button class="setButton" onclick="updateFilter()">set filters</button>
 			</div>
-
 		</div>
 	</div>
 
