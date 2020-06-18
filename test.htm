@@ -139,6 +139,24 @@
 		<div class="tool7">tool7</div>
 	</div>
 
+	<div class="AOIselection">
+		<div id="AOISelection" style="height: 80%; font-size: 0">
+			<img id="aoiImage" style="height: 100%; z-index: 1">
+		</div>
+		<div style="height: 20%; text-align: center">
+			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+			<button class="helpButton" id='helpAOI'>?</button>
+			<div id="modalAOI" class="modal">
+				<div class = "modal-content">
+					<span class="close">&times;</span>
+					<p>You can select the AOIs in the figure above by clicking on the image and hovering your mouse over the area that interests you at the same time.
+						You can add multiple AOIs. If you want to delete an AOI you can click on it and then it erases itself.
+						After you have set the AOIs, you can click on the 'setAOIS' button to draw the scarf plot and the parallel scan path visualizations.<p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		var userContainerID = document.getElementById("userContainer");
 		userContainer = new UserContainer(userContainerID);
@@ -203,11 +221,14 @@
 		</div>
 	</div>
 
+<<<<<<< Updated upstream
 	<div>
 		<div id="AOISelection" style="width: 800px;font-size: 0">
 			<img id="aoiImage" style="width: 100%;z-index: 1">
 		</div>
 		<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+=======
+>>>>>>> Stashed changes
 	</div>
 
 

@@ -26,19 +26,24 @@
 }
 
 .header {
-  padding: 50px;
+  padding: 30px;
 	text-align: center;
 	background: #20B2AA;
 	color: white;
   font-family: serif;
+    height: 100px;
 }
 
 .header h1{
+<<<<<<< Updated upstream
   font-size:60px;
+=======
+  font-size: 30px;
+>>>>>>> Stashed changes
 }
 
 .header p{
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .text {
@@ -265,13 +270,21 @@
 /* Author: Ezra Gerris and Tanja Markink */
 /* GRID FOR LINKING VISUALIZATIONS */
 .grid_linking {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
   display: grid;
+<<<<<<< Updated upstream
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+=======
+  grid-template-columns: 700px 700px;
+  grid-template-rows: 450px 450px;
+>>>>>>> Stashed changes
   grid-template-areas:
   "heatmapE scanpathE"
   "scarfplotE parallelSP";
-  grid-gap: 30px;
+  grid-gap: 20px;
 }
 
 .heatmapE {
@@ -291,7 +304,20 @@
 
 .parallelSP {
   grid-area: parallelSP;
+<<<<<<< Updated upstream
   /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
+=======
+}
+
+.AOIselection {
+  grid-area: AOIselection;
+    height: 400px;
+    overflow: hidden;
+}
+
+.tool6 {
+  grid-area: tool6;
+>>>>>>> Stashed changes
 }
 
 .grid_linking div:nth-child(even) {
@@ -308,7 +334,7 @@
 
 .grid_tools{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
   "dropdown download tool3 tool4 tool5 tool6 tool7";
@@ -414,7 +440,11 @@
   padding: 4px 20px;
   text-align: center;
   margin: 3px;
+<<<<<<< Updated upstream
   font-size: 18px;
+=======
+  font-size: 100%;
+>>>>>>> Stashed changes
 }
 
 .setButton:hover {
@@ -437,26 +467,26 @@ img {
 
 #visContainerHM{
 	position: relative;
-	width: 550px;
-	height: 400px;
+	width: 100%;
+    height: 100%;
 }
 
 #visContainerSP {
 	position: relative;
-	width: 550px;
-	height: 400px;
+    width: 100%;
+    height: 100%;
 }
 
 #visContainerSC {
 	position: relative;
-	width: 550px;
-	height: 400px;
+    width: 100%;
+    height: 100%;
 }
 
 #visContainerPSP {
 	position: relative;
-	width: 550px;
-	height: 400px;
+    width: 100%;
+    height: 100%;
 }
 
 #visImgContainerHM {
@@ -552,7 +582,7 @@ img {
 
 #scarfPlotContainer {
 	position: relative;
-	width: 550px;
+    width: 700px;
 	height: 150px;
   overflow-y: auto;
   overflow-x: hidden;
