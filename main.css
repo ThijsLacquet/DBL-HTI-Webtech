@@ -324,8 +324,6 @@ input[type="submit"]{
     left: 50%;
     transform: translate(-50%,0);
   display: grid;
-  grid-template-columns: 650px 650px;
-  grid-template-rows: 450px 450px;
   grid-template-areas:
   "heatmapE scanpathE"
   "scarfplotE parallelSP";
@@ -334,18 +332,26 @@ input[type="submit"]{
 
 .heatmapE {
   grid-area: heatmapE;
+    width: 650px;
+    height: 450px;
   }
 
 .scarfplotE {
   grid-area: scarfplotE;
+    width: 650px;
+    height: 450px;
   }
 
 .scanpathE {
   grid-area: scanpathE;
+    width: 650px;
+    height: 450px;
   }
 
 .parallelSP {
   grid-area: parallelSP;
+    width: 650px;
+    height: 450px;
 }
 
 .AOIselection {
