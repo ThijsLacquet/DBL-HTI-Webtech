@@ -57,6 +57,77 @@
   color: #20B2AA;
 }
 
+/* LOOKS UPLOAD AND SUBMIT BUTTON */
+input[type="file"]{
+  display: none;
+}
+
+label{
+  color: white;
+  background-color: #20B2AA;
+  padding: 7px;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+input[type="submit"]{
+  display: none;
+}
+/* END OF LOOKS UPLOAD AND SUBMIT BUTTON */
+
+/* Author: Marleen van Gent */
+/* HELP BUTTONS */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close: hover,
+.close: focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.helpButton {
+	font-family: inherit;
+	background-color: #e7e7e7; color: black;;
+	border: none;
+	color: black;
+	padding: 10px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	margin:  5px;
+	border-radius: 12px;
+	font-weight: bold;
+}
+/* END OF HELP BUTTONS */
+
+
 /* Author: Ezra Gerris */
 /* DROPDOWN MENU FOR CHOOSING IMAGE*/
 .dropbutton {
@@ -260,22 +331,18 @@
 
 .heatmapE {
   grid-area: heatmapE;
-  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
-}
+  }
 
 .scarfplotE {
   grid-area: scarfplotE;
-  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
-}
+  }
 
 .scanpathE {
   grid-area: scanpathE;
-  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
-}
+  }
 
 .parallelSP {
   grid-area: parallelSP;
-  /* Denk dat hier nog een height en width moeten komen zodat de pagina mooier wordt */
 }
 
 .AOIselection {
@@ -295,7 +362,7 @@
 /* END GRID FOR LINKING VISUALIZATIONS */
 
 
-/* Author: Ezra Gerris */
+/* Author: Ezra Gerris and Thijs Lacquet*/
 /* GRID FOR TOOLS */
 
 .grid_tools{
