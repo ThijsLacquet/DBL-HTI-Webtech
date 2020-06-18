@@ -1,21 +1,46 @@
-<!--Author: Tanja Markink and Nathan Overschie-->
+<!--Author: Tanja Markink, Nathan Overschie and Ezra Gerris-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="main.css">
   <title>Upload</title>
-
 </head>
 <body>
 
 <!--Making the navigation bar work-->
   <div class="nav">
     <a href="index.htm">Home</a>
-    <a href="visualization.htm">Visualization</a>
+    <a href="visualization.htm">Information</a>
     <a class="active" href="#upload">Upload</a>
-    <a href="test.htm">Test</a>
+    <a href="test.htm" id="testlink">Visualization</a>
   </div>
+
+  <script>
+    function getCookie(cname){
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    var testlink = document.getElementById("testlink");
+
+    if(getCookie("uploaded") == "true"){
+      testlink.style.visibility = "visible";
+    }else{
+      testlink.style.visibility = "hidden";
+    }
+  </script>
 
 <!--Information about page-->
   <div class="header">
@@ -23,17 +48,22 @@
     <p>By group 39</p>
   </div>
 
-  <div class="upload_text">
+  <div class="text">
     <h1>How to upload the data?</h1>
-    <p>With usage of the upload button you can make a visualization. You can choose between four different visualizations for your eye-tracking data. You can find the description of the different kinds of visualizations on the <a href="visualization.htm">visualization</a> page. With the upload button you can sync your eye-tracking data. You can find the programmed visualizations and the tools on the <a href="test.htm">test</a> page.</p>
+    <p>With usage of the upload button you can make a visualization. You can choose between four different visualizations for your eye-tracking data. You can find the description of the different kinds of visualizations on the <a href="visualization.htm">information</a> page. With the upload button you can sync your eye-tracking data. Once you succesfully uploaded the data, you will automatically be redirected to the visualization page. Uploading may take some time, so please be patient.</p>
   </div>
 
 <!--Making the upload button work-->
   <form action="Scripts/upload.php" method="post" enctype="multipart/form-data">
 	    Select image to upload:
 	    <input type="file" name="Upload_file[]" id="Upload_file" multiple="multiple">
-	    <input type="submit" value="Upload files" name="submit">
+      <label for="Upload_file">Choose files</label>
+	    <input type="submit" id="submit" value="Upload files" name="submit">
+      <label for="submit">Upload files</label>
   </form>
+  <div class="upload_text">
+    <p id="upload_msg"></p>
+  </div>
 </body>
 </html>
 
@@ -42,10 +72,10 @@
   var uploadMsg = document.getElementById("upload_msg");
 
   if (hash == "error") {
-    alert("An error occurred while uploading the data. Some files may not have been uploaded.");
+    uploadMsg.innerHTML = "An error occurred while uploading the data. Some files may not have been uploaded.";
   } else if (hash == "nocsv") {
-    alert("Please upload a csv file.");
-  } else if (hash == "noimage") {
-    alert("Please upload at least one image.");
+    uploadMsg.innerHTML = "Please also upload a csv file.";
+  } else if (hash == "noimg") {
+    uploadMsg.innerHTML = "Please also upload atleast one image.";
   }
 </script>

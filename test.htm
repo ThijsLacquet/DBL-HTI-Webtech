@@ -19,11 +19,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<!--<link rel="stylesheet" type="text/css" href="../Visualizations/visualization.css">-->
-	<title>Test page for linking visualizations</title>
+	<title>Visualization</title>
 
 	<script>
 		//Input data
 		var imageName = "01_Antwerpen_S1.jpg";
+
+		function setCookie(cname, cvalue, exdays) {
+		  var d = new Date();
+		  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		  var expires = "expires="+d.toUTCString();
+		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
+		setCookie("uploaded", "true", 1);
 	</script>
 
 </head>
@@ -31,13 +40,13 @@
 
 	<div class="nav">
 		<a href="index.htm">Home</a>
-		<a href="visualization.htm">Visualization</a>
+		<a href="visualization.htm">Information</a>
 		<a href="upload.htm">Upload</a>
-		<a class="active" href="#test">Test</a>
+		<a class="active" href="#test">Visualization</a>
 	</div>
 
 	<div class="header">
-		<h1>Test page</h1>
+		<h1>Visualization page</h1>
 		<p>By group 39</p>
 	</div>
 
@@ -101,47 +110,149 @@
 	}
 	</script>
 
+	<!-- Grid for toolbar -->
 	<div class="grid_tools">
-		<div class="dropdown">
-			<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
-			<div id="dropdown" class="content">
-				<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
-				<div id="imageNameContainer">
+			<div>
+
+			<div>
+			<button class="helpButton" id='helpSelectImg'>?</button>
+			<div id="modalSelectImg" class="modal">
+				<div class = "modal-content">
+					<span class="close">&times;</span>
+					<p>Click on the "Select a background image" button to select the image of which you want to see the visualizations. 
+					Only uploaded images are shown in this menu.<p>
+				</div>
+			</div>
+			</div>
+
+			<div class="dropdown">
+				<button onclick="hideOrShow()" class="dropbutton">Select a background image</button>
+				<div id="dropdown" class="content">
+					<input type="text" placeholder="Search..." id="input" onkeyup="filterFunction()">
+					<div id="imageNameContainer">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div>
+
+			<div>
+				<button class="helpButton" id='helpDownload'>?</button>
+				<div id="modalDownload" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p>Click on the download buttons to save the visualization or AOI selection image to your computer.<p>
+					</div>
+				</div>
+			</div>
+
+			<div class="download">
+				<input type="button" class="button" id="download_heatmap" value="Download heatmap"/>
+				<input type="button" class="button" id="download_scarfplot" value="Download scarfplot"/>
+				<input type="button" class="button" id="download_scanpath" value="Download gaze plot"/>
+				<input type="button" class="button" id="download_parallelscanpath" value="Download parallel scanpath"/>
+				<input type="button" class="button" id="download_aoi" value="Download AOIs"/>
+			</div>
+
+		</div>
+
+		<div>
+			<div>
+				<button class="helpButton" id='helpEnable'>?</button>
+				<div id="modalEnable" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p> In this menu you are able to enable, disable and swap users. 
+						When you click on "enable all users", the data of all participants is shown.
+						When you click on "disable all users", none of the data is shown.
+						When you click on a specific user you can enable or disable that user.
+						A user that is disabled is marked red.
+						You can drag users to swap in which order they are drawn. 
+						<p>
+					</div>
+				</div>
+			</div>
+
+			<div class="tool3">
+				<div id="userDropdown" class="contentUsers">
+					<a class="userHeader">Enable/disable or swap users</a>
+					<div class="userContainer" id="userContainer"></div>
 				</div>
 			</div>
 		</div>
-		<div class="download">
-			<input type="button" class="button" id="download_heatmap" value="Download heatmap"/>
-			<input type="button" class="button" id="download_scarfplot" value="Download scarfplot"/>
-			<input type="button" class="button" id="download_scanpath" value="Download gaze plot"/>
-			<input type="button" class="button" id="download_parallelscanpath" value="Download parallel scanpath"/>
-			<input type="button" class="button" id="download_aoi" value="Download AOIs"/>
-		</div>
-		<div class="tool3">
-			<div id="userDropdown" class="contentUsers">
-				<a class="userHeader">Enable/disable or swap users</a>
-				<div class="userContainer" id="userContainer">
+
+		<div>
+
+			<div>
+				<button class="helpButton" id='helpHeatmap'>?</button>
+				<div id="modalHeatmap" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p>By dragging the slider you can alter the radius with which the heat map visualization is drawn. 
+						The individual fixation points become clearer when the radius is decreased.<p>
+					</div>
 				</div>
 			</div>
+
+			<div class="tool4">
+				Alter the radius in the heatmap
+				<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
+			</div>
 		</div>
-		<div class="tool4">
-			Alter the radius in the heatmap
-			<input type="range" min="1" max="200" value="40" class="slider" id="heatmapRadius">
+
+		<div>
+
+			<div>
+				<button class="helpButton" id='helpGazeplot'>?</button>
+				<div id="modalGazeplot" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p>By dragging the slider you can alter the radius with which the gaze plot visualization is drawn.
+						By decreasing the radius, the visualization turns into a scan path visualization.
+						By increasing the radius, the larger individual fixation durations become more clear.<p>
+					</div>
+				</div>
+			</div>
+
+			<div class="tool5">
+				Alter the radius in the gaze plot
+				<div class="slidecontainer">
+		  		<input type="range" min="1" max="30" value="15" class="slider" id="myRange">
+		  		<p>Value: <span id="value"></span></p>
+	  		</div>
+			</div>
+
 		</div>
-		<div class="tool5">
-			Alter the radius in the gaze plot
-		<div class="slidecontainer">
-  		<input type="range" min="1" max="30" value="15" class="slider" id="myRange">
-  		<p>Value: <span id="value"></span></p>
-  	</div>
+
+		<div>
+
+			<div>
+				<button class="helpButton" id='helpFilter'>?</button>
+				<div id="modalFilter" class="modal">
+					<div class = "modal-content">
+						<span class="close">&times;</span>
+						<p>Drag the upper slider to filter on the total duration.
+						Drag the lower slider to filter on the individual fixation duration.
+						After you have set the filters, please click on the 'set filters' button to set the filters.
+						The visualizations will then be drawn based on this filter.<p>
+					</div>
+				</div>
+			</div>
+
+			<div class="tool6">
+				Filter on time and duration
+				<div id="timeslider" style="height: 50px; margin: 20px 0px;"></div>
+				<div id="durationslider" style="height: 50px; margin: 20px 0px 0px 0px;"></div>
+				<button class="setButton" onclick="updateFilter()">set filters</button>
+			</div>
 		</div>
-		<div class="tool6">tool6</div>
-		<div class="tool7">tool7</div>
 	</div>
 
 	<div class="AOIselection">
-		<div id="AOISelection" style="height: 80%; font-size: 0">
-			<img id="aoiImage" style="height: 100%; z-index: 1">
+		<div id="AOISelection" style="font-size: 0">
+			<img id="aoiImage" style="height: 100%; width: 100%; z-index: 1">
 		</div>
 		<div style="height: 20%; text-align: center">
 			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
@@ -175,6 +286,7 @@
 	}
 	</script>
 
+	<!-- Grid for dynamic visualizations -->
 	<div class="grid_linking">
 		<div class="heatmapE">
 			<div id="visContainerHM">
@@ -221,22 +333,37 @@
 		</div>
 	</div>
 
-<<<<<<< Updated upstream
-	<div>
-		<div id="AOISelection" style="width: 800px;font-size: 0">
-			<img id="aoiImage" style="width: 100%;z-index: 1">
-		</div>
-		<button class="setButton" onclick="updateAOIs();">set AOIs</button>
-=======
->>>>>>> Stashed changes
-	</div>
+	<script>
+	//help button for drop down menu
+	var modalSelect = document.getElementById("modalSelectImg");
+	var buttonSelectImg = document.getElementById("helpSelectImg");
+	var helpButtons = ["helpSelectImg", "helpDownload", "helpEnable", "helpHeatmap", "helpGazeplot", "helpFilter", "helpAOI"];
+	var helpModals = ["modalSelectImg", "modalDownload", "modalEnable", "modalHeatmap", "modalGazeplot", "modalFilter", "modalAOI"];
 
+	for (var i = 0; i < helpButtons.length; i++) {
+		setHelpButtons(helpButtons[i], helpModals[i], i);
+	}
 
-	<div>
-		<div id="timeslider" style="height: 100px"></div>
-		<div id="durationslider" style="height: 100px"></div>
-		<button onclick="updateFilter()">set</button>
-	</div>
+	function setHelpButtons(buttonModal, modalSelect, number) {
+		var span = document.getElementsByClassName("close")[number]
+		var modal = document.getElementById(modalSelect);
+		var buttonModal = document.getElementById(buttonModal);
+
+		buttonModal.onclick = function() {
+			modal.style.display = "block";
+		}
+
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	}
+	</script>
 
 	<script>
 			var myAOIselection = new AOIselection();
@@ -247,7 +374,7 @@
 			//Execute php script to access image outside of webserver root directory
 			var imagePath = "Scripts/getImage.php?img=" + imageName;
 
-			<!--Aoi image selector -->
+			//AOI image selector
 			var aoiImg = document.getElementById('aoiImage');
 			aoiImg.src = imagePath;
 			var myAOIselection;
@@ -263,7 +390,7 @@
 			}
 
 
-			<!--Drawing the heatmap-->
+			//Drawing the heatmap
 			var img = document.getElementById('myImageHM');
 			var canvas = document.getElementById('myCanvasHM');
 			var visContainerHM = document.getElementById('visContainerHM');
@@ -275,7 +402,7 @@
 			myHeatmap.setDownloadButton(download_button, canvas, "Heatmap");
 			myHeatmap.setImage(imagePath);
 
-			<!--Drawing the scarfplot-->
+			//Drawing the scarfplot
 			var img = document.getElementById('myImageSP');
 			var canvas = document.getElementById('myCanvasSP');
 			var visContainerSP = document.getElementById('visContainerSP');
@@ -290,7 +417,7 @@
 			myScarfplot.setDownloadButton(download_aoi, canvas, "AOI");
 			myScarfplot.setImage(imagePath);
 
-			<!--Drawing the scanpath-->;
+			//Drawing the scanpath
 			var size = 0.01;
 
 			var img = document.getElementById('myImageSC');
@@ -306,8 +433,7 @@
 			myScanpath.setDownloadButton(download_button, canvas, "Scanpath");
 			myScanpath.setImage(imagePath);
 
-	<!--setting up the parallel scanpath-->
-
+			//Setting up the parallel scanpath
 			var canvas = document.getElementById('myCanvasPSP');
 			var visContainerPSP = document.getElementById('visContainerPSP');
 			var download_button = document.getElementById("download_parallelscanpath");
@@ -315,7 +441,7 @@
 			myParallelScanpath = new ParallelScanpath(canvas);
 			myParallelScanpath.setDownloadButton(download_button, canvas, "Parallelscanpath");
 
-	<!--data & drawing -->
+			//Data & drawing
 			function setData(d){
 				d.divideInAOIs();
 
@@ -358,7 +484,7 @@
 			    id:"timeslider",
 			    range: {min:0, max:1},
 			    handles:[0, 1],
-			    width:300,
+			    width:200,
 			    displayValue:true
 			});
 
@@ -366,7 +492,7 @@
 			    id:"durationslider",
 			    range: {min:0, max:1},
 			    handles:[0, 1],
-			    width:300,
+			    width:200,
 			    displayValue:true
 			});
 
@@ -378,7 +504,7 @@
 				    id:"timeslider",
 				    range: {min:0, max:maxt},
 				    handles:[0, maxt],
-				    width:300,
+				    width:200,
 				    displayValue:true
 				});
 
@@ -386,7 +512,7 @@
 				    id:"durationslider",
 				    range: {min:0, max:maxdt},
 				    handles:[0, maxdt],
-				    width:300,
+				    width:200,
 				    displayValue:true
 				});
 			}
