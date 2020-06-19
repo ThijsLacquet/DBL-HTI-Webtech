@@ -7,8 +7,6 @@ include_once 'user.php';
 
 if(isset($_POST['stimuliPicture'])){
 	$stimuliPicture = $_POST['stimuliPicture']; //Comment out for scanpath demo
-}else{
-	$stimuliPicture = '02_Berlin_S2.jpg'; //Use for scanpath demo
 }
 
 $mysql_connection = connectsql();
