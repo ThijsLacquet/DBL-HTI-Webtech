@@ -1,4 +1,4 @@
-<!--Author: Ezra Gerris, Thijs Lacquet and Tanja Markink-->
+<!--Author: Ezra Gerris, Marleen van Gent, Thijs Lacquet and Tanja Markink-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +36,7 @@
 	</script>
 
 </head>
-<body style="font-family: sans-serif;">
+<body style="font-family: Arial, sans-serif;">
 
 	<div class="nav">
 		<a href="index.htm">Home</a>
@@ -119,7 +119,7 @@
 			<div id="modalSelectImg" class="modal">
 				<div class = "modal-content">
 					<span class="close">&times;</span>
-					<p>Click on the "Select a background image" button to select the image of which you want to see the visualizations. 
+					<p>Click on the "Select a background image" button to select the image of which you want to see the visualizations.
 					Only uploaded images are shown in this menu.<p>
 				</div>
 			</div>
@@ -164,12 +164,12 @@
 				<div id="modalEnable" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p> In this menu you are able to enable, disable and swap users. 
+						<p> In this menu you are able to enable, disable and swap users.
 						When you click on "enable all users", the data of all participants is shown.
 						When you click on "disable all users", none of the data is shown.
 						When you click on a specific user you can enable or disable that user.
 						A user that is disabled is marked red.
-						You can drag users to swap in which order they are drawn. 
+						You can drag users to swap in which order they are drawn.
 						<p>
 					</div>
 				</div>
@@ -190,7 +190,7 @@
 				<div id="modalHeatmap" class="modal">
 					<div class = "modal-content">
 						<span class="close">&times;</span>
-						<p>By dragging the slider you can alter the radius with which the heat map visualization is drawn. 
+						<p>By dragging the slider you can alter the radius with which the heat map visualization is drawn.
 						The individual fixation points become clearer when the radius is decreased.<p>
 					</div>
 				</div>
@@ -246,6 +246,24 @@
 				<div id="timeslider" style="height: 50px; margin: 20px 0px;"></div>
 				<div id="durationslider" style="height: 50px; margin: 20px 0px 0px 0px;"></div>
 				<button class="setButton" onclick="updateFilter()">set filters</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="AOIselection">
+		<div id="AOISelection" style="font-size: 0">
+			<img id="aoiImage" style="height: 100%; width: 100%; z-index: 1">
+		</div>
+		<div style="height: 20%; text-align: center">
+			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
+			<button class="helpButton" id='helpAOI'>?</button>
+			<div id="modalAOI" class="modal">
+				<div class = "modal-content">
+					<span class="close">&times;</span>
+					<p>You can select the AOIs in the figure above by clicking on the image and hovering your mouse over the area that interests you at the same time.
+						You can add multiple AOIs. If you want to delete an AOI you can click on it and then it erases itself.
+						After you have set the AOIs, you can click on the 'setAOIS' button to draw the scarf plot and the parallel scan path visualizations.<p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -313,25 +331,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="AOIselection">
-			<div id="AOISelection" style="width: 800px;font-size: 0">
-				<img id="aoiImage" style="width: 100%;z-index: 1">
-			</div>
-			<div>
-			<button class="setButton" onclick="updateAOIs();">set AOIs</button>
-				<button class="helpButton" id='helpAOI'>?</button>
-				<div id="modalAOI" class="modal">
-					<div class = "modal-content">
-						<span class="close">&times;</span>
-						<p>You can select the AOIs in the figure above by clicking on the image and hovering your mouse over the area that interests you at the same time.
-						You can add multiple AOIs. If you want to delete an AOI you can click on it and then it erases itself. 
-						After you have set the AOIs, you can click on the 'setAOIS' button to draw the scarf plot and the parallel scan path visualizations.<p>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div>
 
 	<script>
