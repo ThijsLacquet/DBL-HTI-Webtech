@@ -23,7 +23,9 @@
 
 	<script>
 		//Input data
+		//By Nathan
 		var imageName = "01_Antwerpen_S1.jpg";
+
 
 		function setCookie(cname, cvalue, exdays) {
 		  var d = new Date();
@@ -32,6 +34,7 @@
 		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 		}
 
+		//this sets the cookie such that the test link is visible
 		setCookie("uploaded", "true", 1);
 	</script>
 
@@ -366,8 +369,10 @@
 	</script>
 
 	<script>
+
 			var myAOIselection = new AOIselection();
 
+			//making the data instance a global variable
 			window.d = null;
 			var d = window.d;
 
@@ -441,7 +446,7 @@
 			myParallelScanpath = new ParallelScanpath(canvas);
 			myParallelScanpath.setDownloadButton(download_button, canvas, "Parallelscanpath");
 
-			//Data & drawing
+			//Passing through the data to the visualization instances
 			function setData(d){
 				d.divideInAOIs();
 
@@ -451,6 +456,7 @@
 				myHeatmap.setData(d);
 			}
 
+			//drawing the visualizations
 			function draw(){
 				myParallelScanpath.clearVisualization();
 				myScarfplot.clearVisualization();
@@ -465,21 +471,26 @@
 				userContainer.draw(d);
 			}
 
+			//this happens only on initialization of the data class
 			function init(d){
 				makesliders(d);
 			}
 
+			//this happens each time the data is updated, for example when a filter is applied
 			function update(d){
 				setData(d);
 				draw();
 			}
 
+			//data class is initialized, this however waits asynchronously on the response from the server
+			//So this variable is not immediately not null
       window.d = new data(imageName, update, init);
 			var d = window.d;
 
 			var timeslider;
 			var durationslider;
 
+			//making the interval sliders
 			timeslider = new RangeSlider({
 			    id:"timeslider",
 			    range: {min:0, max:1},
@@ -517,12 +528,14 @@
 				});
 			}
 
+			//this is called every time the AOIs need to be updated, so when the button below the AOI selector is pressed
 			function updateAOIs(){
 				var AOIs = myAOIselection.getcoords();
 				d.setAOIs(AOIs);
 				d.update();
 			}
 
+			//this is called by the 'set' below the interval sliders
 			function updateFilter(){
 				var timeinterval = timeslider.getInterval();
 				var durationinterval = durationslider.getInterval();

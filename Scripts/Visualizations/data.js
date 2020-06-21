@@ -45,6 +45,7 @@ class data {
 		});
 	}
 
+	//This function is called each time the data needs to be updated, for example if filters are applied
 	update(){
 
 		var currentUser;
@@ -98,6 +99,7 @@ class data {
 		}
 	}
 
+	///Quite self-explanatory
 	getmaxduration(){
 		var currentUser;
 		var currentEntry;
@@ -136,6 +138,7 @@ class data {
 		return this.AOIs;
 	}
 
+	//returns the time-stamp of each data entry
 	getTime(filtered = true){
 		var array;
 
@@ -191,6 +194,7 @@ class data {
 		return array;
 	}
 
+	//returns the x coordinate of each data entry
 	getX(filtered = true){
 		var array;
 
@@ -245,6 +249,7 @@ class data {
 		return array;
 	}
 
+	//returns the y coordinate of each data entry
 	getY(filtered = true){
 		var array;
 
@@ -299,6 +304,7 @@ class data {
 		return array;
 	}
 
+	//returns the fixation duration of each data entry
 	getDuration(filtered = true){
 		var array;
 
@@ -353,6 +359,7 @@ class data {
 		return array;
 	}
 
+	//returns the user of each data entry
 	getUser(filtered = true){
 		var array;
 
@@ -407,6 +414,7 @@ class data {
 		return array;
 	}
 
+	//returns the AOI index of each data entry
 	getAOI(filtered = true){
 		var array;
 
@@ -624,6 +632,7 @@ class data {
 		}, true);
 	}
 
+	//for each data entry this function sets the AOI aspect to the index of the AOI in which it belongs. If it belong in no AOI then it is set to 0.
 	divideInAOIs(){
 		this.editedAOI = true;
 
@@ -638,6 +647,7 @@ class data {
 }
 
 class dataUser {
+
 	constructor(username){
 		this.enabled = true;
 		this.name = username;
@@ -666,6 +676,7 @@ class dataUser {
 		return this.enabled;
 	}
 
+	//This sets the maxtime field to the maximum time of this user, it also removes the offset from all the entries, such that it starts at 0. I dont know why I called this fill.
 	fill(){
 		var offset = this.entries[0].time;
 		var LastEntry = null;
@@ -685,6 +696,7 @@ class dataUser {
 		return this.maxtime = LastEntry.time;
 	}
 
+	//for each data entry this function sets the AOI aspect to the index of the AOI in which it belongs. If it belong in no AOI then it is set to 0.
 	divideInAOIs(AOIs){
 		
 		var currentEntry;
@@ -704,6 +716,7 @@ class dataUser {
 		}
 	}
 
+	//gets time of each data entry
 	getTime(filtered = true){
 		var array;
 
@@ -734,6 +747,7 @@ class dataUser {
 		return array;
 	}
 
+	//gets X coordinate of each data entry
 	getX(filtered = true){
 		var array;
 
@@ -764,6 +778,7 @@ class dataUser {
 		return array;
 	}
 
+	//gets Y coordinate of each data entry
 	getY(filtered = true){
 		var array;
 
@@ -794,6 +809,7 @@ class dataUser {
 		return array;
 	}
 
+	//gets fixation duration of each data entry
 	getDuration(filtered = true){
 		var array;
 
@@ -824,6 +840,7 @@ class dataUser {
 		return array;
 	}
 
+	//gets AOI index of each data entry
 	getAOI(filtered = true){
 		var array;
 
@@ -866,6 +883,7 @@ class dataEntry {
 		this.duration = Number(array['fixationduration']);
 	}
 
+	//checks if this entry is in a certain AOI
 	isInAOI(AOI) {
 	    return ((AOI.x1 < this.x && AOI.x2 > this.x) || (AOI.x2 < this.x && AOI.x1 > this.x))
 	    	&& ((AOI.y1 < this.y && AOI.y2 > this.y) || (AOI.y2 < this.y && AOI.y1 > this.y));

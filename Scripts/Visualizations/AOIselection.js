@@ -52,6 +52,8 @@ class AOIselection {
 		AOImaker(this.SVG);
 	}
 
+
+	//adds an extra AOI
 	addAOI(){
 
 		this.numofAOIs++;
@@ -77,6 +79,7 @@ class AOIselection {
 
 	}
 
+	//this recolors all AOIs
 	index(){
 		if(this.numofAOIs == 0){
 			return;
@@ -96,6 +99,7 @@ class AOIselection {
 			})
 	}
 
+	//returns the coordinates of all AOIs
 	getcoords(){
 		var coords = [];
 
@@ -112,23 +116,8 @@ class AOIselection {
 		return coords
 	}
 
-	getNextDistFrac(){
-		var frac = this.nom/this.denom;
-
-		if(this.nom == this.denom - 1){
-			this.nom = 1;
-			this.denom *= 2;
-		}
-
-		if(this.nom < this.denom/2){
-			this.nom += this.denom/2;
-		}else{
-			this.nom += 2 - this.denom/2;
-		}
-
-		return frac;
-	}
-
+	//by Thijs
+	//Creates an array of colors that are equidistant 
 	createColors(amount) {
 	    if (!(amount > 0)) {
 	        throw("IllegalArgumentException");
