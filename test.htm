@@ -24,7 +24,7 @@
 	<script>
 		//Input data
 		//By Nathan
-		var imageName = "01_Antwerpen_S1.jpg";
+		//var imageName = "01_Antwerpen_S1.jpg";
 
 
 		function setCookie(cname, cvalue, exdays) {
@@ -369,7 +369,7 @@
 	</script>
 
 	<script>
-
+			var imageName;
 			var myAOIselection = new AOIselection();
 
 			//making the data instance a global variable
@@ -547,6 +547,14 @@
 				d.update();
 			}
 	</script>
+
+	<script>
+			var imagePath = "Images/uploadfoto.png";
+			myHeatmap.setImage(imagePath);
+			myScanpath.setImage(imagePath);
+			myScarfplot.setImage(imagePath);
+			aoiImg.src = imagePath;
+	</script> 
 
 </body>
 </html>
