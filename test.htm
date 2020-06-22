@@ -22,6 +22,19 @@
 	<title>Test page for linking visualizations</title>
 
 
+<<<<<<< Updated upstream
+=======
+	<script>
+		//Input data
+		//var imageName = "01_Antwerpen_S1.jpg";
+
+		function setCookie(cname, cvalue, exdays) {
+		  var d = new Date();
+		  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		  var expires = "expires="+d.toUTCString();
+		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+>>>>>>> Stashed changes
 
 
 </head>
@@ -385,6 +398,15 @@
 
 
 
+
+	</script>
+
+	<script>
+				var imagePath = "Images/uploadfoto.png";
+				myHeatmap.setImage(imagePath);
+				myScanpath.setImage(imagePath);
+				myScarfplot.setImage(imagePath);
+				aoiImg.src = imagePath;
 
 	</script>
 
