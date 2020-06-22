@@ -28,17 +28,18 @@ class data {
 
 		$.post( "../Scripts/connecting.php", {stimuliPicture: stimuliname}, function( data ) {
 			array = JSON.parse(data);
+			if (data != "null") {
+				superThis.totalEntries = array.length;
 
-			superThis.totalEntries = array.length;
-			
-			if(array.length == 0){
-				throw("No data");
+				if (array.length == 0) {
+					throw("No data");
+				}
+
+
+				superThis.interpret(array);
+
+				superThis.numofActiveUsers = superThis.numofUsers;
 			}
-
-
-			superThis.interpret(array);
-
-			superThis.numofActiveUsers = superThis.numofUsers;
 
 			callback(superThis);
 			init(superThis);
