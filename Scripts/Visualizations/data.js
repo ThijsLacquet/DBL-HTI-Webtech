@@ -39,9 +39,10 @@ class data {
 				superThis.interpret(array);
 
 				superThis.numofActiveUsers = superThis.numofUsers;
+				
+				callback(superThis);
 			}
 
-			callback(superThis);
 			init(superThis);
 		});
 	}
