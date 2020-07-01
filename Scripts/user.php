@@ -1,7 +1,8 @@
 <?php
 /*
 * Author: Thijs Lacquet
-*/ 
+*/
+
 include_once 'sql.php';
 
 define('COOKIE_NAME', 'user');

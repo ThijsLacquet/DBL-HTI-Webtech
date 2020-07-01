@@ -1,4 +1,4 @@
-//By Nathan
+//By Nathan (and a few methods by Thijs Lacquet)
 class data {
 
 	//the constuctor makes a new instance of this data object

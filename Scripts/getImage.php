@@ -1,4 +1,8 @@
 <?php
+    /*
+    *	Author: Thijs Lacquet
+    */
+
     include_once 'user.php';
 
     $dir = dirname(__FILE__)."/../../data/"; //Directory with uploaded data

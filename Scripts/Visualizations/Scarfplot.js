@@ -24,54 +24,6 @@ class Scarfplot extends Visualization {
 		this.scarfCtx = this.scarfCanvas.getContext("2d");
     }
 
-	/*
-	* Formats the data so it can be used by this visualization.
-	*/
-    formatData() {
-		if (mappedFixationPointX.length != mappedFixationPointY.length ||
-			mappedFixationPointX.length != timestamp.length) {
-			throw("IllegalArgumentException");
-		}
-
-		var n = mappedFixationPointX.length;
-
-		var userData = new Array(n);
-		var nUsers = 0;
-
-		for (var i = 0; i < n; i++) {
-			//Check if the user already exists. If yes, increase the counter. If not, add it
-			for (var j = 0; j < n; j++) {
-				if (userData[j] == null) { //We have checked all our users, user does not exist yet
-					userData[j] = {user:user[i], amount:1, data:new Array(n),
-						minTime:timestamp[i], maxTime:timestamp[i]};
-					userData[j].data[0] = {pX:mappedFixationPointX[i], pY:mappedFixationPointY[i],
-						timestamp:timestamp[i]};
-					nUsers++;
-					break;
-				}
-				if (userData[j].user == user[i]) {//This is the same user
-					userData[j].amount++;
-					for (var k = 0; k < n; k++) {
-						if (userData[j].data[k] == null) {
-							userData[j].data[k] = {pX:mappedFixationPointX[i], pY:mappedFixationPointY[i],
-								timestamp:timestamp[i]};
-							if (timestamp[i] < userData[j].minTime) {
-								userData[j].minTime = timestamp[i];
-							}
-
-							if (timestamp[i] > userData[j].maxTime) {
-								userData[j].maxTime = timestamp[i];
-							}
-							break;
-						}
-					}
-					break;
-				}
-			}
-		}
-		this.userData = userData;
-	}
-
 	setData(d){
 		super.setData(d);
 		this.AOI = d.getAOI();
